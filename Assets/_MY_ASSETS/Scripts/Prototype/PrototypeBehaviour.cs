@@ -56,6 +56,7 @@ public class PrototypeBehaviour : MonoBehaviour, IBehaviour
             moveFraction += Time.deltaTime * moveSpeed;
             transform.position = Vector3.Lerp(startPosition, endPosition, moveFraction);
         }
+        else if (moveFraction >= 1) state = State_PrototypeBehaviour.FINISHED;
         //transform.position = Vector3.Lerp(transform.position, target, moveSpeed * Time.deltaTime);
     }
     private void TwoWayMovement()
