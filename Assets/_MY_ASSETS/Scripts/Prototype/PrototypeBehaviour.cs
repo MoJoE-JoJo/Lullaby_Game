@@ -8,11 +8,11 @@ public class PrototypeBehaviour : MonoBehaviour, IBehaviour
 {
     [SerializeField] private State_PrototypeBehaviour state = State_PrototypeBehaviour.DEACTIVATED;
     [SerializeField] private bool oneWay;
-    [SerializeField] private Vector3 startPosition;
-    [SerializeField] private Vector3 endPosition;
+    [SerializeField] private Transform startPosition;
+    [SerializeField] private Transform endPosition;
     [SerializeField] private float moveSpeed;
-    private Vector3 target;
-    private Vector3 last;
+    private Transform target;
+    private Transform last;
     private float moveFraction = 0f;
     private float positionWaitTimeCounter;
     [SerializeField] private float positionWaitTime = 1f;
@@ -31,9 +31,9 @@ public class PrototypeBehaviour : MonoBehaviour, IBehaviour
     void Start()
     {
         positionWaitTimeCounter = positionWaitTime;
-        startPosition = transform.TransformPoint(startPosition);
-        endPosition = transform.TransformPoint(endPosition);
-        transform.position = startPosition;
+        transform.position = startPosition.position;
+        //startPosition = transform.TransformPoint(startPosition);
+        //endPosition = transform.TransformPoint(endPosition);
         last = startPosition;
         target = endPosition;
 
@@ -54,7 +54,7 @@ public class PrototypeBehaviour : MonoBehaviour, IBehaviour
         if (moveFraction < 1)
         {
             moveFraction += Time.deltaTime * moveSpeed;
-            transform.position = Vector3.Lerp(startPosition, endPosition, moveFraction);
+            transform.position = Vector3.Lerp(startPosition.position, endPosition.position, moveFraction);
         }
         else if (moveFraction >= 1) state = State_PrototypeBehaviour.FINISHED;
         //transform.position = Vector3.Lerp(transform.position, target, moveSpeed * Time.deltaTime);
@@ -64,7 +64,7 @@ public class PrototypeBehaviour : MonoBehaviour, IBehaviour
         if (moveFraction < 1)
         {
             moveFraction += Time.deltaTime * moveSpeed;
-            transform.position = Vector3.Lerp(last, target, moveFraction);
+            transform.position = Vector3.Lerp(last.position, target.position, moveFraction);
         }
         else if (moveFraction >= 1)
         {
