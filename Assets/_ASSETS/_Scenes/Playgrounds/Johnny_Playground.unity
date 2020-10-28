@@ -23278,6 +23278,8 @@ MonoBehaviour:
   startPosition: {fileID: 880732824}
   endPosition: {fileID: 719847114}
   moveSpeed: 0.25
+  twoWay: 0
+  positionWaitTime: 1
 --- !u!1 &590503527
 GameObject:
   m_ObjectHideFlags: 0
@@ -25432,6 +25434,8 @@ MonoBehaviour:
   startPosition: {fileID: 1244335486}
   endPosition: {fileID: 771311352}
   moveSpeed: 0.25
+  twoWay: 1
+  positionWaitTime: 2
 --- !u!114 &1967050048
 MonoBehaviour:
   m_ObjectHideFlags: 0
