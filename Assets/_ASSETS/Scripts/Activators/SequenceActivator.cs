@@ -7,12 +7,12 @@ public enum State_SequenceActivator {EMPTYBUFFER, PARTIALLYFULLBUFFER, FULLBUFFE
 
 public class SequenceActivator : Activator
 {
-    public State_SequenceActivator state = State_SequenceActivator.EMPTYBUFFER;
-    public InteractableAction action;
-    public InteractableUIController interactableUI;
-    public List<SongData> inputBuffer;
-    public List<Song_NoteCoord> correctSequence;
-    public bool canDeactivate = false;
+    private State_SequenceActivator state = State_SequenceActivator.EMPTYBUFFER;
+    [SerializeField] private InteractableAction action;
+    [SerializeField] private InteractableUIController interactableUI;
+    private List<SongData> inputBuffer = new List<SongData>();
+    [SerializeField] private List<Song_NoteCoord> correctSequence;
+    [SerializeField] private bool canDeactivate = false;
     private bool nextIsDeactivate = false;
 
 
@@ -52,7 +52,7 @@ public class SequenceActivator : Activator
         }
         if(state == State_SequenceActivator.WRONGSEQUENCE)
         {
-            inputBuffer = new List<SongData>();
+            inputBuffer.Clear();
             interactableUI.InputBufferCleared();
             state = State_SequenceActivator.EMPTYBUFFER;
         }
@@ -70,7 +70,8 @@ public class SequenceActivator : Activator
                     action.Activate();
                     nextIsDeactivate = true;
                 }
-                //interactableUI.InputBufferCleared();
+                inputBuffer.Clear();
+                interactableUI.InputBufferCleared();
                 state = State_SequenceActivator.EMPTYBUFFER;
 
             }

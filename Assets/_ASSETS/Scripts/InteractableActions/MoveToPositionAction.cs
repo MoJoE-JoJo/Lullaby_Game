@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public enum State_PrototypeMoveAction { DEACTIVATED, ACTIVATED, FINISHED }
 
 public class MoveToPositionAction : InteractableAction
 {
-    [SerializeField] private State_PrototypeMoveAction state = State_PrototypeMoveAction.DEACTIVATED;
-    [SerializeField] private bool twoWay;
+    private State_PrototypeMoveAction state = State_PrototypeMoveAction.DEACTIVATED;
     [SerializeField] private Transform startPosition;
     [SerializeField] private Transform endPosition;
     [SerializeField] private float moveSpeed;
@@ -15,6 +15,7 @@ public class MoveToPositionAction : InteractableAction
     private Transform last;
     private float moveFraction = 0f;
     private float positionWaitTimeCounter;
+    [SerializeField] private bool twoWay;
     [SerializeField] private float positionWaitTime = 1f;
 
 
@@ -84,3 +85,4 @@ public class MoveToPositionAction : InteractableAction
 
     }
 }
+
