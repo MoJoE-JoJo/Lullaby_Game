@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State_PrototypeBehaviour { DEACTIVATED, ACTIVATED, FINISHED}
+public enum State_PrototypeMoveAction { DEACTIVATED, ACTIVATED, FINISHED }
 
-public class PrototypeBehaviour : MonoBehaviour, IBehaviour
+public class MoveToPositionAction : InteractableAction
 {
-    [SerializeField] private State_PrototypeBehaviour state = State_PrototypeBehaviour.DEACTIVATED;
+    [SerializeField] private State_PrototypeMoveAction state = State_PrototypeMoveAction.DEACTIVATED;
     [SerializeField] private bool oneWay;
     [SerializeField] private Transform startPosition;
     [SerializeField] private Transform endPosition;
@@ -18,13 +18,13 @@ public class PrototypeBehaviour : MonoBehaviour, IBehaviour
     [SerializeField] private float positionWaitTime = 1f;
 
 
-    public void Activate()
+    override public void Activate()
     {
-        state = State_PrototypeBehaviour.ACTIVATED;
+        state = State_PrototypeMoveAction.ACTIVATED;
     }
-    public void Deactivate()
+    override public void Deactivate()
     {
-        state = State_PrototypeBehaviour.DEACTIVATED;
+        state = State_PrototypeMoveAction.DEACTIVATED;
     }
 
     // Start is called before the first frame update
@@ -42,7 +42,7 @@ public class PrototypeBehaviour : MonoBehaviour, IBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(state == State_PrototypeBehaviour.ACTIVATED)
+        if (state == State_PrototypeMoveAction.ACTIVATED)
         {
             if (oneWay) OneWayMovement();
             else TwoWayMovement();
@@ -56,7 +56,7 @@ public class PrototypeBehaviour : MonoBehaviour, IBehaviour
             moveFraction += Time.deltaTime * moveSpeed;
             transform.position = Vector3.Lerp(startPosition.position, endPosition.position, moveFraction);
         }
-        else if (moveFraction >= 1) state = State_PrototypeBehaviour.FINISHED;
+        else if (moveFraction >= 1) state = State_PrototypeMoveAction.FINISHED;
         //transform.position = Vector3.Lerp(transform.position, target, moveSpeed * Time.deltaTime);
     }
     private void TwoWayMovement()
@@ -72,7 +72,7 @@ public class PrototypeBehaviour : MonoBehaviour, IBehaviour
             {
                 positionWaitTimeCounter -= Time.deltaTime;
             }
-            else if(positionWaitTimeCounter <= 0f)
+            else if (positionWaitTimeCounter <= 0f)
             {
                 positionWaitTimeCounter = positionWaitTime;
                 moveFraction = 0f;

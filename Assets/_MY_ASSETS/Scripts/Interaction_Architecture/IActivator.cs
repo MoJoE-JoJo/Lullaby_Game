@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IActivator
 {
-    void ReceiveInput();
+    void SongInput(SongData data);
+    void ShowHint();
 }
