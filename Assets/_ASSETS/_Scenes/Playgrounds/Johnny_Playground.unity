@@ -170,6 +170,7 @@ MonoBehaviour:
   EPressed: 0
   activators:
   - {fileID: 1967050048}
+  - {fileID: 459208139}
 --- !u!4 &80843196
 Transform:
   m_ObjectHideFlags: 0
@@ -23146,6 +23147,7 @@ GameObject:
   - component: {fileID: 459208136}
   - component: {fileID: 459208138}
   - component: {fileID: 459208137}
+  - component: {fileID: 459208140}
   - component: {fileID: 459208139}
   m_Layer: 0
   m_Name: Moving Part
@@ -23254,9 +23256,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 459208135}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce52cbcd540ace459501e976883c1d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 1abdce69119ed134c8a9c067178028ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  action: {fileID: 459208140}
+  interactableUI: {fileID: 976341376}
+  correctSequence: 00000000
+  canDeactivate: 0
+--- !u!114 &459208140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459208135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8739963d06ff64ca5b4fa2071b1f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPosition: {fileID: 880732824}
+  endPosition: {fileID: 719847114}
+  moveSpeed: 0.25
 --- !u!1 &590503527
 GameObject:
   m_ObjectHideFlags: 0
@@ -23598,7 +23619,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976341374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.8, y: -1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1478271093}
@@ -23858,7 +23879,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1478271092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.77, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.38, y: 0.5, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 976341375}
@@ -23902,7 +23923,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 64cb5294413345b4da8555e51b300ad0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -25408,12 +25429,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8739963d06ff64ca5b4fa2071b1f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
-  oneWay: 0
   startPosition: {fileID: 1244335486}
   endPosition: {fileID: 771311352}
   moveSpeed: 0.25
-  positionWaitTime: 2
 --- !u!114 &1967050048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25426,9 +25444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1abdce69119ed134c8a9c067178028ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
   action: {fileID: 1967050047}
   interactableUI: {fileID: 1613745451}
-  inputBuffer: []
   correctSequence: 0000000003000000
   canDeactivate: 0

@@ -15,8 +15,8 @@ public class MoveToPositionAction : InteractableAction
     private Transform last;
     private float moveFraction = 0f;
     private float positionWaitTimeCounter;
-    [SerializeField] private bool twoWay;
-    [SerializeField] private float positionWaitTime = 1f;
+    [SerializeField, HideInInspector] private bool twoWay;
+    [SerializeField, HideInInspector] private float positionWaitTime = 1f;
 
 
     override public void Activate()
@@ -84,5 +84,22 @@ public class MoveToPositionAction : InteractableAction
         }
 
     }
+
+    [CustomEditor(typeof(MoveToPositionAction))]
+    public class MyScriptEditor : Editor
+    {
+        override public void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            var action = target as MoveToPositionAction;
+
+            action.twoWay = EditorGUILayout.Toggle("Two Way", action.twoWay, new GUILayoutOption[0]);
+
+            if (action.twoWay) action.positionWaitTime = EditorGUILayout.FloatField("Position Wait Time", action.positionWaitTime);
+
+        }
+    }
+
+
 }
 
