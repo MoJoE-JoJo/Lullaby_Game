@@ -37,6 +37,7 @@ public class SequenceActivator : MonoBehaviour, IActivator
             for (int i = 0; i < inputBuffer.Count; i++)
             {
                 if (inputBuffer[i].NoteCoord != correctSequence[i]) state = State_SequenceActivator.WRONGSEQUENCE;
+                else interactableUI.Activate(i, inputBuffer[i].NoteCoord);
             }
         }
         if(state == State_SequenceActivator.FULLBUFFER)
@@ -44,7 +45,8 @@ public class SequenceActivator : MonoBehaviour, IActivator
             state = State_SequenceActivator.CORRECTSEQUENCE;
             for (int i = 0; i < inputBuffer.Count; i++)
             {
-                if (inputBuffer[i].NoteCoord != correctSequence[i])state = State_SequenceActivator.WRONGSEQUENCE;
+                if (inputBuffer[i].NoteCoord != correctSequence[i]) state = State_SequenceActivator.WRONGSEQUENCE;
+                else interactableUI.Activate(i, inputBuffer[i].NoteCoord);
             }
         }
         if(state == State_SequenceActivator.WRONGSEQUENCE)
@@ -67,8 +69,9 @@ public class SequenceActivator : MonoBehaviour, IActivator
                     action.Activate();
                     nextIsDeactivate = true;
                 }
-                interactableUI.InputBufferCleared();
+                //interactableUI.InputBufferCleared();
                 state = State_SequenceActivator.EMPTYBUFFER;
+
             }
             else
             {

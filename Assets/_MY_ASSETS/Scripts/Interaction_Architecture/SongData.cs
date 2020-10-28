@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
-public enum Song_NoteCoord {A,B,C,AB,BC,ABC}
+public enum Song_NoteCoord {A,B,C,AB,AC,BC,ABC}
 public enum Song_Attribute {High_Pitch};
 
+[Serializable]
 public struct SongData
 {
     /*
@@ -21,7 +24,19 @@ public struct SongData
     }
         private HashSet<Song_Note> _notes;
     */
-    public Song_NoteCoord NoteCoord{get; set;}
+    public Song_NoteCoord NoteCoord
+    {
+        get
+        {
+            return _noteCoord;
+        }
+        set
+        {
+            _noteCoord = value;
+        }
+    }
+    [SerializeField]
+    private Song_NoteCoord _noteCoord;
     public HashSet<Song_Attribute> Attributes { get; set; }
     public float Volume
     {
