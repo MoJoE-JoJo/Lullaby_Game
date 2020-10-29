@@ -1529,6 +1529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 909388971}
   fillRatio: 0.02
+  fillCompletedThreshold: 0.95
   startingImageFill: 0.7
   fillA: {fileID: 1894296405}
   fillB: {fileID: 1459444619}

@@ -9,6 +9,18 @@ public enum Song_Attribute {High_Pitch};
 [Serializable]
 public struct SongData
 {
+    public SongData(String sequence)
+    {
+        //order string
+        String.Concat(sequence.OrderBy(c => c));
+        //convert string to chord 
+        Enum.TryParse(sequence, out Song_NoteCoord noteChord);
+        _noteCoord = noteChord;
+        
+        _volume = 1.0f;
+        Attributes = new HashSet<Song_Attribute>();
+    }
+    
     /*
     public List<Song_Note> Notes {
         get

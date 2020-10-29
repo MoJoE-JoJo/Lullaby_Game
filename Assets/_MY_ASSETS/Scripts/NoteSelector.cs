@@ -11,6 +11,7 @@ public class NoteSelector : MonoBehaviour
     public GameObject player;
 
     public float fillRatio;
+    public float fillCompletedThreshold;
 
     //the collider of the selector ball
     private CircleCollider2D _circleCollider2D;
@@ -39,6 +40,9 @@ public class NoteSelector : MonoBehaviour
     private Dictionary<String, Image> _imagesToEmpty = new Dictionary<string, Image>();
     private Dictionary<String, Image> _imagesLocked = new Dictionary<string, Image>();
 
+    private SongData _currentSong;
+    private String _currentSongString = "";
+
     private Vector2 _selectorMove;
 
     private bool _rightTriggerDown = false;
@@ -53,26 +57,26 @@ public class NoteSelector : MonoBehaviour
         _controls.NoteSelector.Sing.started += context => RTpressed();
         _controls.NoteSelector.Sing.canceled += context => RTreleased();
 
-        _controls.NoteSelector.LockNote.performed += context => LockUnlockNote();
+        _controls.NoteSelector.LockNote.started += context => LockUnlockNote();
     }
 
     void Start()
     {
         //fill background images
-        _backgrounds.Add("SegmentA", backgroundA);
-        _backgrounds.Add("SegmentB", backgroundB);
-        _backgrounds.Add("SegmentC", backgroundC);
-        _backgrounds.Add("SegmentD", backgroundD);
-        _backgrounds.Add("SegmentE", backgroundE);
+        _backgrounds.Add("A", backgroundA);
+        _backgrounds.Add("B", backgroundB);
+        _backgrounds.Add("C", backgroundC);
+        _backgrounds.Add("D", backgroundD);
+        _backgrounds.Add("E", backgroundE);
     }
 
     void Update()
     {
         CenterNoteSelector();
         MoveSelector();
-        FillImages();
-        EmptyImages();
-        //GetNote();
+        FillNotes();
+        EmptyNotes();
+        GetNote();
     }
 
     public void CenterNoteSelector()
@@ -80,7 +84,7 @@ public class NoteSelector : MonoBehaviour
         this.transform.position = Camera.main.WorldToScreenPoint(player.transform.localPosition);
     }
 
-    void FillImages()
+    void FillNotes()
     {
         //first fill (or empty images locked)
         foreach (KeyValuePair<String,Image> entry in _imagesLocked)
@@ -96,7 +100,13 @@ public class NoteSelector : MonoBehaviour
                 if (currentImgFill < 1.0f)
                 {
                     entry.Value.fillAmount = Mathf.Lerp(currentImgFill, 1.0f, fillRatio);
+                    
+                    if(currentImgFill > fillCompletedThreshold && !_currentSongString.Contains(entry.Key))
+                    {
+                        _currentSongString += entry.Key;
+                    }
                 }
+                
             }
             else
             {
@@ -104,6 +114,8 @@ public class NoteSelector : MonoBehaviour
                 {
                     entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
                 }
+
+                _currentSongString = "";
             }
         }
         
@@ -123,6 +135,11 @@ public class NoteSelector : MonoBehaviour
                     if (currentImgFill < 1.0f)
                     {
                         entry.Value.fillAmount = Mathf.Lerp(currentImgFill, 1.0f, fillRatio);
+                        
+                        if(currentImgFill > fillCompletedThreshold && !_currentSongString.Contains(entry.Key))
+                        {
+                            _currentSongString += entry.Key;
+                        }
                     }
                 }
                 else
@@ -131,13 +148,15 @@ public class NoteSelector : MonoBehaviour
                     {
                         entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
                     }
+
+                    _currentSongString = "";
                 }
             }
         }
         
     }
 
-    void EmptyImages()
+    void EmptyNotes()
     {
         foreach (KeyValuePair<String,Image> entry in _imagesToEmpty)
         {
@@ -151,6 +170,10 @@ public class NoteSelector : MonoBehaviour
                 if (currentImgFill > startingImageFill)
                 {
                     entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
+                }
+                if (currentImgFill < fillCompletedThreshold)
+                {
+                    _currentSongString = _currentSongString.Replace(entry.Key, "");
                 }
             }
         }
@@ -272,6 +295,15 @@ public class NoteSelector : MonoBehaviour
             }
             
         }
+    }
+
+    void GetNote()
+    {
+        if (_currentSongString != "")
+        {
+            _currentSong = new SongData(_currentSongString);
+        }
+        Debug.Log("Current string: " + _currentSongString);
     }
     
 }
