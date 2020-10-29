@@ -26,19 +26,19 @@ public class BallSelector : MonoBehaviour
             switch (other.gameObject.name)
             {
                 case "SegmentA":
-                    _noteSelector.AddImageToFill("SegmentA");
+                    _noteSelector.AddImageToFill("A");
                     break;
                 case "SegmentB":
-                    _noteSelector.AddImageToFill("SegmentB");
+                    _noteSelector.AddImageToFill("B");
                     break;
                 case "SegmentC":
-                    _noteSelector.AddImageToFill("SegmentC");
+                    _noteSelector.AddImageToFill("C");
                     break;
                 case "SegmentD":
-                    _noteSelector.AddImageToFill("SegmentD");
+                    _noteSelector.AddImageToFill("D");
                     break;
                 case "SegmentE":
-                    _noteSelector.AddImageToFill("SegmentE");
+                    _noteSelector.AddImageToFill("E");
                     break;
             }
         }
@@ -51,19 +51,19 @@ public class BallSelector : MonoBehaviour
             switch (other.gameObject.name)
             {
                 case "SegmentA":
-                    _noteSelector.AddImageToEmpty("SegmentA");
+                    _noteSelector.AddImageToEmpty("A");
                     break;
                 case "SegmentB":
-                    _noteSelector.AddImageToEmpty("SegmentB");
+                    _noteSelector.AddImageToEmpty("B");
                     break;
                 case "SegmentC":
-                    _noteSelector.AddImageToEmpty("SegmentC");
+                    _noteSelector.AddImageToEmpty("C");
                     break;
                 case "SegmentD":
-                    _noteSelector.AddImageToEmpty("SegmentD");
+                    _noteSelector.AddImageToEmpty("D");
                     break;
                 case "SegmentE":
-                    _noteSelector.AddImageToEmpty("SegmentE");
+                    _noteSelector.AddImageToEmpty("E");
                     break;
             }
         }

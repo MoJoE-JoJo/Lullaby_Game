@@ -72,6 +72,7 @@ public class NoteSelector : MonoBehaviour
         MoveSelector();
         FillImages();
         EmptyImages();
+        //GetNote();
     }
 
     public void CenterNoteSelector()
@@ -187,19 +188,19 @@ public class NoteSelector : MonoBehaviour
             
             switch (segment)
             {
-                case "SegmentA":
+                case "A":
                     selected = fillA;
                     break;
-                case "SegmentB":
+                case "B":
                     selected = fillB;
                     break;
-                case "SegmentC":
+                case "C":
                     selected = fillC;
                     break;
-                case "SegmentD":
+                case "D":
                     selected = fillD;
                     break;
-                case "SegmentE":
+                case "E":
                     selected = fillE;
                     break;
             }
@@ -221,19 +222,19 @@ public class NoteSelector : MonoBehaviour
             
             switch (segment)
             {
-                case "SegmentA":
+                case "A":
                     selected = fillA;
                     break;
-                case "SegmentB":
+                case "B":
                     selected = fillB;
                     break;
-                case "SegmentC":
+                case "C":
                     selected = fillC;
                     break;
-                case "SegmentD":
+                case "D":
                     selected = fillD;
                     break;
-                case "SegmentE":
+                case "E":
                     selected = fillE;
                     break;
             }
