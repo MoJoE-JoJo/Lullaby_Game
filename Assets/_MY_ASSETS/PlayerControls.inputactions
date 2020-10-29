@@ -1,0 +1,71 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "NoteSelector",
+            "id": "9407347b-6826-4bd1-a7b4-78828bb77205",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "23a6235f-58a8-4acc-857a-d1751687b1f2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Sing",
+                    "type": "Button",
+                    "id": "51e40b6b-659c-4458-8139-35a60333c079",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "LockNote",
+                    "type": "Button",
+                    "id": "eff156e8-0cac-4e4c-8cc4-6b4b8228f265",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a882b611-a808-4386-959e-6eda97e8875a",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f2626121-d1ca-4a9c-990b-ad80c8c01b65",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3c72de4-5746-474a-ae7c-21c466ed4244",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LockNote",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
