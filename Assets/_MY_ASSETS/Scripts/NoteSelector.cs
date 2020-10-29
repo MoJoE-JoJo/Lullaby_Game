@@ -40,8 +40,9 @@ public class NoteSelector : MonoBehaviour
     private Dictionary<String, Image> _imagesToEmpty = new Dictionary<string, Image>();
     private Dictionary<String, Image> _imagesLocked = new Dictionary<string, Image>();
 
-    private SongData _currentSong;
+    private SongData _currentSong; //check if anySongPlaying before giving the currentSong to an Activator
     private String _currentSongString = "";
+    private bool _anySongPlaying;
 
     private Vector2 _selectorMove;
 
@@ -297,13 +298,24 @@ public class NoteSelector : MonoBehaviour
         }
     }
 
-    void GetNote()
+    private SongData GetNote()
     {
+        SongData songData = new SongData();
+        
         if (_currentSongString != "")
         {
+            _anySongPlaying = true;
             _currentSong = new SongData(_currentSongString);
         }
-        Debug.Log("Current string: " + _currentSongString);
+        else
+        {
+            _anySongPlaying = false;
+            _currentSong = new SongData();
+        }
+
+        return songData;
+        //Debug.Log("Current string: " + _currentSongString);
+        //Debug.Log("Current enum: " + _currentSong.NoteCoord.ToString());
     }
     
 }
