@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
+using FMOD.Studio;
 
-public class NodeController : MonoBehaviour
+public class NoteController : MonoBehaviour
 {
-    private FMOD.Studio.EventInstance Ainstance, Binstance, Cinstance, Dinstance, Ginstance;
+    private EventInstance Ainstance, Binstance, Cinstance, Dinstance, Ginstance;
 
-    [FMODUnity.EventRef]
+    [EventRef]
     public string AEvent, BEvent, CEvent, DEvent, GEvent;
 
     public KeyCode SingButton;
@@ -19,21 +21,21 @@ public class NodeController : MonoBehaviour
 
     private bool singing;
 
-    private List<FMOD.Studio.EventInstance> eventList;
+    private List<EventInstance> eventList;
 
     // Start is called before the first frame update
     void Start()
     {
-        eventList = new List<FMOD.Studio.EventInstance>();
-        Ainstance = FMODUnity.RuntimeManager.CreateInstance(AEvent);
+        eventList = new List<EventInstance>();
+        Ainstance = RuntimeManager.CreateInstance(AEvent);
 
-        Binstance = FMODUnity.RuntimeManager.CreateInstance(BEvent);
+        Binstance = RuntimeManager.CreateInstance(BEvent);
 
-        Cinstance = FMODUnity.RuntimeManager.CreateInstance(CEvent);
+        Cinstance = RuntimeManager.CreateInstance(CEvent);
 
-        Dinstance = FMODUnity.RuntimeManager.CreateInstance(DEvent);
+        Dinstance = RuntimeManager.CreateInstance(DEvent);
 
-        Ginstance = FMODUnity.RuntimeManager.CreateInstance(GEvent);
+        Ginstance = RuntimeManager.CreateInstance(GEvent);
 
         eventList.Add(Ainstance);
         eventList.Add(Binstance);
