@@ -11,22 +11,18 @@ public class NoteController : MonoBehaviour
     [EventRef]
     public string AEvent, BEvent, CEvent, DEvent, GEvent;
 
-    public KeyCode SingButton;
+    //public KeyCode SingButton;
 
-    public bool ANode, BNode, CNode, DNode, GNode;
+    //public bool ANote, BNote, CNote, DNote, GNote;
 
-    [SerializeField]
-    [Range(0f, 2f)]
-    private float End;
+    public bool singing;
 
-    private bool singing;
-
-    private List<EventInstance> eventList;
+    private List<EventInstance> eventInstanceList;
 
     // Start is called before the first frame update
     void Start()
     {
-        eventList = new List<EventInstance>();
+        eventInstanceList = new List<EventInstance>();
         Ainstance = RuntimeManager.CreateInstance(AEvent);
 
         Binstance = RuntimeManager.CreateInstance(BEvent);
@@ -37,34 +33,48 @@ public class NoteController : MonoBehaviour
 
         Ginstance = RuntimeManager.CreateInstance(GEvent);
 
-        eventList.Add(Ainstance);
-        eventList.Add(Binstance);
-        eventList.Add(Cinstance);
-        eventList.Add(Dinstance);
-        eventList.Add(Ginstance);
+        eventInstanceList.Add(Ainstance);
+        eventInstanceList.Add(Binstance);
+        eventInstanceList.Add(Cinstance);
+        eventInstanceList.Add(Dinstance);
+        eventInstanceList.Add(Ginstance);
 
         singing = false;
     }
 
-    // Update is called once per frame
+
+    void StartSinging(SongData sd)
+    {
+        // parse SongData enum
+        var notes = sd.NoteCoord.ToString();
+
+        // turn on notes based on the string
+        foreach (char c in notes)
+        {
+            if (c == 'A') Ainstance.start();
+            if (c == 'B') Binstance.start();
+            if (c == 'D') Cinstance.start();
+            if (c == 'E') Dinstance.start();
+            if (c == 'F') Ginstance.start();
+        }
+    }
+
+    public void StopSinging()
+    {
+
+        foreach (var eventInstance in eventInstanceList)
+        {
+            eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
+    }
+
+    // Update is called once per frame, used for testing at the time
     void Update()
     {
-        if (!singing && Input.GetKeyDown(SingButton))
+        if (!singing)
         {
             singing = true;
-            if (ANode) Ainstance.start();
-            if (BNode) Binstance.start();
-            if (CNode) Cinstance.start();
-            if (DNode) Dinstance.start();
-            if (GNode) Ginstance.start();
-        }
-        if(singing && Input.GetKeyUp(SingButton))
-        {
-            foreach (var item in eventList)
-            {
-                item.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            }
-            singing = false;
+            StartSinging(new SongData { NoteCoord = Song_NoteCoord.ABC });
         }
     }
 }

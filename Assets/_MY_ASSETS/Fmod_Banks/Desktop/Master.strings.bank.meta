@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/_MY_ASSETS/Fmod_Banks/Desktop/Master.strings.bank.meta
 guid: 94823a617d1b2994a9c377ae05cee93a
 DefaultImporter:
+=======
+guid: 68df1308a781d65428b7938881033c99
+TextScriptImporter:
+>>>>>>> c_PrototypeLevel:Assets/Resources/Textures/Temp.txt.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

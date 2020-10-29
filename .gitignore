@@ -23,6 +23,9 @@
 # Visual Studio cache directory
 .vs/
 
+# vs code editor settings
+.vscode/
+
 # Gradle cache directory
 .gradle/
 
@@ -62,5 +65,6 @@ crashlytics-build.properties
 # Fmod_editor log file
 fmod_editor.log
 
-# vs code editor settings
-.vscode/
+*.idea/
+
+
