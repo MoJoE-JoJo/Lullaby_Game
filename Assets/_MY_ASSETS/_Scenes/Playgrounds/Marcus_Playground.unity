@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 92449105}
   - component: {fileID: 92449104}
   - component: {fileID: 92449103}
+  - component: {fileID: 92449106}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -157,7 +158,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.5566038, g: 0.3209081, b: 0.18115878, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -204,6 +205,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &92449106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92449102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: -1
 --- !u!1 &737540000
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,11 +253,11 @@ MonoBehaviour:
   DEvent: event:/D
   GEvent: event:/G
   SingButton: 32
-  ANode: 1
-  BNode: 1
-  CNode: 1
+  ANode: 0
+  BNode: 0
+  CNode: 0
   DNode: 1
-  GNode: 1
+  GNode: 0
   End: 0
 --- !u!4 &737540002
 Transform:
