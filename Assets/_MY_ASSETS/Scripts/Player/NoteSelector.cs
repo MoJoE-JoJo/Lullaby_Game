@@ -273,7 +273,7 @@ public class NoteSelector : MonoBehaviour
         if (_imagesToFill.ContainsKey(segment))
         {
             _imagesToFill.Remove(segment);
-            Debug.Log("Removed " + segment);
+            //Debug.Log("Removed " + segment);
         }
     }
 

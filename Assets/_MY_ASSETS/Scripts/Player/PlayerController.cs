@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     void DeactivateNoteSelector()
     {
         noteSelector.SetActive(false);
+        _isSinging = false;
     }
 
     private void OnEnable()
