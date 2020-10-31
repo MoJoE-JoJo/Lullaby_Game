@@ -9,7 +9,14 @@ public class PlayerController : MonoBehaviour
     public GameObject noteSelector;
     private PlayerControls _controls;
     [SerializeField]
-    private RegisterActivators activators;
+    private RegisterActivators activatorRegistration;
+    public List<Activator> Activators
+    {
+        get
+        {
+            return activatorRegistration.RegisteredAcitvators;
+        }
+    }
 
     private void Awake()
     {
