@@ -16,6 +16,8 @@ public class NoteController : MonoBehaviour
     //public bool ANote, BNote, CNote, DNote, GNote;
 
     public bool singing;
+    public Song_NoteCoord note;
+    private bool isSinging = false;
 
     private List<EventInstance> eventInstanceList;
 
@@ -38,8 +40,6 @@ public class NoteController : MonoBehaviour
         eventInstanceList.Add(Cinstance);
         eventInstanceList.Add(Dinstance);
         eventInstanceList.Add(Ginstance);
-
-        singing = false;
     }
 
 
@@ -51,11 +51,11 @@ public class NoteController : MonoBehaviour
         // turn on notes based on the string
         foreach (char c in notes)
         {
-            if (c == 'A') Ainstance.start();
-            if (c == 'B') Binstance.start();
-            if (c == 'D') Cinstance.start();
-            if (c == 'E') Dinstance.start();
-            if (c == 'F') Ginstance.start();
+            if (c == 'A') StartInstance(Ainstance);
+            if (c == 'B') StartInstance(Binstance);
+            if (c == 'C') StartInstance(Cinstance);
+            if (c == 'D') StartInstance(Dinstance);
+            if (c == 'G') StartInstance(Ginstance);
         }
     }
 
@@ -64,17 +64,30 @@ public class NoteController : MonoBehaviour
 
         foreach (var eventInstance in eventInstanceList)
         {
-            eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            eventInstance.setParameterByName("isSinging", 0);
+            //eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
+    }
+
+
+    private void StartInstance(EventInstance eventInstance)
+    {
+        eventInstance.setParameterByName("isSinging", 1);
+        eventInstance.start();
     }
 
     // Update is called once per frame, used for testing at the time
     void Update()
     {
-        if (!singing)
+        if (singing && !isSinging)
         {
-            singing = true;
-            StartSinging(new SongData { NoteCoord = Song_NoteCoord.ABC });
+            StartSinging(new SongData { NoteCoord = note });
+            isSinging = true;
+        }
+        else if (!singing && isSinging)
+        {
+            StopSinging();
+            isSinging = false;
         }
     }
 }
