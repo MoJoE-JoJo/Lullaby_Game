@@ -1824,6 +1824,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteSelector: {fileID: 802697024}
+  activators: {fileID: 0}
+  _songBeingSung:
+    _noteCoord: 0
+  _isSinging: 0
+  playerSpeed: 3
+  jumpForce: 4
 --- !u!61 &909388977
 BoxCollider2D:
   m_ObjectHideFlags: 0
