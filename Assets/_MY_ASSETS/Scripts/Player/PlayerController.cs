@@ -16,11 +16,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool _isSinging;
 
-    [SerializeField]
-    private SongData _songBeingSung;
-    [SerializeField]
-    private bool _isSinging;
-
     private void Awake()
     {
         _controls = new PlayerControls();
