@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
+        SingToActivators();
     }
 
     private void FixedUpdate()
@@ -125,4 +126,13 @@ public class PlayerController : MonoBehaviour
     {
         _isGrounded = false;
     }
+
+    private void SingToActivators()
+    {
+        if (_isSinging)
+        {
+            activators.SendSong(_songBeingSung);
+        }
+    }
+    
 }
