@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject noteSelector;
     private PlayerControls _controls;
+    [SerializeField]
+    private RegisterActivators activators;
 
     private void Awake()
     {
@@ -20,7 +22,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame

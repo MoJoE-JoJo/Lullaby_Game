@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class MovePlayerOnPlatform : MonoBehaviour
 {
-    private GameObject world;
+    private Transform originalParent;
     void Start()
     {
-        world = GameObject.FindGameObjectWithTag("World");
     }
 
     // Update is called once per frame
@@ -18,11 +17,15 @@ public class MovePlayerOnPlatform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) collision.gameObject.transform.parent = this.gameObject.transform;
+        if (collision.gameObject.CompareTag("Player") && collision.transform.position.y > transform.position.y)
+        {
+            originalParent = collision.gameObject.transform.parent;
+            collision.gameObject.transform.parent = this.gameObject.transform;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) collision.gameObject.transform.parent = world.transform;
+        if (collision.gameObject.CompareTag("Player")) collision.gameObject.transform.parent = originalParent;
     }
 }
