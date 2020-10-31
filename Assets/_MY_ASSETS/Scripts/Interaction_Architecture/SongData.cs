@@ -12,7 +12,8 @@ public struct SongData
     public SongData(String sequence)
     {
         //order string
-        String.Concat(sequence.OrderBy(c => c));
+        sequence = String.Concat(sequence.OrderBy(c => c));
+        //Debug.Log(sequence);
         //convert string to chord 
         Enum.TryParse(sequence, out Song_NoteCoord noteChord);
         _noteCoord = noteChord;
