@@ -9,6 +9,11 @@ public class PlayerController : MonoBehaviour
     public GameObject noteSelector;
     private PlayerControls _controls;
 
+    [SerializeField]
+    private SongData _songBeingSung;
+    [SerializeField]
+    private bool _isSinging;
+
     private void Awake()
     {
         _controls = new PlayerControls();
@@ -26,16 +31,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (noteSelector.activeSelf)
         {
-            ActivateNoteSelector();
+            
         }
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            DeactivateNoteSelector();
-        }*/
     }
 
     private void ActivateNoteSelector()
@@ -60,5 +59,17 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         _controls.Disable();
+    }
+
+    public SongData SongBeingSung
+    {
+        get => _songBeingSung;
+        set => _songBeingSung = value;
+    }
+
+    public bool IsSinging
+    {
+        get => _isSinging;
+        set => _isSinging = value;
     }
 }
