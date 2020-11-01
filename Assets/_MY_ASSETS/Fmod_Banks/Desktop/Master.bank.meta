@@ -1,15 +1,10 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 <<<<<<< HEAD:Assets/_MY_ASSETS/Textures.meta
 guid: bfb96fa67bebaaf439877e64fb9f9728
 folderAsset: yes
 =======
 guid: c4e204f3d74af6d4686e0b7d839ab476
 >>>>>>> f_fmod:Assets/_MY_ASSETS/Fmod_Banks/Desktop/Master.bank.meta
-=======
-guid: 505ce021fa0f08e41bedad7f93709b10
-folderAsset: yes
->>>>>>> f_fmod
 DefaultImporter:
   externalObjects: {}
   userData: 
