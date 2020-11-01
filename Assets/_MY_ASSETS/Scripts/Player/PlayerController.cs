@@ -2,37 +2,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject noteSelector;
+    [SerializeField] private GameObject noteSelector;
+    [SerializeField] private SongData _songBeingSung;
+    [SerializeField] private bool _isSinging;
+    [SerializeField] private float playerSpeed;
+    [SerializeField] private float jumpForce;
     private PlayerControls _controls;
     private bool _startedSinging = false;
-    [SerializeField]
-    private RegisterActivators activatorRegistration;
-    public List<Activator> Activators
-    {
-        get => activatorRegistration.RegisteredActivators;
-    }
-
+    private ActivatorSensor actiSensor;
     private Rigidbody2D _rb2d;
-
-    [SerializeField]
-    private SongData _songBeingSung;
-    [SerializeField]
-    private bool _isSinging;
-
-    public float playerSpeed;
-    public float jumpForce;
     private bool _jumpFlag;
     private bool _isGrounded;
-    
     private Vector2 _move;
+    public List<Activator> Activators
+    {
+        get => actiSensor.RegisteredActivators;
+    }
 
     private void Awake()
     {
         _controls = new PlayerControls();
+        actiSensor = GetComponent<ActivatorSensor>();
 
         _controls.NoteSelector.Move.performed += context => ActivateNoteSelector();
         _controls.NoteSelector.Move.canceled += context => DeactivateNoteSelector();
@@ -137,7 +131,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_isSinging && !_startedSinging)
         {
-            activatorRegistration.SendSong(_songBeingSung);
+            actiSensor.SendSong(_songBeingSung);
             _startedSinging = true;
         }
     }
