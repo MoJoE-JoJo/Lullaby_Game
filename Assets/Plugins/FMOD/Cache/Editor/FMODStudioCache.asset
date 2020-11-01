@@ -108,6 +108,23 @@ MonoBehaviour:
   Max: 2
   Default: 0
   Exists: 0
+--- !u!114 &-8472308769261677142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/C4/isSinging
+  m_EditorClassIdentifier: 
+  Name: isSinging
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &-8150155918007008128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +283,23 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 2100
+--- !u!114 &-5721652080025919041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/D4/isSinging
+  m_EditorClassIdentifier: 
+  Name: isSinging
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &-5465894041054594883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,6 +407,23 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 2400
+--- !u!114 &-4603044516251365734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/G3/isSinging
+  m_EditorClassIdentifier: 
+  Name: isSinging
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &-4410810588260181910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,15 +439,32 @@ MonoBehaviour:
   Path: event:/Tones/prototype1_Tones/A3
   guid: 9384c71b56c8f344b993144a54ec79eb
   Banks:
-  - {fileID: 8078620852444393266}
+  - {fileID: 2923514819277124625}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 2601912328755225043}
+  - {fileID: -4110342335651601992}
   MinDistance: 0
   MaxDistance: 0
   Length: 2500
+--- !u!114 &-4110342335651601992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/A3/isSinging
+  m_EditorClassIdentifier: 
+  Name: isSinging
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &-4089309424076491401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,12 +558,12 @@ MonoBehaviour:
   Path: event:/Tones/prototype1_Tones/G3
   guid: 0c7e25586e54ed4d90eb2cbe9a43da60
   Banks:
-  - {fileID: 8078620852444393266}
+  - {fileID: 2923514819277124625}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -3788378272821572354}
+  - {fileID: -4603044516251365734}
   MinDistance: 0
   MaxDistance: 0
   Length: 4200
@@ -677,12 +745,12 @@ MonoBehaviour:
   Path: event:/Tones/prototype1_Tones/D4
   guid: e3880a50b3395a4380439404f401cb0a
   Banks:
-  - {fileID: 8078620852444393266}
+  - {fileID: 2923514819277124625}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -2333003365871060434}
+  - {fileID: -5721652080025919041}
   MinDistance: 0
   MaxDistance: 0
   Length: 4484
@@ -759,7 +827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 1343805763451792085}
-  - {fileID: 8078620852444393266}
+  - {fileID: 2923514819277124625}
   EditorEvents:
   - {fileID: -3657061553945421102}
   - {fileID: 8307042688528271797}
@@ -768,10 +836,10 @@ MonoBehaviour:
   - {fileID: -1202195246354131566}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 8078620852444393266}
+  - {fileID: 2923514819277124625}
   StringsBanks:
   - {fileID: 1343805763451792085}
-  stringsBankWriteTime: 637398487536898697
+  stringsBankWriteTime: 637398506321139627
   cacheVersion: 3
 --- !u!114 &278107312694542078
 MonoBehaviour:
@@ -916,7 +984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/_MY_ASSETS/Fmod_Banks/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637398487536898697
+  lastModified: 637398506321139627
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -1044,6 +1112,24 @@ MonoBehaviour:
   Max: 2
   Default: 0
   Exists: 1
+--- !u!114 &2923514819277124625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/_MY_ASSETS/Fmod_Banks/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637398506321129636
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &3538313159889575648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1094,12 +1180,12 @@ MonoBehaviour:
   Path: event:/Tones/prototype1_Tones/C4
   guid: 91e83f68226504489718b5066102e605
   Banks:
-  - {fileID: 8078620852444393266}
+  - {fileID: 2923514819277124625}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -4787555682010619255}
+  - {fileID: -8472308769261677142}
   MinDistance: 0
   MaxDistance: 0
   Length: 2983
@@ -1232,6 +1318,23 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 2000
+--- !u!114 &5824579196305346275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/B3/isSinging
+  m_EditorClassIdentifier: 
+  Name: isSinging
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &5956684091893941358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1441,12 +1544,12 @@ MonoBehaviour:
   Path: event:/Tones/prototype1_Tones/B3
   guid: 2e832b527445f74f93fb2a0e04721a27
   Banks:
-  - {fileID: 8078620852444393266}
+  - {fileID: 2923514819277124625}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -2472446157710573290}
+  - {fileID: 5824579196305346275}
   MinDistance: 0
   MaxDistance: 0
   Length: 3600

@@ -8,14 +8,12 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject noteSelector;
     private PlayerControls _controls;
+    private bool _startedSinging = false;
     [SerializeField]
     private RegisterActivators activatorRegistration;
     public List<Activator> Activators
     {
-        get
-        {
-            return activatorRegistration.RegisteredAcitvators;
-        }
+        get => activatorRegistration.RegisteredActivators;
     }
 
     private Rigidbody2D _rb2d;
@@ -56,6 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
         SingToActivators();
+        if (!_isSinging) _startedSinging = false;
     }
 
     private void FixedUpdate()
@@ -136,9 +135,10 @@ public class PlayerController : MonoBehaviour
 
     private void SingToActivators()
     {
-        if (_isSinging)
+        if (_isSinging && !_startedSinging)
         {
-            activators.SendSong(_songBeingSung);
+            activatorRegistration.SendSong(_songBeingSung);
+            _startedSinging = true;
         }
     }
     

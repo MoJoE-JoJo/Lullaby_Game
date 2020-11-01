@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class NoteSelector : MonoBehaviour
 {
     private PlayerControls _controls;
-    
+    public NoteController noteController;
     public GameObject player;
     private PlayerController _playerController;
+    private bool _startedSinging;
 
     public float fillRatio;
     public float fillCompletedThreshold;
@@ -326,6 +327,17 @@ public class NoteSelector : MonoBehaviour
     {
         _playerController.SongBeingSung = _currentSong;
         _playerController.IsSinging = _anySongPlaying;
+
+        if (_anySongPlaying && !_startedSinging)
+        {
+            noteController.StartSinging(_currentSong);
+            _startedSinging = true;
+        }
+        if(!_anySongPlaying && _startedSinging)
+        {
+            noteController.StopSinging();
+                _startedSinging = false;
+        }
     }
     
 }

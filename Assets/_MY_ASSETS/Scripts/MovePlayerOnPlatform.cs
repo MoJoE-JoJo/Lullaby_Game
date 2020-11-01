@@ -17,7 +17,7 @@ public class MovePlayerOnPlatform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && collision.transform.position.y > transform.position.y)
+        if (collision.gameObject.CompareTag("Player") /*&& collision.transform.position.y > transform.position.y*/)
         {
             originalParent = collision.gameObject.transform.parent;
             collision.gameObject.transform.parent = this.gameObject.transform;

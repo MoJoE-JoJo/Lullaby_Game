@@ -43,7 +43,7 @@ public class NoteController : MonoBehaviour
     }
 
 
-    void StartSinging(SongData sd)
+    public void StartSinging(SongData sd)
     {
         // parse SongData enum
         var notes = sd.NoteCoord.ToString();
