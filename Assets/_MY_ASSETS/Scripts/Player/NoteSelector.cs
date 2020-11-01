@@ -9,6 +9,7 @@ public class NoteSelector : MonoBehaviour
     private PlayerControls _controls;
     
     public GameObject player;
+    private PlayerController _playerController;
 
     public float fillRatio;
     public float fillCompletedThreshold;
@@ -69,6 +70,8 @@ public class NoteSelector : MonoBehaviour
         _backgrounds.Add("C", backgroundC);
         _backgrounds.Add("D", backgroundD);
         _backgrounds.Add("E", backgroundE);
+
+        _playerController = player.GetComponent<PlayerController>();
     }
 
     void Update()
@@ -78,6 +81,7 @@ public class NoteSelector : MonoBehaviour
         FillNotes();
         EmptyNotes();
         GetNote();
+        UpdatePlayerNote();
     }
 
     public void CenterNoteSelector()
@@ -269,7 +273,7 @@ public class NoteSelector : MonoBehaviour
         if (_imagesToFill.ContainsKey(segment))
         {
             _imagesToFill.Remove(segment);
-            Debug.Log("Removed " + segment);
+            //Debug.Log("Removed " + segment);
         }
     }
 
@@ -316,6 +320,12 @@ public class NoteSelector : MonoBehaviour
         return songData;
         //Debug.Log("Current string: " + _currentSongString);
         //Debug.Log("Current enum: " + _currentSong.NoteCoord.ToString());
+    }
+
+    void UpdatePlayerNote()
+    {
+        _playerController.SongBeingSung = _currentSong;
+        _playerController.IsSinging = _anySongPlaying;
     }
     
 }

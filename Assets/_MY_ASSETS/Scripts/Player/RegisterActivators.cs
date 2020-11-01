@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RegisterActivators : MonoBehaviour
 {
-    public List<Activator> RegisteredAcitvators 
+    public List<Activator> RegisteredActivators 
     {
         get 
         {
@@ -32,11 +32,19 @@ public class RegisterActivators : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Activator")) RegisteredAcitvators.Add(collision.GetComponent<Activator>());   
+        if (collision.CompareTag("Activator")) RegisteredActivators.Add(collision.GetComponent<Activator>());   
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Activator")) RegisteredAcitvators.Remove(collision.GetComponent<Activator>());
+        if (collision.CompareTag("Activator")) RegisteredActivators.Remove(collision.GetComponent<Activator>());
+    }
+
+    public void SendSong(SongData song)
+    {
+        foreach (var activator in RegisteredActivators)
+        {
+            activator.SongInput(song);
+        }
     }
 }
