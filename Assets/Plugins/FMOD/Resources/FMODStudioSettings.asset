@@ -16,7 +16,7 @@ MonoBehaviour:
   HasSourceProject: 0
   HasPlatforms: 0
   sourceProjectPath: Fmod/Lullaby/Lullaby.fspro
-  sourceBankPath: Assets/_MY_ASSETS/Fmod_Banks/Desktop
+  sourceBankPath: Assets/_ASSETS/Fmod_Banks/Desktop
   SourceBankPathUnformatted: 
   AutomaticEventLoading: 1
   BankLoadType: 0
