@@ -8,7 +8,7 @@ public enum State_PrototypeMoveAction { DEACTIVATED, ACTIVATED, FINISHED }
 
 public class MoveToPositionAction : InteractableAction
 {
-    public State_PrototypeMoveAction state = State_PrototypeMoveAction.DEACTIVATED;
+    [SerializeField] private State_PrototypeMoveAction state = State_PrototypeMoveAction.DEACTIVATED;
     private Transform target;
     private Transform last;
     private float moveFraction = 0f;
@@ -29,6 +29,10 @@ public class MoveToPositionAction : InteractableAction
     override public void Deactivate()
     {
         state = State_PrototypeMoveAction.DEACTIVATED;
+    }
+    public override void InputData(SongData data)
+    {
+        throw new NotImplementedException();
     }
 
     // Start is called before the first frame update
@@ -140,7 +144,7 @@ public class MoveToPositionAction : InteractableAction
             }
         }
     }
-    
+
     [CustomEditor(typeof(MoveToPositionAction))]
     public class MyScriptEditor : Editor
     {
