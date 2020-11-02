@@ -140,7 +140,7 @@ public class MoveToPositionAction : InteractableAction
             }
         }
     }
-    /*
+    
     [CustomEditor(typeof(MoveToPositionAction))]
     public class MyScriptEditor : Editor
     {
@@ -174,7 +174,6 @@ public class MoveToPositionAction : InteractableAction
 
         }
     }
-    */
 
 
 }
