@@ -140,7 +140,8 @@ public class MoveToPositionAction : InteractableAction
             }
         }
     }
-    
+
+#if UNITY_EDITOR
     [CustomEditor(typeof(MoveToPositionAction))]
     public class MyScriptEditor : Editor
     {
@@ -174,6 +175,7 @@ public class MoveToPositionAction : InteractableAction
 
         }
     }
+#endif
 
 
 }
