@@ -971,7 +971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  moveSpeed: 1
+  moveSpeed: 0.75
   movePositions:
   - {fileID: 1852134588}
   - {fileID: 778921679}
@@ -1111,9 +1111,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothTime: 0.3
+  thresholdMovement: 1
   xMoveThreshold: 0.3
   yMoveThreshold: 0.3
-  thresholdMovement: 1
 --- !u!114 &446005333
 MonoBehaviour:
   m_ObjectHideFlags: 0

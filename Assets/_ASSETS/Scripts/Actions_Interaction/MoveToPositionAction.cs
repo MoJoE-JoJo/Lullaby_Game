@@ -63,7 +63,12 @@ public class MoveToPositionAction : InteractableAction
         if (moveFraction < 1)
         {
             moveFraction += Time.deltaTime * moveSpeed / (last.position - target.position).magnitude;
-            transform.position = Vector3.Lerp(movePositions[moveToIndex-1].position, movePositions[moveToIndex].position, moveFraction);
+            transform.position = new Vector3
+                (
+                Mathf.SmoothStep(last.position.x, target.position.x, moveFraction),
+                Mathf.SmoothStep(last.position.y, target.position.y, moveFraction),
+                moveFraction
+                );
         }
         else if (moveFraction >= 1) state = State_PrototypeMoveAction.FINISHED;
         //transform.position = Vector3.Lerp(transform.position, target, moveSpeed * Time.deltaTime);
@@ -83,7 +88,12 @@ public class MoveToPositionAction : InteractableAction
                 target = movePositions[moveToIndex];
             }
             moveFraction += Time.deltaTime * moveSpeed / (last.position - target.position).magnitude;
-            transform.position = Vector3.Lerp(last.position, target.position, moveFraction);
+            transform.position = new Vector3
+                (
+                Mathf.SmoothStep(last.position.x, target.position.x, moveFraction), 
+                Mathf.SmoothStep(last.position.y, target.position.y, moveFraction), 
+                moveFraction
+                );
 
 
         }
@@ -128,7 +138,12 @@ public class MoveToPositionAction : InteractableAction
             last = movePositions[lastIndex];
             target = movePositions[moveToIndex];
             moveFraction += Time.deltaTime * moveSpeed / (last.position - target.position).magnitude;
-            transform.position = Vector3.Lerp(last.position, target.position, moveFraction);
+            transform.position = new Vector3
+                (
+                Mathf.SmoothStep(last.position.x, target.position.x, moveFraction),
+                Mathf.SmoothStep(last.position.y, target.position.y, moveFraction),
+                moveFraction
+                );
         }
         else if (moveFraction >= 1)
         {
