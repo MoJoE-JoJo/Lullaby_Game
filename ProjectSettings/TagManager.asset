@@ -8,6 +8,7 @@ TagManager:
   - GameManager
   - NoteSelectorSegment
   - Activator
+  - ActivatorSensor
   layers:
   - Default
   - TransparentFX

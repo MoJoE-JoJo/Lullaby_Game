@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _controls = new PlayerControls();
-        actiSensor = GetComponent<ActivatorSensor>();
+        actiSensor = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ActivatorSensor>();
 
         _controls.NoteSelector.Move.performed += context => ActivateNoteSelector();
         _controls.NoteSelector.Move.canceled += context => DeactivateNoteSelector();
