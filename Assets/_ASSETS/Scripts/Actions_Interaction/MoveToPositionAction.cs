@@ -62,7 +62,7 @@ public class MoveToPositionAction : InteractableAction
     {
         if (moveFraction < 1)
         {
-            moveFraction += Time.deltaTime * moveSpeed;
+            moveFraction += Time.deltaTime * moveSpeed / (last.position - target.position).magnitude;
             transform.position = Vector3.Lerp(movePositions[moveToIndex-1].position, movePositions[moveToIndex].position, moveFraction);
         }
         else if (moveFraction >= 1) state = State_PrototypeMoveAction.FINISHED;
