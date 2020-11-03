@@ -6,9 +6,9 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour
 {
     [SerializeField] private float smoothTime = 0.1f;
+    [SerializeField] private bool thresholdMovement;
     [SerializeField, Tooltip("Only relevant when thresholdMovement")] private float xMoveThreshold;
     [SerializeField, Tooltip("Only relevant when thresholdMovement")] private float yMoveThreshold;
-    [SerializeField] private bool thresholdMovement;
     private GameObject player;
     private Vector3 newPosition;
     private Vector3 velocity = Vector3.zero;
