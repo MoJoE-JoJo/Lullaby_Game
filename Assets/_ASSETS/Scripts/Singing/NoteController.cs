@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using System;
 
 public class NoteController : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class NoteController : MonoBehaviour
 
     public bool singing;
     public Song_NoteCoord note;
-    private bool isSinging = false;
+    private bool alreadySingingNote = false;
 
     private List<EventInstance> eventInstanceList;
 
@@ -57,6 +58,7 @@ public class NoteController : MonoBehaviour
             if (c == 'D') StartInstance(Dinstance);
             if (c == 'G') StartInstance(Ginstance);
         }
+        alreadySingingNote = true;
     }
 
     public void StopSinging()
@@ -65,29 +67,26 @@ public class NoteController : MonoBehaviour
         foreach (var eventInstance in eventInstanceList)
         {
             eventInstance.setParameterByName("isSinging", 0);
+            eventInstance.setParameterByName("wasSingingOtherTone", 0);
             //eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
+        alreadySingingNote = false;
     }
 
 
     private void StartInstance(EventInstance eventInstance)
     {
         eventInstance.setParameterByName("isSinging", 1);
+        if (alreadySingingNote)
+        {
+            eventInstance.setParameterByName("wasSingingOtherTone", 1);
+        }
         eventInstance.start();
     }
 
-    // Update is called once per frame, used for testing at the time
+    // Update is called once per frame
     void Update()
     {
-        if (singing && !isSinging)
-        {
-            StartSinging(new SongData { NoteCoord = note });
-            isSinging = true;
-        }
-        else if (!singing && isSinging)
-        {
-            StopSinging();
-            isSinging = false;
-        }
+
     }
 }
