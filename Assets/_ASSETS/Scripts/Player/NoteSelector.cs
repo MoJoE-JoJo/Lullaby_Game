@@ -48,7 +48,10 @@ public class NoteSelector : MonoBehaviour
 
     private Vector2 _selectorMove;
 
-    private bool _rightTriggerDown = false;
+    private bool _rightTriggerDown;
+    private bool _leftTriggerDown;
+    private float _rightTriggerValue;
+    private float _leftTriggerValue;
     
     void Awake()
     {
@@ -58,6 +61,7 @@ public class NoteSelector : MonoBehaviour
         _controls.NoteSelector.Move.canceled += context => _selectorMove = Vector2.zero;
 
         _controls.NoteSelector.Sing.started += context => RTpressed();
+        _controls.NoteSelector.Sing.performed += context => _rightTriggerValue = context.ReadValue<float>();
         _controls.NoteSelector.Sing.canceled += context => RTreleased();
 
         _controls.NoteSelector.LockNote.started += context => LockUnlockNote();
@@ -274,7 +278,6 @@ public class NoteSelector : MonoBehaviour
         if (_imagesToFill.ContainsKey(segment))
         {
             _imagesToFill.Remove(segment);
-            //Debug.Log("Removed " + segment);
         }
     }
 
@@ -311,11 +314,13 @@ public class NoteSelector : MonoBehaviour
         {
             _anySongPlaying = true;
             _currentSong = new SongData(_currentSongString);
+            _currentSong.Volume = _rightTriggerValue;
         }
         else
         {
             _anySongPlaying = false;
             _currentSong = new SongData();
+            _currentSong.Volume = 0.0f;
         }
 
         return songData;
@@ -339,5 +344,5 @@ public class NoteSelector : MonoBehaviour
                 _startedSinging = false;
         }
     }
-    
+
 }
