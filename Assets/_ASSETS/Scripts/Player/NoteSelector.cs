@@ -87,7 +87,7 @@ public class NoteSelector : MonoBehaviour
 
     public void CenterNoteSelector()
     {
-        this.transform.position = Camera.main.WorldToScreenPoint(player.transform.localPosition);
+        this.transform.position = Camera.main.WorldToScreenPoint(player.transform.position);
     }
 
     void FillNotes()
