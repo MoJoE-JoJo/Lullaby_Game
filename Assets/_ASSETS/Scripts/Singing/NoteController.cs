@@ -15,9 +15,11 @@ public class NoteController : MonoBehaviour
 
     //public bool ANote, BNote, CNote, DNote, GNote;
 
-    public bool singing;
+
+    private SongData _songData;
     public Song_NoteCoord note;
-    private bool isSinging = false;
+    private bool _isSinging = false;
+    private bool _wasSingingBefore = false;
 
     private List<EventInstance> eventInstanceList;
 
@@ -43,24 +45,27 @@ public class NoteController : MonoBehaviour
     }
 
 
-    public void StartSinging(SongData sd)
+    public void StartSinging()
     {
+        _wasSingingBefore = true;
+        
         // parse SongData enum
-        var notes = sd.NoteCoord.ToString();
+        var notes = _songData.NoteCoord.ToString();
 
         // turn on notes based on the string
         foreach (char c in notes)
         {
-            if (c == 'A') StartInstance(Ainstance);
-            if (c == 'B') StartInstance(Binstance);
-            if (c == 'C') StartInstance(Cinstance);
-            if (c == 'D') StartInstance(Dinstance);
-            if (c == 'G') StartInstance(Ginstance);
+            if (c == 'A') StartInstance(Ainstance, _songData.Volume);
+            if (c == 'B') StartInstance(Binstance, _songData.Volume);
+            if (c == 'C') StartInstance(Cinstance, _songData.Volume);
+            if (c == 'D') StartInstance(Dinstance, _songData.Volume);
+            if (c == 'E') StartInstance(Ginstance, _songData.Volume);
         }
     }
 
     public void StopSinging()
     {
+        _wasSingingBefore = false;
 
         foreach (var eventInstance in eventInstanceList)
         {
@@ -69,25 +74,48 @@ public class NoteController : MonoBehaviour
         }
     }
 
+    private void UpdateSinging()
+    {
+        foreach (var eventInstance in eventInstanceList)
+        {
+            eventInstance.setVolume(_songData.Volume);
+        }
+    }
 
-    private void StartInstance(EventInstance eventInstance)
+
+    private void StartInstance(EventInstance eventInstance, float volume)
     {
         eventInstance.setParameterByName("isSinging", 1);
+        eventInstance.setVolume(volume);
         eventInstance.start();
     }
 
     // Update is called once per frame, used for testing at the time
     void Update()
     {
-        if (singing && !isSinging)
+        if (_isSinging && !_wasSingingBefore)
         {
-            StartSinging(new SongData { NoteCoord = note });
-            isSinging = true;
+            StartSinging();
         }
-        else if (!singing && isSinging)
+        else if (_isSinging)
+        {
+            UpdateSinging();
+        }
+        else if (!_isSinging)
         {
             StopSinging();
-            isSinging = false;
         }
+    }
+
+    public SongData SongData
+    {
+        get => _songData;
+        set => _songData = value;
+    }
+
+    public bool IsSinging
+    {
+        get => _isSinging;
+        set => _isSinging = value;
     }
 }

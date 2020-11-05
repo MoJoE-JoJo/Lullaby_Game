@@ -25389,7 +25389,6 @@ MonoBehaviour:
   CEvent: event:/Tones/prototype1_Tones/C4
   DEvent: event:/Tones/prototype1_Tones/D4
   GEvent: event:/Tones/prototype1_Tones/G3
-  singing: 0
   note: 0
 --- !u!4 &883758244
 Transform:
@@ -27225,6 +27224,7 @@ MonoBehaviour:
   _isSinging: 0
   playerSpeed: 2
   jumpForce: 2
+  NoteController: {fileID: 883758243}
 --- !u!58 &1789082391
 CircleCollider2D:
   m_ObjectHideFlags: 0

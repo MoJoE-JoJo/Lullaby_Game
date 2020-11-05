@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private bool _jumpFlag;
     private bool _isGrounded;
     private Vector2 _move;
+
+    public NoteController NoteController;
     public List<Activator> Activators
     {
         get => actiSensor.RegisteredActivators;
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
         SingToActivators();
+        UpdateNoteController();
         if (!_isSinging) _startedSinging = false;
     }
 
@@ -134,6 +137,12 @@ public class PlayerController : MonoBehaviour
             actiSensor.SendSong(_songBeingSung);
             _startedSinging = true;
         }
+    }
+
+    private void UpdateNoteController()
+    {
+        NoteController.SongData = _songBeingSung;
+        NoteController.IsSinging = _isSinging;
     }
     
 }

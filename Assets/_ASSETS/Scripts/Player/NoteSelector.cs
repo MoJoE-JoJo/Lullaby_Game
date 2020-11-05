@@ -209,6 +209,7 @@ public class NoteSelector : MonoBehaviour
         _imagesLocked = new Dictionary<string, Image>();
         _imagesToFill = new Dictionary<string, Image>();
         _imagesToEmpty = new Dictionary<string, Image>();
+        _playerController.IsSinging = false;
     }
 
     public void AddImageToFill(String segment)
@@ -331,17 +332,6 @@ public class NoteSelector : MonoBehaviour
     {
         _playerController.SongBeingSung = _currentSong;
         _playerController.IsSinging = _anySongPlaying;
-
-        if (_anySongPlaying && !_startedSinging)
-        {
-            noteController.StartSinging(_currentSong);
-            _startedSinging = true;
-        }
-        if(!_anySongPlaying && _startedSinging)
-        {
-            noteController.StopSinging();
-                _startedSinging = false;
-        }
     }
 
 }
