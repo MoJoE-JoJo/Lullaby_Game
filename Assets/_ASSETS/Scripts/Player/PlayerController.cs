@@ -9,15 +9,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject noteSelector;
     [SerializeField] private SongData _songBeingSung;
     [SerializeField] private bool _isSinging;
+    [SerializeField, Tooltip("Time in seconds between the character starts singing at full, and the signal starts getting sent to nearby activators")] private float songDelay;
     [SerializeField] private float playerSpeed;
     [SerializeField] private float jumpForce;
     private PlayerControls _controls;
-    private bool _startedSinging = false;
     private ActivatorSensor actiSensor;
     private Rigidbody2D _rb2d;
     private bool _jumpFlag;
     private bool _isGrounded;
     private Vector2 _move;
+    private float songDelayTimer;
     public List<Activator> Activators
     {
         get => actiSensor.RegisteredActivators;
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rb2d = GetComponent<Rigidbody2D>();
+        songDelayTimer = 0.0f;
     }
 
     // Update is called once per frame
@@ -48,7 +50,6 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
         SingToActivators();
-        if (!_isSinging) _startedSinging = false;
     }
 
     private void FixedUpdate()
@@ -129,10 +130,19 @@ public class PlayerController : MonoBehaviour
 
     private void SingToActivators()
     {
-        if (_isSinging && !_startedSinging)
+        if (_isSinging)
         {
-            actiSensor.SendSong(_songBeingSung);
-            _startedSinging = true;
+            if (songDelayTimer >= songDelay)
+            {
+                Debug.Log("yolo");
+                actiSensor.SendSong(_songBeingSung);
+            }
+            songDelayTimer += Time.deltaTime;
+        }
+        else if(songDelayTimer > 0.0001f && !_isSinging)
+        {
+            Debug.Log(songDelayTimer);
+            songDelayTimer = 0.0f;
         }
     }
     

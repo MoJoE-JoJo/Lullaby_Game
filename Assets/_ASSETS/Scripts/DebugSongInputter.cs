@@ -27,14 +27,15 @@ public class DebugSongInputter : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             SongData data = new SongData();
-            if (APressed && BPressed && CPressed) data.NoteCoord = Song_NoteCoord.ABC;
-            else if (APressed && BPressed) data.NoteCoord = Song_NoteCoord.AB;
-            else if (APressed && CPressed) data.NoteCoord = Song_NoteCoord.AC;
-            else if (BPressed && CPressed) data.NoteCoord = Song_NoteCoord.BC;
-            else if (APressed) data.NoteCoord = Song_NoteCoord.A;
-            else if (BPressed) data.NoteCoord = Song_NoteCoord.B;
-            else if (CPressed) data.NoteCoord = Song_NoteCoord.C;
-            
+            /*
+            if (APressed && BPressed && CPressed) data.Notes = Song_Note.ABC;
+            else if (APressed && BPressed) data.Notes = Song_Note.AB;
+            else if (APressed && CPressed) data.Notes = Song_Note.AC;
+            else if (BPressed && CPressed) data.Notes = Song_Note.BC;
+            else if (APressed) data.Notes = Song_Note.A;
+            else if (BPressed) data.Notes = Song_Note.B;
+            else if (CPressed) data.Notes = Song_Note.C;
+            */
 
             APressed = false;
             BPressed = false;

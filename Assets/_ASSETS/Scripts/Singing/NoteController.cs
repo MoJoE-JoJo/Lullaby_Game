@@ -16,7 +16,7 @@ public class NoteController : MonoBehaviour
     //public bool ANote, BNote, CNote, DNote, GNote;
 
     public bool singing;
-    public Song_NoteCoord note;
+    public List<Song_Note> note = new List<Song_Note>();
     private bool isSinging = false;
 
     private List<EventInstance> eventInstanceList;
@@ -46,16 +46,16 @@ public class NoteController : MonoBehaviour
     public void StartSinging(SongData sd)
     {
         // parse SongData enum
-        var notes = sd.NoteCoord.ToString();
+        var notes = sd.Notes;
 
         // turn on notes based on the string
-        foreach (char c in notes)
+        foreach (Song_Note sn in notes)
         {
-            if (c == 'A') StartInstance(Ainstance);
-            if (c == 'B') StartInstance(Binstance);
-            if (c == 'C') StartInstance(Cinstance);
-            if (c == 'D') StartInstance(Dinstance);
-            if (c == 'G') StartInstance(Ginstance);
+            if (sn == Song_Note.A) StartInstance(Ainstance);
+            if (sn == Song_Note.B) StartInstance(Binstance);
+            if (sn == Song_Note.C) StartInstance(Cinstance);
+            if (sn == Song_Note.D) StartInstance(Dinstance);
+            if (sn == Song_Note.E) StartInstance(Ginstance);
         }
     }
 
@@ -81,7 +81,7 @@ public class NoteController : MonoBehaviour
     {
         if (singing && !isSinging)
         {
-            StartSinging(new SongData { NoteCoord = note });
+            StartSinging(new SongData { Notes = note });
             isSinging = true;
         }
         else if (!singing && isSinging)

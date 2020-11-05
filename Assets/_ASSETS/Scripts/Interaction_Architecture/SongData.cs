@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum Song_NoteCoord {A,B,C,AB,AC,BC,ABC}
-public enum Song_Attribute {High_Pitch};
-
+public enum Song_Note {A,B,C,D,E,F}
 [Serializable]
 public struct SongData
 {
@@ -15,48 +13,31 @@ public struct SongData
         sequence = String.Concat(sequence.OrderBy(c => c));
         //Debug.Log(sequence);
         //convert string to chord 
-        Enum.TryParse(sequence, out Song_NoteCoord noteChord);
-        _noteCoord = noteChord;
-        
+        _notes = new List<Song_Note>();
+        foreach (char c in sequence)
+        {
+            Enum.TryParse(c+"", out Song_Note note);
+            _notes.Add(note);
+            _notes = new HashSet<Song_Note>(_notes).ToList();
+        }   
         _volume = 1.0f;
-        Attributes = new HashSet<Song_Attribute>();
+        _duration = 0.0f;
     }
-    
-    /*
-    public List<Song_Note> Notes {
+    public List<Song_Note> Notes
+    {
         get
         {
             var list = _notes.ToList();
             list.Sort();
             return list;
         }
-        set
-        {
-            _notes = new HashSet<Song_Note>(value);
-        } 
-    }
-        private HashSet<Song_Note> _notes;
-    */
-    public Song_NoteCoord NoteCoord
-    {
-        get
-        {
-            return _noteCoord;
-        }
-        set
-        {
-            _noteCoord = value;
-        }
+        set => _notes = new HashSet<Song_Note>(value).ToList();
     }
     [SerializeField]
-    private Song_NoteCoord _noteCoord;
-    public HashSet<Song_Attribute> Attributes { get; set; }
+    private List<Song_Note> _notes;
     public float Volume
     {
-        get
-        {
-            return _volume;
-        }
+        get => _volume;
         set
         {
             if (value < 0.0f) _volume = 0.0f; 
@@ -64,5 +45,14 @@ public struct SongData
             else _volume = value;
         }
     }
+    [SerializeField]
     private float _volume;
+
+    public float Duration
+    {
+        get => _duration;
+        set => _duration = value;
+    }
+    [SerializeField]
+    private float _duration;
 }
