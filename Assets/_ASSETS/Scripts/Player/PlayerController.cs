@@ -135,6 +135,7 @@ public class PlayerController : MonoBehaviour
             if (songDelayTimer >= songDelay)
             {
                 Debug.Log("yolo");
+                _songBeingSung.Duration = Time.deltaTime;
                 actiSensor.SendSong(_songBeingSung);
             }
             songDelayTimer += Time.deltaTime;
