@@ -48,10 +48,8 @@ public class NoteSelector : MonoBehaviour
 
     private Vector2 _selectorMove;
 
-    private bool _rightTriggerDown;
-    private bool _leftTriggerDown;
-    private float _rightTriggerValue;
-    private float _leftTriggerValue;
+    private bool _singButtonDown;
+    private float _singVolume;
     
     void Awake()
     {
@@ -60,9 +58,9 @@ public class NoteSelector : MonoBehaviour
         _controls.NoteSelector.Move.performed += context => _selectorMove = context.ReadValue<Vector2>();
         _controls.NoteSelector.Move.canceled += context => _selectorMove = Vector2.zero;
 
-        _controls.NoteSelector.Sing.started += context => RTpressed();
-        _controls.NoteSelector.Sing.performed += context => _rightTriggerValue = context.ReadValue<float>();
-        _controls.NoteSelector.Sing.canceled += context => RTreleased();
+        _controls.NoteSelector.Sing.started += context => SingPressed();
+        _controls.NoteSelector.Sing.performed += context => _singVolume = context.ReadValue<float>();
+        _controls.NoteSelector.Sing.canceled += context => SingReleased();
 
         _controls.NoteSelector.LockNote.started += context => LockUnlockNote();
     }
@@ -105,7 +103,7 @@ public class NoteSelector : MonoBehaviour
 
             float currentImgFill = entry.Value.fillAmount;
 
-            if (_rightTriggerDown)
+            if (_singButtonDown)
             {
                 if (currentImgFill < 1.0f)
                 {
@@ -140,7 +138,7 @@ public class NoteSelector : MonoBehaviour
             {
                 float currentImgFill = entry.Value.fillAmount;
 
-                if (_rightTriggerDown)
+                if (_singButtonDown)
                 {
                     if (currentImgFill < 1.0f)
                     {
@@ -281,13 +279,13 @@ public class NoteSelector : MonoBehaviour
         }
     }
 
-    private void RTpressed()
+    private void SingPressed()
     {
-        _rightTriggerDown = true;
+        _singButtonDown = true;
     }
-    private void RTreleased()
+    private void SingReleased()
     {
-        _rightTriggerDown = false;
+        _singButtonDown = false;
     }
 
     private void LockUnlockNote()
@@ -314,7 +312,8 @@ public class NoteSelector : MonoBehaviour
         {
             _anySongPlaying = true;
             _currentSong = new SongData(_currentSongString);
-            _currentSong.Volume = _rightTriggerValue;
+            _currentSong.Volume = _singVolume;
+            //Debug.Log("Current song volume: " + _currentSong.Volume);
         }
         else
         {
