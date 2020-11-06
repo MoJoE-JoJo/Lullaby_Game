@@ -25,12 +25,26 @@ public class ActivatorSensor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Activator")) RegisteredActivators.Add(collision.GetComponent<Activator>());   
+        if (collision.CompareTag("Activator"))
+        {
+            var activators = collision.GetComponents<Activator>();
+            foreach (Activator acti in activators)
+            {
+                RegisteredActivators.Add(acti);
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Activator")) RegisteredActivators.Remove(collision.GetComponent<Activator>());
+        if (collision.CompareTag("Activator"))
+        {
+            var activators = collision.GetComponents<Activator>();
+            foreach (Activator acti in activators)
+            {
+                RegisteredActivators.Remove(acti);
+            }
+        }
     }
 
     public void SendSong(SongData song)
