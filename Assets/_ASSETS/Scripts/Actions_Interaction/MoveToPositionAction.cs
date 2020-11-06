@@ -30,6 +30,10 @@ public class MoveToPositionAction : InteractableAction
     {
         state = State_PrototypeMoveAction.DEACTIVATED;
     }
+    public override void InputData(SongData data)
+    {
+        throw new NotImplementedException();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -59,9 +63,17 @@ public class MoveToPositionAction : InteractableAction
         if (moveFraction < 1)
         {
             moveFraction += Time.deltaTime * moveSpeed;
-            transform.position = Vector3.Lerp(movePositions[moveToIndex-1].position, movePositions[moveToIndex].position, moveFraction);
+            transform.position = Vector3.Lerp(movePositions[moveToIndex - 1].position, movePositions[moveToIndex].position, moveFraction);
         }
-        else if (moveFraction >= 1) state = State_PrototypeMoveAction.FINISHED;
+        else if (moveFraction >= 1)
+        {
+            if (moveToIndex == movePositions.Count - 1) state = State_PrototypeMoveAction.FINISHED;
+            else
+            {
+                moveToIndex++;
+                moveFraction = 0;
+            }
+        }
         //transform.position = Vector3.Lerp(transform.position, target, moveSpeed * Time.deltaTime);
     }
     private void TwoWayMovement()
@@ -140,7 +152,7 @@ public class MoveToPositionAction : InteractableAction
             }
         }
     }
-    
+
     [CustomEditor(typeof(MoveToPositionAction))]
     public class MyScriptEditor : Editor
     {
