@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!noteSelector.activeSelf)
         {
-            noteSelector.GetComponent<NoteSelector>().CenterNoteSelector();
+            noteSelector.GetComponent<NoteSelectorNew>().CenterNoteSelector();
             noteSelector.SetActive(true);
         }
     }
