@@ -7,6 +7,7 @@ public class CameraMove : MonoBehaviour
 {
     [SerializeField] private float smoothTime = 0.1f;
     [SerializeField] private bool thresholdMovement;
+    //Should probably make it a CustomEditor, but there are tooltips, and they won't really fuck anything up, so maybe later.
     [SerializeField, Tooltip("Only relevant when thresholdMovement")] private float xMoveThreshold;
     [SerializeField, Tooltip("Only relevant when thresholdMovement")] private float yMoveThreshold;
     private GameObject player;
@@ -14,7 +15,7 @@ public class CameraMove : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private Vector2 playerMovement;
     private Vector2 cameraPosition;
-    public bool moveCamera = false;
+    private bool moveCamera = false;
     // Start is called before the first frame update
     void Start()
     {
