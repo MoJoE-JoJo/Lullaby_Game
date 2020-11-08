@@ -17,6 +17,7 @@ public class NoteSelector : MonoBehaviour
 
     //the collider of the selector ball
     private CircleCollider2D _circleCollider2D;
+    
 
     [SerializeField] private float startingImageFill = 0.7f;
     public Image fillA;

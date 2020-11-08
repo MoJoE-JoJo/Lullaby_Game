@@ -20,30 +20,40 @@ public class NoteSelectorNew : MonoBehaviour
     private CircleCollider2D _circleCollider2D;
 
     [SerializeField] private float startingImageFill;
-    public Image fillA;
-    public Image fillB;
-    public Image fillC;
-    public Image fillD;
-    public Image fillE;
-    public Image fillF;
+    private Image fillA;
+    private Image fillB;
+    private Image fillC;
+    private Image fillD;
+    private Image fillE;
+    private Image fillF;
 
-    public Image backgroundA;
-    public Image backgroundB;
-    public Image backgroundC;
-    public Image backgroundD;
-    public Image backgroundE;
-    public Image backgroundF;
+    private Image backgroundA;
+    private Image backgroundB;
+    private Image backgroundC;
+    private Image backgroundD;
+    private Image backgroundE;
+    private Image backgroundF;
+    
+    private GameObject _segmentA;
+    private GameObject _segmentB;
+    private GameObject _segmentC;
+    private GameObject _segmentD;
+    private GameObject _segmentE;
+    private GameObject _segmentF;
+
+    public float lockOffsetAmount;
 
     private Dictionary<String, Image> _backgrounds = new Dictionary<string, Image>();
 
     public float initialBackgroundAlpha;
     public float hoverBackgroundAlpha;
 
-    public GameObject selector;
+    private GameObject selector;
 
     private Dictionary<String, Image> _imagesToFill = new Dictionary<string, Image>();
     private Dictionary<String, Image> _imagesToEmpty = new Dictionary<string, Image>();
     private Dictionary<String, Image> _imagesLocked = new Dictionary<string, Image>();
+    private Dictionary<String, GameObject> _segments = new Dictionary<String, GameObject>();
 
     private SongData _currentSong; //check if anySongPlaying before giving the currentSong to an Activator
     private String _currentSongString = "";
@@ -70,6 +80,29 @@ public class NoteSelectorNew : MonoBehaviour
 
     void Start()
     {
+        _segmentA = this.transform.Find("SegmentA").gameObject;
+        _segmentB = this.transform.Find("SegmentB").gameObject;
+        _segmentC = this.transform.Find("SegmentC").gameObject;
+        _segmentD = this.transform.Find("SegmentD").gameObject;
+        _segmentE = this.transform.Find("SegmentE").gameObject;
+        _segmentF = this.transform.Find("SegmentF").gameObject;
+
+        backgroundA = _segmentA.transform.Find("Background").GetComponent<Image>();
+        backgroundB = _segmentB.transform.Find("Background").GetComponent<Image>();
+        backgroundC = _segmentC.transform.Find("Background").GetComponent<Image>();
+        backgroundD = _segmentD.transform.Find("Background").GetComponent<Image>();
+        backgroundE = _segmentE.transform.Find("Background").GetComponent<Image>();
+        backgroundF = _segmentF.transform.Find("Background").GetComponent<Image>();
+        
+        fillA = _segmentA.transform.Find("Filling").GetComponent<Image>();
+        fillB = _segmentB.transform.Find("Filling").GetComponent<Image>();
+        fillC = _segmentC.transform.Find("Filling").GetComponent<Image>();
+        fillD = _segmentD.transform.Find("Filling").GetComponent<Image>();
+        fillE = _segmentE.transform.Find("Filling").GetComponent<Image>();
+        fillF = _segmentF.transform.Find("Filling").GetComponent<Image>();
+
+        selector = this.transform.Find("Selector").gameObject;
+        
         //fill background images
         _backgrounds.Add("A", backgroundA);
         _backgrounds.Add("B", backgroundB);
@@ -77,6 +110,14 @@ public class NoteSelectorNew : MonoBehaviour
         _backgrounds.Add("D", backgroundD);
         _backgrounds.Add("E", backgroundE);
         _backgrounds.Add("F", backgroundF);
+        
+        //fill segments
+        _segments.Add("A", _segmentA);
+        _segments.Add("B", _segmentB);
+        _segments.Add("C", _segmentC);
+        _segments.Add("D", _segmentD);
+        _segments.Add("E", _segmentE);
+        _segments.Add("F", _segmentF);
 
         _playerController = player.GetComponent<PlayerController>();
     }
@@ -278,6 +319,10 @@ public class NoteSelectorNew : MonoBehaviour
         fillC.fillAmount = startingImageFill;
         fillD.fillAmount = startingImageFill;
         fillE.fillAmount = startingImageFill;
+        foreach (var entry in _imagesLocked)
+        {
+            _segments[entry.Key].transform.localPosition /= lockOffsetAmount;
+        }
         _imagesLocked = new Dictionary<string, Image>();
         _imagesToFill = new Dictionary<string, Image>();
         _imagesToEmpty = new Dictionary<string, Image>();
@@ -375,10 +420,12 @@ public class NoteSelectorNew : MonoBehaviour
             if (!_imagesLocked.ContainsKey(entry.Key))
             {
                 _imagesLocked.Add(entry.Key, entry.Value);
+                _segments[entry.Key].transform.localPosition *= lockOffsetAmount;
             }
             else
             {
                 _imagesLocked.Remove(entry.Key);
+                _segments[entry.Key].transform.localPosition /= lockOffsetAmount;
             }
             
         }
