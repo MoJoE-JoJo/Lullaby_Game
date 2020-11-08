@@ -70,4 +70,9 @@ public class PhysicsAction : InteractableAction
         }
         rigbod.gravityScale = 0;
     }
+
+    public override void InputData(SongData data)
+    {
+        throw new System.NotImplementedException();
+    }
 }
