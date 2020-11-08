@@ -15,6 +15,15 @@ public class ContinuosActivator : Activator
     private SongData lastData;
     private float timer = 0.0f;
 
+    //private GameObject wheel;
+    //TODO maybe not here
+    //[SerializeField] private Transform hintPlacement;
+    //[SerializeField] private Hint OriginalHint;
+    [SerializeField] private GameObject hintPrefab;
+    [SerializeField] private Vector3 hintPrefabSpawnOffset;
+    [SerializeField] private Vector3 hintPrefabScale;
+
+    private GameObject newHint;
     public override void ShowHint()
     {
         throw new System.NotImplementedException();
@@ -31,6 +40,7 @@ public class ContinuosActivator : Activator
             }
             if (state == State_ContinuosActivator.ACTIVATING)
             {
+                newHint.GetComponent<MiniwheelSegmentHandler>().HighlightHint(new SongData { Notes = notes });
                 if (timer >= activationDelay)
                 {
                     state = State_ContinuosActivator.ACTIVATED;
@@ -69,12 +79,18 @@ public class ContinuosActivator : Activator
         lastData = new SongData();
         orderedNotes = new HashSet<Song_Note>(notes).ToList();
         orderedNotes.Sort();
+
+        //make dublicate of original hint
+        var trans = GetComponent<Transform>();
+        newHint = Instantiate(hintPrefab, trans);
+        newHint.transform.localPosition = hintPrefabSpawnOffset;
+        newHint.transform.localScale = hintPrefabScale;
     }
 
     private void Update()
     {
 #if UNITY_EDITOR
-        if(orderedNotes != notes)
+        if (orderedNotes != notes)
         {
             orderedNotes = new HashSet<Song_Note>(notes).ToList();
             orderedNotes.Sort();
@@ -82,6 +98,7 @@ public class ContinuosActivator : Activator
 #endif
         if (state == State_ContinuosActivator.ACTIVATED)
         {
+            newHint.GetComponent<MiniwheelSegmentHandler>().HighlightHint(new SongData { Notes = notes });
             if (!CheckNotes(lastData))
             {
                 state = State_ContinuosActivator.DEACTIVATING;
@@ -98,10 +115,13 @@ public class ContinuosActivator : Activator
             action.Deactivate();
             state = State_ContinuosActivator.IDLE;
             timer = 0.0f;
+
+            newHint.GetComponent<MiniwheelSegmentHandler>().ShowNextHint(new SongData { Notes = notes });
         }
         if(state == State_ContinuosActivator.IDLE)
         {
             if (timer > 0.0f) timer = 0.0f;
+            newHint.GetComponent<MiniwheelSegmentHandler>().ShowNextHint(new SongData { Notes = notes });
         }
         lastData.Notes = new List<Song_Note>();
     }
