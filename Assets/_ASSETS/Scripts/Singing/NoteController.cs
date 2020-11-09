@@ -7,10 +7,10 @@ using System;
 
 public class NoteController : MonoBehaviour
 {
-    private EventInstance Ainstance, Binstance, Cinstance, Dinstance, Ginstance;
+    private EventInstance Ainstance, Binstance, Cinstance, Dinstance, Ginstance, Einstance;
 
     [EventRef]
-    public string AEvent, BEvent, CEvent, DEvent, GEvent;
+    public string AEvent, BEvent, CEvent, DEvent, GEvent, EEvent;
 
     //public KeyCode SingButton;
 
@@ -28,20 +28,18 @@ public class NoteController : MonoBehaviour
     {
         eventInstanceList = new List<EventInstance>();
         Ainstance = RuntimeManager.CreateInstance(AEvent);
-
         Binstance = RuntimeManager.CreateInstance(BEvent);
-
         Cinstance = RuntimeManager.CreateInstance(CEvent);
-
         Dinstance = RuntimeManager.CreateInstance(DEvent);
-
         Ginstance = RuntimeManager.CreateInstance(GEvent);
+        Einstance = RuntimeManager.CreateInstance(EEvent);
 
         eventInstanceList.Add(Ainstance);
         eventInstanceList.Add(Binstance);
         eventInstanceList.Add(Cinstance);
         eventInstanceList.Add(Dinstance);
         eventInstanceList.Add(Ginstance);
+        eventInstanceList.Add(Einstance);
     }
 
 
@@ -58,6 +56,7 @@ public class NoteController : MonoBehaviour
             if (sn == Song_Note.C) StartInstance(Cinstance);
             if (sn == Song_Note.D) StartInstance(Dinstance);
             if (sn == Song_Note.E) StartInstance(Ginstance);
+            if (sn == Song_Note.F) StartInstance(Einstance);
         }
         alreadySingingNote = true;
     }
