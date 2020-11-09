@@ -10,6 +10,8 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class MiniwheelSegmentHandler: Hint
 {
     [SerializeField] private GameObject A,B,C,D,E,F;
+    [SerializeField] private float lowIntensity = 0.5f;
+    [SerializeField] private float highIntensity = 1.0f;
 
     private Dictionary<Song_Note, ObjectWithBool> activeSegments;
 
@@ -40,9 +42,9 @@ public class MiniwheelSegmentHandler: Hint
             entry.GameObject.SetActive(entry.Show);
             if (entry.Highlight)
             {
-                entry.GameObject.GetComponent<Light2D>().intensity = 1;
+                entry.GameObject.GetComponent<Light2D>().intensity = highIntensity;
             }
-            else entry.GameObject.GetComponent<Light2D>().intensity = 0.5f;
+            else entry.GameObject.GetComponent<Light2D>().intensity = lowIntensity;
         }
     }
 

@@ -14,7 +14,7 @@ public class PhysicsAction : InteractableAction
     private float originalGravityScale;
     private Vector2 directionVector;
     private bool ongoing;
-
+    private SongData songData;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +51,7 @@ public class PhysicsAction : InteractableAction
             rigbod.gravityScale = originalGravityScale;
             ongoing = false;
         }
-        if(ongoing) rigbod.AddForce(directionVector * flySpeed);
+        if(ongoing) rigbod.AddForce(directionVector * flySpeed * songData.Volume);
     }
 
     private void ChangeGravity(Rigidbody2D rigbod, Activated_Gravity_Direction direction) 
@@ -73,6 +73,6 @@ public class PhysicsAction : InteractableAction
 
     public override void InputData(SongData data)
     {
-        throw new System.NotImplementedException();
+        songData = data;
     }
 }
