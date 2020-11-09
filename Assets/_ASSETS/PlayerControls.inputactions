@@ -15,9 +15,9 @@
                 },
                 {
                     "name": "Sing",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "51e40b6b-659c-4458-8139-35a60333c079",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Analog",
                     "processors": "",
                     "interactions": ""
                 },
@@ -25,6 +25,14 @@
                     "name": "LockNote",
                     "type": "Button",
                     "id": "eff156e8-0cac-4e4c-8cc4-6b4b8228f265",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SwitchWheelType",
+                    "type": "Button",
+                    "id": "bfef0087-2834-4a51-923f-7c192b36e847",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -44,7 +52,29 @@
                 },
                 {
                     "name": "",
-                    "id": "f2626121-d1ca-4a9c-990b-ad80c8c01b65",
+                    "id": "b3c72de4-5746-474a-ae7c-21c466ed4244",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LockNote",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6366bcc-c533-4aca-9ff3-8626e78c4121",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LockNote",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d74f31d-ae83-4d50-b6af-bd6550046dfa",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
@@ -55,12 +85,23 @@
                 },
                 {
                     "name": "",
-                    "id": "b3c72de4-5746-474a-ae7c-21c466ed4244",
+                    "id": "2479c25b-91b1-4652-b806-314f0806d4fd",
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LockNote",
+                    "action": "Sing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d6ca222a-6098-4e99-9af7-0dfdda7a8b6b",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchWheelType",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -107,6 +148,33 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "GameManager",
+            "id": "3df114dd-e03b-4545-a7a9-35c00b7179bb",
+            "actions": [
+                {
+                    "name": "ReloadScene",
+                    "type": "Button",
+                    "id": "a7b1c764-dead-43b4-a05f-23928419ac23",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "35cd41a8-f4d3-4f3e-83c6-58189b41263f",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReloadScene",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BallSelector : MonoBehaviour
 {
-    private NoteSelector _noteSelector;
+    private NoteSelectorNew _noteSelectorNew;
     
     // Start is called before the first frame update
     void Start()
     {
-        _noteSelector = transform.parent.gameObject.GetComponent<NoteSelector>();
+        _noteSelectorNew = transform.parent.gameObject.GetComponent<NoteSelectorNew>();
     }
 
     // Update is called once per frame
@@ -26,19 +26,22 @@ public class BallSelector : MonoBehaviour
             switch (other.gameObject.name)
             {
                 case "SegmentA":
-                    _noteSelector.AddImageToFill("A");
+                    _noteSelectorNew.AddImageToFill("A");
                     break;
                 case "SegmentB":
-                    _noteSelector.AddImageToFill("B");
+                    _noteSelectorNew.AddImageToFill("B");
                     break;
                 case "SegmentC":
-                    _noteSelector.AddImageToFill("C");
+                    _noteSelectorNew.AddImageToFill("C");
                     break;
                 case "SegmentD":
-                    _noteSelector.AddImageToFill("D");
+                    _noteSelectorNew.AddImageToFill("D");
                     break;
                 case "SegmentE":
-                    _noteSelector.AddImageToFill("E");
+                    _noteSelectorNew.AddImageToFill("E");
+                    break;
+                case "SegmentF":
+                    _noteSelectorNew.AddImageToFill("F");
                     break;
             }
         }
@@ -51,19 +54,22 @@ public class BallSelector : MonoBehaviour
             switch (other.gameObject.name)
             {
                 case "SegmentA":
-                    _noteSelector.AddImageToEmpty("A");
+                    _noteSelectorNew.AddImageToEmpty("A");
                     break;
                 case "SegmentB":
-                    _noteSelector.AddImageToEmpty("B");
+                    _noteSelectorNew.AddImageToEmpty("B");
                     break;
                 case "SegmentC":
-                    _noteSelector.AddImageToEmpty("C");
+                    _noteSelectorNew.AddImageToEmpty("C");
                     break;
                 case "SegmentD":
-                    _noteSelector.AddImageToEmpty("D");
+                    _noteSelectorNew.AddImageToEmpty("D");
                     break;
                 case "SegmentE":
-                    _noteSelector.AddImageToEmpty("E");
+                    _noteSelectorNew.AddImageToEmpty("E");
+                    break;
+                case "SegmentF":
+                    _noteSelectorNew.AddImageToEmpty("F");
                     break;
             }
         }

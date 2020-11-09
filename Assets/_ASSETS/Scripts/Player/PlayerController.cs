@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private NoteController noteController;
     [SerializeField] private GameObject noteSelector;
     [SerializeField] private SongData _songBeingSung;
     [SerializeField] private bool _isSinging;
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
+        UpdateNoteController();
         SingToActivators();
     }
 
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!noteSelector.activeSelf)
         {
-            noteSelector.GetComponent<NoteSelector>().CenterNoteSelector();
+            noteSelector.GetComponent<NoteSelectorNew>().CenterNoteSelector();
             noteSelector.SetActive(true);
         }
     }
@@ -149,11 +151,6 @@ public class PlayerController : MonoBehaviour
         _isGrounded = true;
     }*/
 
-    private void OnCollisionStay2D(Collision2D other)
-    {
-        _isGrounded = true;
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         _isGrounded = true;
@@ -181,6 +178,12 @@ public class PlayerController : MonoBehaviour
             //Debug.Log(songDelayTimer);
             songDelayTimer = 0.0f;
         }
+    }
+
+    private void UpdateNoteController()
+    {
+        noteController.SongData = _songBeingSung;
+        noteController.IsSinging = _isSinging;
     }
     
 }
