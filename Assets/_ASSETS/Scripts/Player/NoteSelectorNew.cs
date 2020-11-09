@@ -76,6 +76,8 @@ public class NoteSelectorNew : MonoBehaviour
         _controls.NoteSelector.Sing.canceled += context => SingReleased();
 
         _controls.NoteSelector.LockNote.started += context => LockUnlockNote();
+
+        _controls.NoteSelector.SwitchWheelType.performed += context => fillWheel = (!fillWheel);
     }
 
     void Start()

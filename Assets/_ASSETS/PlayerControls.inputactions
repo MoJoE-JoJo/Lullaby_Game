@@ -28,6 +28,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SwitchWheelType",
+                    "type": "Button",
+                    "id": "bfef0087-2834-4a51-923f-7c192b36e847",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -74,6 +82,17 @@
                     "action": "Sing",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d6ca222a-6098-4e99-9af7-0dfdda7a8b6b",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchWheelType",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -118,6 +137,33 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "GameManager",
+            "id": "3df114dd-e03b-4545-a7a9-35c00b7179bb",
+            "actions": [
+                {
+                    "name": "ReloadScene",
+                    "type": "Button",
+                    "id": "a7b1c764-dead-43b4-a05f-23928419ac23",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "35cd41a8-f4d3-4f3e-83c6-58189b41263f",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReloadScene",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

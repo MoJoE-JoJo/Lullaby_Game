@@ -41,6 +41,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SwitchWheelType"",
+                    ""type"": ""Button"",
+                    ""id"": ""bfef0087-2834-4a51-923f-7c192b36e847"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -85,6 +93,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Sing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6ca222a-6098-4e99-9af7-0dfdda7a8b6b"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWheelType"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -135,6 +154,33 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""GameManager"",
+            ""id"": ""3df114dd-e03b-4545-a7a9-35c00b7179bb"",
+            ""actions"": [
+                {
+                    ""name"": ""ReloadScene"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7b1c764-dead-43b4-a05f-23928419ac23"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""35cd41a8-f4d3-4f3e-83c6-58189b41263f"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReloadScene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -144,10 +190,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_NoteSelector_Move = m_NoteSelector.FindAction("Move", throwIfNotFound: true);
         m_NoteSelector_Sing = m_NoteSelector.FindAction("Sing", throwIfNotFound: true);
         m_NoteSelector_LockNote = m_NoteSelector.FindAction("LockNote", throwIfNotFound: true);
+        m_NoteSelector_SwitchWheelType = m_NoteSelector.FindAction("SwitchWheelType", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        // GameManager
+        m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
+        m_GameManager_ReloadScene = m_GameManager.FindAction("ReloadScene", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -200,6 +250,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_NoteSelector_Move;
     private readonly InputAction m_NoteSelector_Sing;
     private readonly InputAction m_NoteSelector_LockNote;
+    private readonly InputAction m_NoteSelector_SwitchWheelType;
     public struct NoteSelectorActions
     {
         private @PlayerControls m_Wrapper;
@@ -207,6 +258,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_NoteSelector_Move;
         public InputAction @Sing => m_Wrapper.m_NoteSelector_Sing;
         public InputAction @LockNote => m_Wrapper.m_NoteSelector_LockNote;
+        public InputAction @SwitchWheelType => m_Wrapper.m_NoteSelector_SwitchWheelType;
         public InputActionMap Get() { return m_Wrapper.m_NoteSelector; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -225,6 +277,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @LockNote.started -= m_Wrapper.m_NoteSelectorActionsCallbackInterface.OnLockNote;
                 @LockNote.performed -= m_Wrapper.m_NoteSelectorActionsCallbackInterface.OnLockNote;
                 @LockNote.canceled -= m_Wrapper.m_NoteSelectorActionsCallbackInterface.OnLockNote;
+                @SwitchWheelType.started -= m_Wrapper.m_NoteSelectorActionsCallbackInterface.OnSwitchWheelType;
+                @SwitchWheelType.performed -= m_Wrapper.m_NoteSelectorActionsCallbackInterface.OnSwitchWheelType;
+                @SwitchWheelType.canceled -= m_Wrapper.m_NoteSelectorActionsCallbackInterface.OnSwitchWheelType;
             }
             m_Wrapper.m_NoteSelectorActionsCallbackInterface = instance;
             if (instance != null)
@@ -238,6 +293,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @LockNote.started += instance.OnLockNote;
                 @LockNote.performed += instance.OnLockNote;
                 @LockNote.canceled += instance.OnLockNote;
+                @SwitchWheelType.started += instance.OnSwitchWheelType;
+                @SwitchWheelType.performed += instance.OnSwitchWheelType;
+                @SwitchWheelType.canceled += instance.OnSwitchWheelType;
             }
         }
     }
@@ -283,15 +341,53 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // GameManager
+    private readonly InputActionMap m_GameManager;
+    private IGameManagerActions m_GameManagerActionsCallbackInterface;
+    private readonly InputAction m_GameManager_ReloadScene;
+    public struct GameManagerActions
+    {
+        private @PlayerControls m_Wrapper;
+        public GameManagerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ReloadScene => m_Wrapper.m_GameManager_ReloadScene;
+        public InputActionMap Get() { return m_Wrapper.m_GameManager; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GameManagerActions set) { return set.Get(); }
+        public void SetCallbacks(IGameManagerActions instance)
+        {
+            if (m_Wrapper.m_GameManagerActionsCallbackInterface != null)
+            {
+                @ReloadScene.started -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnReloadScene;
+                @ReloadScene.performed -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnReloadScene;
+                @ReloadScene.canceled -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnReloadScene;
+            }
+            m_Wrapper.m_GameManagerActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ReloadScene.started += instance.OnReloadScene;
+                @ReloadScene.performed += instance.OnReloadScene;
+                @ReloadScene.canceled += instance.OnReloadScene;
+            }
+        }
+    }
+    public GameManagerActions @GameManager => new GameManagerActions(this);
     public interface INoteSelectorActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnSing(InputAction.CallbackContext context);
         void OnLockNote(InputAction.CallbackContext context);
+        void OnSwitchWheelType(InputAction.CallbackContext context);
     }
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+    }
+    public interface IGameManagerActions
+    {
+        void OnReloadScene(InputAction.CallbackContext context);
     }
 }
