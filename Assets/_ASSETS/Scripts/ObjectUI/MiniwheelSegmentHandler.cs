@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Collections.LowLevel.Unsafe;
-using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 

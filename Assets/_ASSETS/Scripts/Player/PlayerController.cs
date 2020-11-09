@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private ActivatorSensor actiSensor;
     private Rigidbody2D _rb2d;
     //private bool _jumpFlag;
-    private bool _isGrounded;
+    public bool _isGrounded;
     private Vector2 _move;
     private float songDelayTimer;
 
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
         _isGrounded = true;
     }*/
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         _isGrounded = true;
     }

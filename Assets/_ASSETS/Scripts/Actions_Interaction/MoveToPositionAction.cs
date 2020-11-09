@@ -48,7 +48,7 @@ public class MoveToPositionAction : InteractableAction
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (state == State_PrototypeMoveAction.ACTIVATED)
         {
@@ -62,7 +62,7 @@ public class MoveToPositionAction : InteractableAction
     {
         if (moveFraction < 1)
         {
-            moveFraction += Time.deltaTime * moveSpeed / (last.position - target.position).magnitude;
+            moveFraction += Time.fixedDeltaTime * moveSpeed / (last.position - target.position).magnitude;
             transform.position = new Vector3
                 (
                 Mathf.SmoothStep(last.position.x, target.position.x, moveFraction),
@@ -95,7 +95,7 @@ public class MoveToPositionAction : InteractableAction
                 last = movePositions[moveToIndex + 1];
                 target = movePositions[moveToIndex];
             }
-            moveFraction += Time.deltaTime * moveSpeed / (last.position - target.position).magnitude;
+            moveFraction += Time.fixedDeltaTime * moveSpeed / (last.position - target.position).magnitude;
             transform.position = new Vector3
                 (
                 Mathf.SmoothStep(last.position.x, target.position.x, moveFraction), 
@@ -145,7 +145,7 @@ public class MoveToPositionAction : InteractableAction
             if (moveToIndex == 0) lastIndex = movePositions.Count - 1; 
             last = movePositions[lastIndex];
             target = movePositions[moveToIndex];
-            moveFraction += Time.deltaTime * moveSpeed / (last.position - target.position).magnitude;
+            moveFraction += Time.fixedDeltaTime * moveSpeed / (last.position - target.position).magnitude;
             transform.position = new Vector3
                 (
                 Mathf.SmoothStep(last.position.x, target.position.x, moveFraction),
@@ -157,7 +157,7 @@ public class MoveToPositionAction : InteractableAction
         {
             if (positionWaitTimeCounter > 0f)
             {
-                positionWaitTimeCounter -= Time.deltaTime;
+                positionWaitTimeCounter -= Time.fixedDeltaTime;
             }
             else if (positionWaitTimeCounter <= 0f)
             {
