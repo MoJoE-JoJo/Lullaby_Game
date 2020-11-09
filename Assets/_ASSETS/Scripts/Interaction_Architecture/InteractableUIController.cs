@@ -33,7 +33,7 @@ public class InteractableUIController : MonoBehaviour
 
     }
 
-    public void ActivateAt(int uiIndex, Song_NoteCoord note)
+    public void ActivateAt(int uiIndex, Song_Note note)
     {
         if (uiIndex < uiNotes.Count)
         {

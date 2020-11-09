@@ -17,6 +17,7 @@ public class NoteSelector : MonoBehaviour
 
     //the collider of the selector ball
     private CircleCollider2D _circleCollider2D;
+    
 
     [SerializeField] private float startingImageFill = 0.7f;
     public Image fillA;
@@ -48,7 +49,8 @@ public class NoteSelector : MonoBehaviour
 
     private Vector2 _selectorMove;
 
-    private bool _rightTriggerDown = false;
+    private bool _singButtonDown;
+    private float _singVolume;
     
     void Awake()
     {
@@ -57,8 +59,9 @@ public class NoteSelector : MonoBehaviour
         _controls.NoteSelector.Move.performed += context => _selectorMove = context.ReadValue<Vector2>();
         _controls.NoteSelector.Move.canceled += context => _selectorMove = Vector2.zero;
 
-        _controls.NoteSelector.Sing.started += context => RTpressed();
-        _controls.NoteSelector.Sing.canceled += context => RTreleased();
+        _controls.NoteSelector.Sing.started += context => SingPressed();
+        _controls.NoteSelector.Sing.performed += context => _singVolume = context.ReadValue<float>();
+        _controls.NoteSelector.Sing.canceled += context => SingReleased();
 
         _controls.NoteSelector.LockNote.started += context => LockUnlockNote();
     }
@@ -87,7 +90,7 @@ public class NoteSelector : MonoBehaviour
 
     public void CenterNoteSelector()
     {
-        this.transform.position = Camera.main.WorldToScreenPoint(player.transform.localPosition);
+        this.transform.position = Camera.main.WorldToScreenPoint(player.transform.position);
     }
 
     void FillNotes()
@@ -101,7 +104,7 @@ public class NoteSelector : MonoBehaviour
 
             float currentImgFill = entry.Value.fillAmount;
 
-            if (_rightTriggerDown)
+            if (_singButtonDown)
             {
                 if (currentImgFill < 1.0f)
                 {
@@ -136,7 +139,7 @@ public class NoteSelector : MonoBehaviour
             {
                 float currentImgFill = entry.Value.fillAmount;
 
-                if (_rightTriggerDown)
+                if (_singButtonDown)
                 {
                     if (currentImgFill < 1.0f)
                     {
@@ -207,6 +210,7 @@ public class NoteSelector : MonoBehaviour
         _imagesLocked = new Dictionary<string, Image>();
         _imagesToFill = new Dictionary<string, Image>();
         _imagesToEmpty = new Dictionary<string, Image>();
+        _playerController.IsSinging = false;
     }
 
     public void AddImageToFill(String segment)
@@ -274,17 +278,16 @@ public class NoteSelector : MonoBehaviour
         if (_imagesToFill.ContainsKey(segment))
         {
             _imagesToFill.Remove(segment);
-            //Debug.Log("Removed " + segment);
         }
     }
 
-    private void RTpressed()
+    private void SingPressed()
     {
-        _rightTriggerDown = true;
+        _singButtonDown = true;
     }
-    private void RTreleased()
+    private void SingReleased()
     {
-        _rightTriggerDown = false;
+        _singButtonDown = false;
     }
 
     private void LockUnlockNote()
@@ -311,11 +314,14 @@ public class NoteSelector : MonoBehaviour
         {
             _anySongPlaying = true;
             _currentSong = new SongData(_currentSongString);
+            _currentSong.Volume = _singVolume;
+            //Debug.Log("Current song volume: " + _currentSong.Volume);
         }
         else
         {
             _anySongPlaying = false;
             _currentSong = new SongData();
+            _currentSong.Volume = 0.0f;
         }
 
         return songData;
@@ -327,17 +333,6 @@ public class NoteSelector : MonoBehaviour
     {
         _playerController.SongBeingSung = _currentSong;
         _playerController.IsSinging = _anySongPlaying;
-
-        if (_anySongPlaying && !_startedSinging)
-        {
-            noteController.StartSinging(_currentSong);
-            _startedSinging = true;
-        }
-        if(!_anySongPlaying && _startedSinging)
-        {
-            noteController.StopSinging();
-                _startedSinging = false;
-        }
     }
-    
+
 }

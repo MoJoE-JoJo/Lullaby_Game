@@ -3,21 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using System;
 
 public class NoteController : MonoBehaviour
 {
-    private EventInstance Ainstance, Binstance, Cinstance, Dinstance, Ginstance;
+    private EventInstance Ainstance, Binstance, Cinstance, Dinstance, Ginstance, Einstance;
 
     [EventRef]
-    public string AEvent, BEvent, CEvent, DEvent, GEvent;
+    public string AEvent, BEvent, CEvent, DEvent, GEvent, EEvent;
+    private bool alreadySingingNote = false;
 
     //public KeyCode SingButton;
 
     //public bool ANote, BNote, CNote, DNote, GNote;
+    public SongData SongData
+    {
+        get => _songData;
+        set => _songData = value;
+    }
 
-    public bool singing;
-    public Song_NoteCoord note;
-    private bool isSinging = false;
+    public bool IsSinging
+    {
+        get => _isSinging;
+        set => _isSinging = value;
+    }
+    private SongData _songData;
+    private bool _isSinging = false;
+    private bool _wasSingingBefore = false;
+
 
     private List<EventInstance> eventInstanceList;
 
@@ -26,68 +39,90 @@ public class NoteController : MonoBehaviour
     {
         eventInstanceList = new List<EventInstance>();
         Ainstance = RuntimeManager.CreateInstance(AEvent);
-
         Binstance = RuntimeManager.CreateInstance(BEvent);
-
         Cinstance = RuntimeManager.CreateInstance(CEvent);
-
         Dinstance = RuntimeManager.CreateInstance(DEvent);
-
         Ginstance = RuntimeManager.CreateInstance(GEvent);
+        Einstance = RuntimeManager.CreateInstance(EEvent);
 
         eventInstanceList.Add(Ainstance);
         eventInstanceList.Add(Binstance);
         eventInstanceList.Add(Cinstance);
         eventInstanceList.Add(Dinstance);
         eventInstanceList.Add(Ginstance);
+        eventInstanceList.Add(Einstance);
     }
 
 
-    public void StartSinging(SongData sd)
+    public void StartSinging()
     {
+        _wasSingingBefore = true;
+        
         // parse SongData enum
-        var notes = sd.NoteCoord.ToString();
+
+        var notes = _songData.Notes;
 
         // turn on notes based on the string
-        foreach (char c in notes)
+        foreach (Song_Note sn in notes)
         {
-            if (c == 'A') StartInstance(Ainstance);
-            if (c == 'B') StartInstance(Binstance);
-            if (c == 'C') StartInstance(Cinstance);
-            if (c == 'D') StartInstance(Dinstance);
-            if (c == 'G') StartInstance(Ginstance);
+            if (sn == Song_Note.A) StartInstance(Ainstance, _songData.Volume);
+            if (sn == Song_Note.B) StartInstance(Binstance, _songData.Volume);
+            if (sn == Song_Note.C) StartInstance(Cinstance, _songData.Volume);
+            if (sn == Song_Note.D) StartInstance(Dinstance, _songData.Volume);
+            if (sn == Song_Note.E) StartInstance(Ginstance, _songData.Volume);
+            if (sn == Song_Note.F) StartInstance(Einstance, _songData.Volume);
+
         }
+        alreadySingingNote = true;
     }
 
     public void StopSinging()
     {
+        _wasSingingBefore = false;
 
         foreach (var eventInstance in eventInstanceList)
         {
             eventInstance.setParameterByName("isSinging", 0);
+            eventInstance.setParameterByName("wasSingingOtherTone", 0);
             //eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
+        alreadySingingNote = false;
+    }
+
+    private void UpdateSinging()
+    {
+        foreach (var eventInstance in eventInstanceList)
+        {
+            eventInstance.setVolume(_songData.Volume);
         }
     }
 
 
-    private void StartInstance(EventInstance eventInstance)
+    private void StartInstance(EventInstance eventInstance, float volume)
     {
         eventInstance.setParameterByName("isSinging", 1);
+        if (alreadySingingNote)
+        {
+            eventInstance.setParameterByName("wasSingingOtherTone", 1);
+        }
+        eventInstance.setVolume(volume);
         eventInstance.start();
     }
 
-    // Update is called once per frame, used for testing at the time
+    // Update is called once per frame
     void Update()
     {
-        if (singing && !isSinging)
+        if (_isSinging && !_wasSingingBefore)
         {
-            StartSinging(new SongData { NoteCoord = note });
-            isSinging = true;
+            StartSinging();
         }
-        else if (!singing && isSinging)
+        else if (_isSinging)
+        {
+            UpdateSinging();
+        }
+        else if (!_isSinging)
         {
             StopSinging();
-            isSinging = false;
         }
     }
 }

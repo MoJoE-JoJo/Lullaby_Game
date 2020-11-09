@@ -8,7 +8,7 @@ public enum State_PrototypeMoveAction { DEACTIVATED, ACTIVATED, FINISHED }
 
 public class MoveToPositionAction : InteractableAction
 {
-    public State_PrototypeMoveAction state = State_PrototypeMoveAction.DEACTIVATED;
+    [SerializeField] private State_PrototypeMoveAction state = State_PrototypeMoveAction.DEACTIVATED;
     private Transform target;
     private Transform last;
     private float moveFraction = 0f;
@@ -30,6 +30,10 @@ public class MoveToPositionAction : InteractableAction
     {
         state = State_PrototypeMoveAction.DEACTIVATED;
     }
+    public override void InputData(SongData data)
+    {
+        throw new NotImplementedException();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +48,7 @@ public class MoveToPositionAction : InteractableAction
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (state == State_PrototypeMoveAction.ACTIVATED)
         {
@@ -58,11 +62,24 @@ public class MoveToPositionAction : InteractableAction
     {
         if (moveFraction < 1)
         {
-            moveFraction += Time.deltaTime * moveSpeed;
-            transform.position = Vector3.Lerp(movePositions[moveToIndex-1].position, movePositions[moveToIndex].position, moveFraction);
+            moveFraction += Time.fixedDeltaTime * moveSpeed / (last.position - target.position).magnitude;
+            transform.position = new Vector3
+                (
+                Mathf.SmoothStep(last.position.x, target.position.x, moveFraction),
+                Mathf.SmoothStep(last.position.y, target.position.y, moveFraction),
+                moveFraction
+                );
         }
-        else if (moveFraction >= 1) state = State_PrototypeMoveAction.FINISHED;
-        //transform.position = Vector3.Lerp(transform.position, target, moveSpeed * Time.deltaTime);
+        else if (moveFraction >= 1)
+        {
+            if (moveToIndex == movePositions.Count - 1) state = State_PrototypeMoveAction.FINISHED;
+            else
+            {
+                moveToIndex++;
+                moveFraction = 0;
+            }
+        }
+
     }
     private void TwoWayMovement()
     {
@@ -78,8 +95,13 @@ public class MoveToPositionAction : InteractableAction
                 last = movePositions[moveToIndex + 1];
                 target = movePositions[moveToIndex];
             }
-            moveFraction += Time.deltaTime * moveSpeed / (last.position - target.position).magnitude;
-            transform.position = Vector3.Lerp(last.position, target.position, moveFraction);
+            moveFraction += Time.fixedDeltaTime * moveSpeed / (last.position - target.position).magnitude;
+            transform.position = new Vector3
+                (
+                Mathf.SmoothStep(last.position.x, target.position.x, moveFraction), 
+                Mathf.SmoothStep(last.position.y, target.position.y, moveFraction), 
+                moveFraction
+                );
 
 
         }
@@ -123,14 +145,19 @@ public class MoveToPositionAction : InteractableAction
             if (moveToIndex == 0) lastIndex = movePositions.Count - 1; 
             last = movePositions[lastIndex];
             target = movePositions[moveToIndex];
-            moveFraction += Time.deltaTime * moveSpeed / (last.position - target.position).magnitude;
-            transform.position = Vector3.Lerp(last.position, target.position, moveFraction);
+            moveFraction += Time.fixedDeltaTime * moveSpeed / (last.position - target.position).magnitude;
+            transform.position = new Vector3
+                (
+                Mathf.SmoothStep(last.position.x, target.position.x, moveFraction),
+                Mathf.SmoothStep(last.position.y, target.position.y, moveFraction),
+                moveFraction
+                );
         }
         else if (moveFraction >= 1)
         {
             if (positionWaitTimeCounter > 0f)
             {
-                positionWaitTimeCounter -= Time.deltaTime;
+                positionWaitTimeCounter -= Time.fixedDeltaTime;
             }
             else if (positionWaitTimeCounter <= 0f)
             {
@@ -140,7 +167,8 @@ public class MoveToPositionAction : InteractableAction
             }
         }
     }
-    
+
+#if UNITY_EDITOR
     [CustomEditor(typeof(MoveToPositionAction))]
     public class MyScriptEditor : Editor
     {
@@ -174,6 +202,7 @@ public class MoveToPositionAction : InteractableAction
 
         }
     }
+#endif
 
 
 }

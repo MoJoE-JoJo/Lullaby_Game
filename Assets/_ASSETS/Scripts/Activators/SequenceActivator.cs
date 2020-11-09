@@ -4,14 +4,14 @@ using UnityEditor;
 using UnityEngine;
 
 public enum State_SequenceActivator {EMPTYBUFFER, PARTIALLYFULLBUFFER, FULLBUFFER, CORRECTSEQUENCE, WRONGSEQUENCE, FINISHED}
-
+/*
 public class SequenceActivator : Activator
 {
     private State_SequenceActivator state = State_SequenceActivator.EMPTYBUFFER;
     [SerializeField] private InteractableAction action;
     [SerializeField] private InteractableUIController interactableUI;
     private List<SongData> inputBuffer = new List<SongData>();
-    [SerializeField] private List<Song_NoteCoord> correctSequence;
+    [SerializeField] private List<Song_Note> correctSequence;
     [SerializeField] private bool canDeactivate = false;
     private bool nextIsDeactivate = false;
 
@@ -37,8 +37,8 @@ public class SequenceActivator : Activator
         {
             for (int i = 0; i < inputBuffer.Count; i++)
             {
-                if (inputBuffer[i].NoteCoord != correctSequence[i]) state = State_SequenceActivator.WRONGSEQUENCE;
-                else interactableUI.ActivateAt(i, inputBuffer[i].NoteCoord);
+                if (inputBuffer[i].Notes != correctSequence[i]) state = State_SequenceActivator.WRONGSEQUENCE;
+                else interactableUI.ActivateAt(i, inputBuffer[i].Notes);
             }
         }
         if(state == State_SequenceActivator.FULLBUFFER)
@@ -46,8 +46,8 @@ public class SequenceActivator : Activator
             state = State_SequenceActivator.CORRECTSEQUENCE;
             for (int i = 0; i < inputBuffer.Count; i++)
             {
-                if (inputBuffer[i].NoteCoord != correctSequence[i]) state = State_SequenceActivator.WRONGSEQUENCE;
-                else interactableUI.ActivateAt(i, inputBuffer[i].NoteCoord);
+                if (inputBuffer[i].Notes != correctSequence[i]) state = State_SequenceActivator.WRONGSEQUENCE;
+                else interactableUI.ActivateAt(i, inputBuffer[i].Notes);
             }
         }
         if(state == State_SequenceActivator.WRONGSEQUENCE)
@@ -83,3 +83,4 @@ public class SequenceActivator : Activator
         }
     }
 }
+*/

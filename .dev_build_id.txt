@@ -1,2 +1,3 @@
-Current Development-build: 			D#1
-Current (or most recent) release-build:		R#1D#1
+Current Development-build: 			D#8
+Current (or most recent) release-build:		R#2,D#8
+
