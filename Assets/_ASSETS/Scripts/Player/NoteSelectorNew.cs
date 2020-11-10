@@ -113,6 +113,7 @@ public class NoteSelectorNew : MonoBehaviour
         _backgrounds.Add("E", backgroundE);
         _backgrounds.Add("F", backgroundF);
         
+        
         //fill segments
         _segments.Add("A", _segmentA);
         _segments.Add("B", _segmentB);
@@ -310,17 +311,32 @@ public class NoteSelectorNew : MonoBehaviour
     
     private void OnEnable()
     {
+        _currentSongString = "";
+        _currentSong = new SongData();
+
         _controls.Enable();
     }
     
     private void OnDisable()
     {
+        SingReleased();
+        _anySongPlaying = false;
+        _playerController.IsSinging = false;
+        UpdatePlayerNote();
         _controls.Disable();
         fillA.fillAmount = startingImageFill;
         fillB.fillAmount = startingImageFill;
         fillC.fillAmount = startingImageFill;
         fillD.fillAmount = startingImageFill;
         fillE.fillAmount = startingImageFill;
+
+        foreach (var background in _backgrounds)
+        {
+            var tempColor = _backgrounds[background.Key].color;
+            tempColor.a = initialBackgroundAlpha;
+            _backgrounds[background.Key].color = tempColor;
+        }
+        
         foreach (var entry in _imagesLocked)
         {
             _segments[entry.Key].transform.localPosition /= lockOffsetAmount;
@@ -328,7 +344,7 @@ public class NoteSelectorNew : MonoBehaviour
         _imagesLocked = new Dictionary<string, Image>();
         _imagesToFill = new Dictionary<string, Image>();
         _imagesToEmpty = new Dictionary<string, Image>();
-        _playerController.IsSinging = false;
+        
     }
 
     public void AddImageToFill(String segment)

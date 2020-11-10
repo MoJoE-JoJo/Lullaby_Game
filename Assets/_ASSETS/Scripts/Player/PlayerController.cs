@@ -182,6 +182,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateNoteController()
     {
+        //Debug.Log(_songBeingSung.Notes.ToString());
         noteController.SongData = _songBeingSung;
         noteController.IsSinging = _isSinging;
     }
