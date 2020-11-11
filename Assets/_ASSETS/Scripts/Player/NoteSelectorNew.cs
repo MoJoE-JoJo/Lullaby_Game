@@ -56,7 +56,7 @@ public class NoteSelectorNew : MonoBehaviour
     private Dictionary<string, GameObject> _segments = new Dictionary<string, GameObject>();
 
     private SongData _currentSong; //check if anySongPlaying before giving the currentSong to an Activator
-    private String _currentSongString = "";
+    private string _currentSongString = "";
     private bool _anySongPlaying;
 
     private Vector2 _selectorMove;

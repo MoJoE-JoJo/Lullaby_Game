@@ -1196,7 +1196,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 346903707}
   m_CullTransparentMesh: 0
---- !u!43 &355740948
+--- !u!43 &365899023
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1569,8 +1569,8 @@ MonoBehaviour:
   - {x: 0.4779768, y: -0.38119775, z: 0}
   - {x: -0.0046157837, y: 0.7612367, z: 0}
   m_ShapePathHash: -2052607333
-  m_Mesh: {fileID: 355740948}
-  m_InstanceId: 19760
+  m_Mesh: {fileID: 365899023}
+  m_InstanceId: 18102
 --- !u!114 &374180878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1595,6 +1595,7 @@ MonoBehaviour:
   accelerationTime: 0.35
   jumpForce: 2
   _isGrounded: 0
+  wheelDeactivateDelay: 0.08
 --- !u!58 &374180879
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8116,7 +8117,7 @@ MonoBehaviour:
   fillRatio: 0.07
   fillCompletedThreshold: 0.9
   startingImageFill: 0
-  lockOffsetAmount: 1.15
+  lockOffsetAmount: 0.9
   initialBackgroundAlpha: 0.2509
   hoverBackgroundAlpha: 0.5
 --- !u!1 &1696857795

@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 _move;
     private float songDelayTimer;
 
+    private Coroutine _deactivateWheel;
+    public float wheelDeactivateDelay;
+
     public List<Activator> Activators
     {
         get => actiSensor.RegisteredActivators;
@@ -71,10 +74,21 @@ public class PlayerController : MonoBehaviour
             noteSelector.GetComponent<NoteSelectorNew>().CenterNoteSelector();
             noteSelector.SetActive(true);
         }
+
+        if (_deactivateWheel != null)
+        {
+            StopCoroutine(_deactivateWheel);
+        }
     }
     
     void DeactivateNoteSelector()
     {
+        _deactivateWheel = StartCoroutine(DeactivateWheel());
+    }
+
+    private IEnumerator DeactivateWheel()
+    {
+        yield return new WaitForSeconds(wheelDeactivateDelay);
         noteSelector.SetActive(false);
         _isSinging = false;
     }
