@@ -40,7 +40,7 @@ public class ContinuosActivator : Activator
             }
             if (state == State_ContinuosActivator.ACTIVATING)
             {
-                newHint.GetComponent<MiniwheelSegmentHandler>().HighlightHint(new SongData { Notes = notes });
+                newHint.GetComponent<MiniwheelSegmentHandler>().HighlightHint(new SongData { Notes = orderedNotes });
                 if (timer >= activationDelay)
                 {
                     state = State_ContinuosActivator.ACTIVATED;
@@ -89,16 +89,16 @@ public class ContinuosActivator : Activator
 
     private void Update()
     {
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         if (orderedNotes != notes)
         {
             orderedNotes = new HashSet<Song_Note>(notes).ToList();
             orderedNotes.Sort();
         }
-#endif
+//#endif
         if (state == State_ContinuosActivator.ACTIVATED)
         {
-            newHint.GetComponent<MiniwheelSegmentHandler>().HighlightHint(new SongData { Notes = notes });
+            newHint.GetComponent<MiniwheelSegmentHandler>().HighlightHint(new SongData { Notes = orderedNotes });
             if (!CheckNotes(lastData))
             {
                 state = State_ContinuosActivator.DEACTIVATING;
@@ -116,12 +116,12 @@ public class ContinuosActivator : Activator
             state = State_ContinuosActivator.IDLE;
             timer = 0.0f;
 
-            newHint.GetComponent<MiniwheelSegmentHandler>().ShowNextHint(new SongData { Notes = notes });
+            newHint.GetComponent<MiniwheelSegmentHandler>().ShowNextHint(new SongData { Notes = orderedNotes });
         }
         if(state == State_ContinuosActivator.IDLE)
         {
             if (timer > 0.0f) timer = 0.0f;
-            newHint.GetComponent<MiniwheelSegmentHandler>().ShowNextHint(new SongData { Notes = notes });
+            newHint.GetComponent<MiniwheelSegmentHandler>().ShowNextHint(new SongData { Notes = orderedNotes });
         }
         lastData.Notes = new List<Song_Note>();
     }

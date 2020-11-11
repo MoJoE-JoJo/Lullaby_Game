@@ -11,7 +11,7 @@ public class MoveToPositionAction : InteractableAction
     [SerializeField] private State_PrototypeMoveAction state = State_PrototypeMoveAction.DEACTIVATED;
     private Transform target;
     private Transform last;
-    private float moveFraction = 0f;
+    private float moveFraction = 0.0f;
     private float positionWaitTimeCounter;
     private int moveToIndex = 1;
     private bool forward = true;
@@ -20,6 +20,7 @@ public class MoveToPositionAction : InteractableAction
     [SerializeField, HideInInspector] private bool twoWay;
     [SerializeField, HideInInspector] private bool cycle;
     [SerializeField, HideInInspector] private float positionWaitTime = 1f;
+    [SerializeField] private bool debug_reset;
 
 
     override public void Activate()
@@ -32,7 +33,17 @@ public class MoveToPositionAction : InteractableAction
     }
     public override void InputData(SongData data)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+    }
+
+    public override void Reset()
+    {
+        Start();
+        moveFraction = 0.0f;
+        moveToIndex = 1;
+        forward = true;
+        state = State_PrototypeMoveAction.DEACTIVATED;
+        debug_reset = false;
     }
 
     // Start is called before the first frame update
@@ -40,11 +51,8 @@ public class MoveToPositionAction : InteractableAction
     {
         positionWaitTimeCounter = positionWaitTime;
         transform.position = movePositions[0].position;
-        //startPosition = transform.TransformPoint(startPosition);
-        //endPosition = transform.TransformPoint(endPosition);
         last = movePositions[0];
         target = movePositions[moveToIndex];
-
     }
 
     // Update is called once per frame
@@ -55,6 +63,14 @@ public class MoveToPositionAction : InteractableAction
             if (cycle) CycleMovement();
             else if (twoWay) TwoWayMovement();
             else OneWayMovement();
+        }
+    }
+
+    private void Update()
+    {
+        if (debug_reset)
+        {
+            Reset();
         }
     }
 

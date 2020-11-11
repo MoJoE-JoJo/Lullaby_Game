@@ -6,8 +6,7 @@ using UnityEngine;
 public  enum State_PhysicsAction {DEACTIVATED, ACTIVATED}
 public enum Activated_Gravity_Direction { UP, LEFT, RIGHT }
 public class PhysicsAction : InteractableAction
-{   
-    
+{
     public State_PhysicsAction state = State_PhysicsAction.DEACTIVATED;
     [SerializeField] private Activated_Gravity_Direction flyDirection;
     [SerializeField, Tooltip("9.8 corresponds to gravity speed")] private float flySpeed = 9.8f;
@@ -15,11 +14,14 @@ public class PhysicsAction : InteractableAction
     private Vector2 directionVector;
     private bool ongoing;
     private SongData songData;
+    private Vector3 originalPosition;
+    [SerializeField] private bool debug_reset;
     // Start is called before the first frame update
     void Start()
     {
         originalGravityScale = GetComponent<Rigidbody2D>().gravityScale;
         ongoing = false;
+        originalPosition = transform.position;
     }
 
     public override void Activate()
@@ -32,10 +34,25 @@ public class PhysicsAction : InteractableAction
         state = State_PhysicsAction.DEACTIVATED;
     }
 
+    public override void InputData(SongData data)
+    {
+        songData = data;
+    }
+
+    public override void Reset()
+    {
+        ongoing = false;
+        transform.position = originalPosition;
+        debug_reset = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        if (debug_reset)
+        {
+            Reset();
+        }
     }
 
     private void FixedUpdate()
@@ -69,10 +86,5 @@ public class PhysicsAction : InteractableAction
                 break;
         }
         rigbod.gravityScale = 0;
-    }
-
-    public override void InputData(SongData data)
-    {
-        songData = data;
     }
 }
