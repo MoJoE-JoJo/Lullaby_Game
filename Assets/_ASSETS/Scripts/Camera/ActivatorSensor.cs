@@ -5,23 +5,18 @@ using UnityEngine;
 
 public class ActivatorSensor : MonoBehaviour
 {
-    public Vector2 screenSize;
-    public Collider2D boxCollider;
-
-    public void Start()
-    {
-        screenSize.x = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0))) * 0.5f;
-        screenSize.y = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height))) * 0.5f;
-        boxCollider = GetComponent<BoxCollider2D>();
-        GetComponent<BoxCollider2D>().size = screenSize * 2 / transform.lossyScale;
-    }
+    [SerializeField] private Vector2 screenSize;
     public List<Activator> RegisteredActivators 
     {
         get => registeredActivators;
         private set => registeredActivators = value;
     }
-    [SerializeField]
-    private List<Activator> registeredActivators = new List<Activator>();
+    [SerializeField] private List<Activator> registeredActivators = new List<Activator>();
+
+    public void Start()
+    {
+        SetColliderSizeToScreen();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -53,5 +48,12 @@ public class ActivatorSensor : MonoBehaviour
         {
             activator.SongInput(song);
         }
+    }
+
+    public void SetColliderSizeToScreen()
+    {
+        screenSize.x = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0))) * 0.5f;
+        screenSize.y = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height))) * 0.5f;
+        GetComponent<BoxCollider2D>().size = screenSize * 2 / transform.lossyScale;
     }
 }

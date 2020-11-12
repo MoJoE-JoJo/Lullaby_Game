@@ -6,15 +6,14 @@ using UnityEngine.UI;
 
 public class NoteSelectorNew : MonoBehaviour
 {
-    public bool fillWheel;
+    [SerializeField] private bool fillWheel;
     
     private PlayerControls _controls;
-    public GameObject player;
     private PlayerController _playerController;
     private bool _startedSinging;
 
-    public float fillRatio;
-    public float fillCompletedThreshold;
+    [SerializeField] private float fillRatio;
+    [SerializeField] private float fillCompletedThreshold;
 
     //the collider of the selector ball
     private CircleCollider2D _circleCollider2D;
@@ -41,12 +40,12 @@ public class NoteSelectorNew : MonoBehaviour
     private GameObject _segmentE;
     private GameObject _segmentF;
 
-    public float lockOffsetAmount;
+    [SerializeField] private float lockOffsetAmount;
 
     private Dictionary<String, Image> _backgrounds = new Dictionary<string, Image>();
 
-    public float initialBackgroundAlpha;
-    public float hoverBackgroundAlpha;
+    [SerializeField] private float initialBackgroundAlpha;
+    [SerializeField] private float hoverBackgroundAlpha;
 
     private GameObject selector;
 
@@ -121,7 +120,7 @@ public class NoteSelectorNew : MonoBehaviour
         _segments.Add("E", _segmentE);
         _segments.Add("F", _segmentF);
 
-        _playerController = player.GetComponent<PlayerController>();
+        _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     void Update()
@@ -141,9 +140,32 @@ public class NoteSelectorNew : MonoBehaviour
         UpdatePlayerNote();
     }
 
+    private void OnEnable()
+    {
+        _controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _controls.Disable();
+        fillA.fillAmount = startingImageFill;
+        fillB.fillAmount = startingImageFill;
+        fillC.fillAmount = startingImageFill;
+        fillD.fillAmount = startingImageFill;
+        fillE.fillAmount = startingImageFill;
+        foreach (var entry in _imagesLocked)
+        {
+            _segments[entry.Key].transform.localPosition /= lockOffsetAmount;
+        }
+        _imagesLocked = new Dictionary<string, Image>();
+        _imagesToFill = new Dictionary<string, Image>();
+        _imagesToEmpty = new Dictionary<string, Image>();
+        _playerController.IsSinging = false;
+    }
+
     public void CenterNoteSelector()
     {
-        this.transform.position = Camera.main.WorldToScreenPoint(player.transform.position);
+        this.transform.position = Camera.main.WorldToScreenPoint(_playerController.transform.position);
     }
 
     void FillNotes()
@@ -308,29 +330,6 @@ public class NoteSelectorNew : MonoBehaviour
         selector.transform.localPosition = _selectorMove*65;
     }
     
-    private void OnEnable()
-    {
-        _controls.Enable();
-    }
-    
-    private void OnDisable()
-    {
-        _controls.Disable();
-        fillA.fillAmount = startingImageFill;
-        fillB.fillAmount = startingImageFill;
-        fillC.fillAmount = startingImageFill;
-        fillD.fillAmount = startingImageFill;
-        fillE.fillAmount = startingImageFill;
-        foreach (var entry in _imagesLocked)
-        {
-            _segments[entry.Key].transform.localPosition /= lockOffsetAmount;
-        }
-        _imagesLocked = new Dictionary<string, Image>();
-        _imagesToFill = new Dictionary<string, Image>();
-        _imagesToEmpty = new Dictionary<string, Image>();
-        _playerController.IsSinging = false;
-    }
-
     public void AddImageToFill(String segment)
     {
         Debug.Log("Added image to fill");
