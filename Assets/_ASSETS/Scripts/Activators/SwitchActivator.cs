@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum State_SwitchActivator {ACTIVATING, ACTIVATED, DEACTIVATING, DEACTIVATED}
+public enum State_SwitchActivator { ACTIVATING, ACTIVATED, DEACTIVATING, DEACTIVATED }
 
 public class SwitchActivator : Activator
 {
@@ -13,13 +13,16 @@ public class SwitchActivator : Activator
     [SerializeField] private MiniwheelSegmentHandler wheel;
     [SerializeField] private float activationDelay;
     [SerializeField] private float deactivationDelay;
-    [SerializeField] private float minDurBetweenSwitch= 4f;
+    [SerializeField] private float minDurBetweenSwitch = 4f;
+    [SerializeField] private float autoTurnOffTime = 0;
+    [SerializeField] private bool canDeactivate = true;
     [SerializeField] private List<Song_Note> notes = new List<Song_Note>();
 
     private List<Song_Note> orderedNotes;
     private SongData lastData;
     private float timer = 0.0f;
     private float swapTimer = 4.0f;
+    private float turnOffTimer = 0f;
 
 
     // Start is called before the first frame update
@@ -42,8 +45,12 @@ public class SwitchActivator : Activator
         if (CheckNotes(data) && swapTimer > minDurBetweenSwitch)
         {
             lastData = data;
-            if (state == State_SwitchActivator.ACTIVATED) state = State_SwitchActivator.DEACTIVATING;
-            if(state == State_SwitchActivator.DEACTIVATED) state = State_SwitchActivator.ACTIVATING;
+            if (state == State_SwitchActivator.ACTIVATED && canDeactivate) state = State_SwitchActivator.DEACTIVATING;
+            if (state == State_SwitchActivator.DEACTIVATED)
+            {
+                state = State_SwitchActivator.ACTIVATING;
+                turnOffTimer = 0f;
+}
             swapTimer = 0.0f;
         }
     }
@@ -62,7 +69,6 @@ public class SwitchActivator : Activator
         }
 #endif
 
-
         switch (state)
         {
             case State_SwitchActivator.ACTIVATING:
@@ -79,6 +85,12 @@ public class SwitchActivator : Activator
                 wheel.HighlightHint(new SongData { Notes = notes });
                 action.Activate();
                 action.InputData(lastData);
+
+                if (turnOffTimer > autoTurnOffTime)
+                {
+                    state = State_SwitchActivator.DEACTIVATING;
+                }
+                turnOffTimer += Time.deltaTime;
                 break;
 
             case State_SwitchActivator.DEACTIVATING:
