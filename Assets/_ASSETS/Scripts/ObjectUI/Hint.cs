@@ -5,12 +5,12 @@ using UnityEngine;
 
 abstract public class Hint : MonoBehaviour
 {
-    //set active on UI gameobjec to **false**
-    public  void Hide()
+    //set active on UI gameobject to false
+    public void Hide()
     {
         gameObject.SetActive(false);
     }
-    //set active on UI gameobjec to **true**
+    //set active on UI gameobject to true
     public void Show()
     {
         gameObject.SetActive(true);
@@ -18,5 +18,7 @@ abstract public class Hint : MonoBehaviour
 
     public abstract void ShowNextHint(SongData sd); //show the next chord/note to be played
 
-    public abstract void HighlightHint(SongData sd); // highlight a hint (hopefully in the form of a glow), for example when you are continuously lifting box or just got done with a sequence puzzle 
+    public abstract void HighlightHint(SongData sd); // highlight a hint (hopefully in the form of a glow), for example when you are continuously activating or just got done with a sequence 
+
+    public abstract void NoLightHint(SongData sd);
 }
