@@ -9,7 +9,7 @@ public class NoteSelectorNew : MonoBehaviour
     [SerializeField] private bool fillWheel;
     
     private PlayerControls _controls;
-    private PlayerController _playerController;
+    public PlayerController _playerController;
     private bool _startedSinging;
 
     [SerializeField] private float fillRatio;
@@ -66,6 +66,7 @@ public class NoteSelectorNew : MonoBehaviour
     void Awake()
     {
         _controls = new PlayerControls();
+        _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         _controls.NoteSelector.Move.performed += context => _selectorMove = context.ReadValue<Vector2>();
         _controls.NoteSelector.Move.canceled += context => _selectorMove = Vector2.zero;
@@ -119,8 +120,6 @@ public class NoteSelectorNew : MonoBehaviour
         _segments.Add("D", _segmentD);
         _segments.Add("E", _segmentE);
         _segments.Add("F", _segmentF);
-
-        _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     void Update()
@@ -165,7 +164,7 @@ public class NoteSelectorNew : MonoBehaviour
 
     public void CenterNoteSelector()
     {
-        this.transform.position = Camera.main.WorldToScreenPoint(_playerController.transform.position);
+        this.transform.position = Camera.main.WorldToScreenPoint(_playerController.gameObject.transform.position);
     }
 
     void FillNotes()
