@@ -2228,6 +2228,7 @@ MonoBehaviour:
   minDurBetweenSwitch: 4
   autoTurnOffTime: 10
   canDeactivate: 0
+  pressureValue: 0.803
   notes: 0000000005000000
 --- !u!114 &502369302
 MonoBehaviour:
@@ -2640,6 +2641,7 @@ MonoBehaviour:
   minDurBetweenSwitch: 4
   autoTurnOffTime: 0
   canDeactivate: 1
+  pressureValue: 0
   notes: 010000000300000004000000
 --- !u!114 &633240891
 MonoBehaviour:

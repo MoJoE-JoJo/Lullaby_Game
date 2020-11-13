@@ -16,6 +16,7 @@ public class SwitchActivator : Activator
     [SerializeField] private float minDurBetweenSwitch = 4f;
     [SerializeField] private float autoTurnOffTime = 0;
     [SerializeField] private bool canDeactivate = true;
+    [SerializeField] [Range(0.0f, 1.0f)] private float pressureValue;
     [SerializeField] private List<Song_Note> notes = new List<Song_Note>();
 
     private List<Song_Note> orderedNotes;
@@ -119,6 +120,8 @@ public class SwitchActivator : Activator
     //checks the inputed SongData if its notes matches with the 
     private bool CheckNotes(SongData data)
     {
+
+        if (pressureValue > data.Volume) return false;
         if (orderedNotes.Count != data.Notes.Count) return false;
         for (int i = 0; i < data.Notes.Count; i++)
         {
