@@ -11,6 +11,8 @@ public class ContinuosActivator : Activator
     [SerializeField] private State_ContinuosActivator state = State_ContinuosActivator.IDLE;
     [SerializeField] private float activationDelay;
     [SerializeField] private float deactivationDelay;
+    [SerializeField] [Range(0.0f, 1.0f)] private float minPressureValue = 0f;
+    [SerializeField] [Range(0.0f, 1.0f)] private float maxPressureValue = 1.0f;
     [SerializeField] private List<Song_Note> notes = new List<Song_Note>();
     private List<Song_Note> orderedNotes;
     private SongData lastData;
@@ -114,6 +116,7 @@ public class ContinuosActivator : Activator
 
     private bool CheckNotes(SongData data)
     {
+        if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
         if (orderedNotes.Count != data.Notes.Count) return false;
         for (int i = 0; i < data.Notes.Count; i++)
         {

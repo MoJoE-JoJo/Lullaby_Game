@@ -16,7 +16,8 @@ public class SwitchActivator : Activator
     [SerializeField] private float minDurBetweenSwitch = 4f;
     [SerializeField] private float autoTurnOffTime = 0;
     [SerializeField] private bool canDeactivate = true;
-    [SerializeField] [Range(0.0f, 1.0f)] private float pressureValue;
+    [SerializeField] [Range(0.0f, 1.0f)] private float minPressureValue = 0f;
+    [SerializeField] [Range(0.0f, 1.0f)] private float maxPressureValue = 1.0f;
     [SerializeField] private List<Song_Note> notes = new List<Song_Note>();
 
     private List<Song_Note> orderedNotes;
@@ -24,7 +25,6 @@ public class SwitchActivator : Activator
     private float timer = 0.0f;
     private float swapTimer = 4.0f;
     private float turnOffTimer = 0f;
-
 
     // Start is called before the first frame update
     void Start()
@@ -121,7 +121,7 @@ public class SwitchActivator : Activator
     private bool CheckNotes(SongData data)
     {
 
-        if (pressureValue > data.Volume) return false;
+        if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
         if (orderedNotes.Count != data.Notes.Count) return false;
         for (int i = 0; i < data.Notes.Count; i++)
         {

@@ -871,6 +871,8 @@ MonoBehaviour:
   state: 0
   activationDelay: 0
   deactivationDelay: 0
+  minPressureValue: 0
+  maxPressureValue: 1
   notes: 0000000003000000
 --- !u!114 &287203207
 MonoBehaviour:
@@ -1453,6 +1455,8 @@ MonoBehaviour:
   state: 0
   activationDelay: 0
   deactivationDelay: 0
+  minPressureValue: 0
+  maxPressureValue: 1
   notes: 000000000100000003000000
 --- !u!114 &366995853
 MonoBehaviour:
@@ -2228,7 +2232,8 @@ MonoBehaviour:
   minDurBetweenSwitch: 4
   autoTurnOffTime: 10
   canDeactivate: 0
-  pressureValue: 0.803
+  minPressureValue: 0
+  maxPressureValue: 1
   notes: 0000000005000000
 --- !u!114 &502369302
 MonoBehaviour:
@@ -2641,7 +2646,8 @@ MonoBehaviour:
   minDurBetweenSwitch: 4
   autoTurnOffTime: 0
   canDeactivate: 1
-  pressureValue: 0
+  minPressureValue: 0
+  maxPressureValue: 1
   notes: 010000000300000004000000
 --- !u!114 &633240891
 MonoBehaviour:
@@ -32793,6 +32799,8 @@ MonoBehaviour:
   state: 0
   activationDelay: 0
   deactivationDelay: 0
+  minPressureValue: 0.3
+  maxPressureValue: 0.6
   notes: 01000000
 --- !u!70 &2099238332
 CapsuleCollider2D:
