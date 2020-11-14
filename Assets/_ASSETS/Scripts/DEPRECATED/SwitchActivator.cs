@@ -84,9 +84,11 @@ public class SwitchActivator : Activator
 
             case State_SwitchActivator.ACTIVATED:
                 wheel.HighlightHint(new SongData { Notes = notes });
-                action.Activate();
-                action.InputData(lastData);
-
+                foreach (InteractableAction action in actions)
+                {
+                    action.Activate();
+                    action.InputData(lastData);
+                }
                 if (turnOffTimer > autoTurnOffTime)
                 {
                     state = State_SwitchActivator.DEACTIVATING;
@@ -108,7 +110,10 @@ public class SwitchActivator : Activator
             case State_SwitchActivator.DEACTIVATED:
                 wheel.ShowNextHint(new SongData { Notes = notes });
 
-                action.Deactivate();
+                foreach (InteractableAction action in actions)
+                {
+                    action.Deactivate();
+                }
                 timer = 0.0f;
                 break;
 

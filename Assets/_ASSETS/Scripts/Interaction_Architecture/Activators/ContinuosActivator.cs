@@ -7,7 +7,7 @@ using UnityEngine;
 public enum State_ContinuosActivator { IDLE, ACTIVATING, ACTIVATED, DEACTIVATING, DEACTIVATED }
 public class ContinuosActivator : Activator
 {
-    [SerializeField] private MiniwheelSegmentHandler wheel;
+    [SerializeField] private MiniwheelSegmentHandler hintWheel;
     [SerializeField] private State_ContinuosActivator state = State_ContinuosActivator.IDLE;
     [SerializeField] private float activationDelay;
     [SerializeField] private float deactivationDelay;
@@ -34,7 +34,7 @@ public class ContinuosActivator : Activator
             }
             if (state == State_ContinuosActivator.ACTIVATING)
             {
-                wheel.HighlightHint(new SongData { Notes = orderedNotes });
+                hintWheel.HighlightHint(new SongData { Notes = orderedNotes });
 
                 if (timer >= activationDelay)
                 {
@@ -90,7 +90,7 @@ public class ContinuosActivator : Activator
 //#endif
         if (state == State_ContinuosActivator.ACTIVATED)
         {
-            wheel.HighlightHint(new SongData { Notes = orderedNotes });
+            hintWheel.HighlightHint(new SongData { Notes = orderedNotes });
             if (!CheckNotes(lastData))
             {
                 state = State_ContinuosActivator.DEACTIVATING;
@@ -111,12 +111,12 @@ public class ContinuosActivator : Activator
             state = State_ContinuosActivator.IDLE;
             timer = 0.0f;
 
-            wheel.ShowNextHint(new SongData { Notes = orderedNotes });
+            hintWheel.ShowNextHint(new SongData { Notes = orderedNotes });
         }
         if(state == State_ContinuosActivator.IDLE)
         {
             if (timer > 0.0f) timer = 0.0f;
-            wheel.ShowNextHint(new SongData { Notes = orderedNotes });
+            hintWheel.ShowNextHint(new SongData { Notes = orderedNotes });
 
         }
         lastData.Notes = new List<Song_Note>();
