@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public  enum State_PhysicsAction {DEACTIVATED, ACTIVATED}
+public  enum State_PhysicsAction {DEACTIVATED, ACTIVATED, IDLE, ACTIVATING}
 public enum Activated_Gravity_Direction { UP, LEFT, RIGHT }
 public class PhysicsAction : InteractableAction
 {
@@ -13,14 +13,14 @@ public class PhysicsAction : InteractableAction
     [SerializeField] private bool debug_reset;
     private float originalGravityScale;
     private Vector2 directionVector;
-    private bool ongoing;
+    //private bool ongoing;
     private SongData songData;
     private Vector3 originalPosition;
     // Start is called before the first frame update
     void Start()
     {
         originalGravityScale = GetComponent<Rigidbody2D>().gravityScale;
-        ongoing = false;
+        //ongoing = false;
         originalPosition = transform.position;
     }
 
@@ -36,22 +36,28 @@ public class PhysicsAction : InteractableAction
     private void FixedUpdate()
     {
         var rigbod = GetComponent<Rigidbody2D>();
-        if (state == State_PhysicsAction.ACTIVATED && !ongoing)
+        if (state == State_PhysicsAction.ACTIVATING)
         {
             ChangeGravity(rigbod, flyDirection);
-            ongoing = true;
+            //ongoing = true;
+            state = State_PhysicsAction.ACTIVATED;
+        }
+        else if (state == State_PhysicsAction.ACTIVATED)
+        {
+            rigbod.gravityScale = 0;
+            rigbod.AddForce(directionVector * flySpeed * songData.Volume);
         }
         else if (state == State_PhysicsAction.DEACTIVATED)
         {
             rigbod.gravityScale = originalGravityScale;
-            ongoing = false;
+            //ongoing = false;
+            state = State_PhysicsAction.IDLE;
         }
-        if (ongoing) rigbod.AddForce(directionVector * flySpeed * songData.Volume);
     }
 
     public override void Activate()
     {
-        state = State_PhysicsAction.ACTIVATED;
+        if(state != State_PhysicsAction.ACTIVATED) state = State_PhysicsAction.ACTIVATING;
     }
 
     public override void Deactivate()
@@ -66,7 +72,7 @@ public class PhysicsAction : InteractableAction
 
     public override void Reset()
     {
-        ongoing = false;
+        //ongoing = false;
         transform.position = originalPosition;
         debug_reset = false;
     }

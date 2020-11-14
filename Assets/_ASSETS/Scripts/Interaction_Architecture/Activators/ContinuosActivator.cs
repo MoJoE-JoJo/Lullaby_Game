@@ -50,8 +50,11 @@ public class ContinuosActivator : Activator
             }
             if (state == State_ContinuosActivator.ACTIVATED)
             {
-                action.Activate();
-                action.InputData(data);
+                foreach(InteractableAction action in actions)
+                {
+                    action.Activate();
+                    action.InputData(data);
+                }
             }
             if(state == State_ContinuosActivator.DEACTIVATING)
             {
@@ -112,7 +115,10 @@ public class ContinuosActivator : Activator
         }
         if(state == State_ContinuosActivator.DEACTIVATED)
         {
-            action.Deactivate();
+            foreach (InteractableAction action in actions)
+            {
+                action.Deactivate();
+            }
             state = State_ContinuosActivator.IDLE;
             timer = 0.0f;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 abstract public class Activator : MonoBehaviour
 {
-    [SerializeField] protected InteractableAction action;
+    [SerializeField] protected List<InteractableAction> actions;
     public abstract void SongInput(SongData data);
     public abstract void ShowHint();
 }
