@@ -3,6 +3,7 @@ using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class PlayerController : MonoBehaviour
@@ -44,6 +45,9 @@ public class PlayerController : MonoBehaviour
         _controls.Player.Move.performed += context => _move = context.ReadValue<Vector2>();
         _controls.Player.Move.canceled += context => _move = Vector2.zero;
 
+        _controls.NoteSelector.Sing.performed += context => Sing(context);
+        _controls.NoteSelector.Sing.canceled += context => StopSing();
+
         _controls.Player.Jump.performed += context => Jump();
     }
 
@@ -59,6 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
         UpdateNoteController();
+        //Debug.Log(_isSinging);
         SingToActivators();
     }
 
@@ -90,7 +95,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(wheelDeactivateDelay);
         noteSelector.SetActive(false);
-        _isSinging = false;
+        //_isSinging = false;
     }
 
     private void OnEnable()
@@ -159,12 +164,7 @@ public class PlayerController : MonoBehaviour
             //_isGrounded = false;
         }
     }
-
-    /*private void OnCollisionEnter2D(Collision2D other)
-    {
-        _isGrounded = true;
-    }*/
-
+    
     private void OnTriggerStay2D(Collider2D collision)
     {
         _isGrounded = true;
@@ -199,6 +199,19 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(_songBeingSung.Notes.ToString());
         noteController.SongData = _songBeingSung;
         noteController.IsSinging = _isSinging;
+    }
+
+    private void Sing(InputAction.CallbackContext context)
+    {
+        _isSinging = true;
+        
+        _songBeingSung.Volume = context.ReadValue<float>();
+        
+    }
+
+    private void StopSing()
+    {
+        _isSinging = false;
     }
     
 }

@@ -57,6 +57,7 @@ public class NoteSelectorNew : MonoBehaviour
 
     private SongData _currentSong; //check if anySongPlaying before giving the currentSong to an Activator
     private string _currentSongString = "";
+    private SongData _lastSong;
     private bool _anySongPlaying;
 
     private Vector2 _selectorMove;
@@ -314,9 +315,10 @@ public class NoteSelectorNew : MonoBehaviour
     private void OnDisable() //empty every data information
     {
         SingReleased();
-        _anySongPlaying = false;
-        _playerController.IsSinging = false;
-        UpdatePlayerNote();
+        //_anySongPlaying = false;
+        //_playerController.IsSinging = false;
+        _playerController.SongBeingSung = _lastSong;
+        //UpdatePlayerNote();
         _controls.Disable();
         _fillA.fillAmount = startingImageFill;
         _fillB.fillAmount = startingImageFill;
@@ -450,12 +452,14 @@ public class NoteSelectorNew : MonoBehaviour
         {
             _anySongPlaying = true;
             _currentSong = new SongData(_currentSongString) {Volume = _singVolume};
+            _lastSong = _currentSong;
             //Debug.Log("Current song volume: " + _currentSong.Volume);
         }
+        
         else
         {
             _anySongPlaying = false;
-            _currentSong = new SongData {Volume = 0.0f};
+            _currentSong = new SongData {};
         }
         //Debug.Log("Current string: " + _currentSongString);
         //Debug.Log("Current enum: " + _currentSong.NoteCoord.ToString());
@@ -464,7 +468,7 @@ public class NoteSelectorNew : MonoBehaviour
     void UpdatePlayerNote() //give the Song information to the player script
     {
         _playerController.SongBeingSung = _currentSong;
-        _playerController.IsSinging = _anySongPlaying;
+        //_playerController.IsSinging = _anySongPlaying;
     }
 
     void SetupControls() //method to setup the controls through the new input system
