@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public enum State_PrototypeMoveAction { DEACTIVATED, ACTIVATED, FINISHED }
+public enum State_MoveToPositionAction { DEACTIVATED, ACTIVATED, FINISHED }
 
 public class MoveToPositionAction : InteractableAction
 {
-    [SerializeField] private State_PrototypeMoveAction state = State_PrototypeMoveAction.DEACTIVATED;
+    [SerializeField] private State_MoveToPositionAction state = State_MoveToPositionAction.DEACTIVATED;
     [SerializeField] private float moveSpeed;
     [SerializeField, Tooltip("There must always be atleast two elements in the list for the script to behave properly.")] private List<Transform> movePositions;
     [SerializeField, HideInInspector] private bool twoWay;
     [SerializeField, HideInInspector] private bool cycle;
     [SerializeField, HideInInspector] private float positionWaitTime = 1f;
+    [SerializeField] private bool resetMoveOnDeactivate = false;
     [SerializeField] private bool debug_reset;
     private Transform target;
     private Transform last;
@@ -42,7 +43,7 @@ public class MoveToPositionAction : InteractableAction
 
     void FixedUpdate()
     {
-        if (state == State_PrototypeMoveAction.ACTIVATED)
+        if (state == State_MoveToPositionAction.ACTIVATED)
         {
             if (cycle) CycleMovement();
             else if (twoWay) TwoWayMovement();
@@ -52,11 +53,12 @@ public class MoveToPositionAction : InteractableAction
 
     override public void Activate()
     {
-        state = State_PrototypeMoveAction.ACTIVATED;
+        state = State_MoveToPositionAction.ACTIVATED;
     }
     override public void Deactivate()
     {
-        state = State_PrototypeMoveAction.DEACTIVATED;
+        if (resetMoveOnDeactivate) moveFraction = 0;
+        state = State_MoveToPositionAction.DEACTIVATED;
     }
     public override void InputData(SongData data)
     {
@@ -69,7 +71,7 @@ public class MoveToPositionAction : InteractableAction
         moveFraction = 0.0f;
         moveToIndex = 1;
         forward = true;
-        state = State_PrototypeMoveAction.DEACTIVATED;
+        state = State_MoveToPositionAction.DEACTIVATED;
         debug_reset = false;
     }
 
@@ -87,7 +89,10 @@ public class MoveToPositionAction : InteractableAction
         }
         else if (moveFraction >= 1)
         {
-            if (moveToIndex == movePositions.Count - 1) state = State_PrototypeMoveAction.FINISHED;
+            if (moveToIndex == movePositions.Count - 1)
+            {
+                state = State_MoveToPositionAction.FINISHED;
+            }
             else
             {
                 moveToIndex++;
