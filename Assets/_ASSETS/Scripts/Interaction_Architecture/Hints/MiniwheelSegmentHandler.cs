@@ -16,6 +16,13 @@ public class MiniwheelSegmentHandler: Hint
 
     //public bool test = true;
     //public int indexTest = 0;
+    private class ObjectWithBool 
+    {
+        public GameObject GameObject { get; set; }
+        public bool Show { get; set; }
+
+        public bool Highlight { get; set; }
+    }
 
     void Start()
     {
@@ -33,9 +40,6 @@ public class MiniwheelSegmentHandler: Hint
     // Update is called once per frame
     void Update()
     {
-        //a hack?
-        transform.localScale = transform.localScale;
-
         foreach (var entry in activeSegments.Values)
         {
             entry.GameObject.SetActive(entry.Show);
@@ -69,6 +73,9 @@ public class MiniwheelSegmentHandler: Hint
         }
     }
 
+    /// <summary>
+    ///  Takes a SongData struct and marks the notes to be shown AND highlighted based on songdata.
+    /// </summary>
     public override void HighlightHint(SongData sd)
     {
         ResetSegments();
@@ -77,13 +84,14 @@ public class MiniwheelSegmentHandler: Hint
             activeSegments[songNote].Show = true;
             activeSegments[songNote].Highlight = true;
         }
-    }    
-    
-    private class ObjectWithBool 
-    {
-        public GameObject GameObject { get; set; }
-        public bool Show { get; set; }
-
-        public bool Highlight { get; set; }
     }
+    public override void NoLightHint(SongData sd)
+    {
+        foreach (var entry in activeSegments.Values)
+        {
+                entry.GameObject.GetComponent<Light2D>().intensity = 0.1f;
+
+        }
+    }
+
 }
