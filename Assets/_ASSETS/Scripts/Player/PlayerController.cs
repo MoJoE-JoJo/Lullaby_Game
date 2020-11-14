@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private NoteController noteController;
-    [SerializeField] private GameObject noteSelector;
+    private NoteController noteController;
+    private GameObject noteSelector;
     [SerializeField] private SongData _songBeingSung;
     [SerializeField] private bool _isSinging;
     [SerializeField, Tooltip("Time in seconds between the character starts singing at full, and the signal starts getting sent to nearby activators")] private float songDelay;
@@ -25,15 +25,20 @@ public class PlayerController : MonoBehaviour
     private Vector2 _move;
     private float songDelayTimer;
 
-    public List<Activator> Activators
+    public SongData SongBeingSung
     {
-        get => actiSensor.RegisteredActivators;
+        get => _songBeingSung;
+        set => _songBeingSung = value;
+    }
+    public bool IsSinging
+    {
+        get => _isSinging;
+        set => _isSinging = value;
     }
 
     private void Awake()
     {
         _controls = new PlayerControls();
-        actiSensor = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ActivatorSensor>();
 
         _controls.NoteSelector.Move.performed += context => ActivateNoteSelector();
         _controls.NoteSelector.Move.canceled += context => DeactivateNoteSelector();
@@ -48,6 +53,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rb2d = GetComponent<Rigidbody2D>();
+        actiSensor = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ActivatorSensor>();
+        noteController = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<NoteController>();
+        noteSelector = GameObject.FindGameObjectWithTag("NoteWheel");
+        DeactivateNoteSelector();
         songDelayTimer = 0.0f;
     }
 
@@ -59,9 +68,23 @@ public class PlayerController : MonoBehaviour
         SingToActivators();
     }
 
-    private void FixedUpdate()
+    private void OnEnable()
     {
+        _controls.Enable();
+    }
+    
+    private void OnDisable()
+    {
+        _controls.Disable();
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        _isGrounded = true;
+    }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        _isGrounded = false;
     }
 
     private void ActivateNoteSelector()
@@ -72,33 +95,10 @@ public class PlayerController : MonoBehaviour
             noteSelector.SetActive(true);
         }
     }
-    
     void DeactivateNoteSelector()
     {
         noteSelector.SetActive(false);
         _isSinging = false;
-    }
-
-    private void OnEnable()
-    {
-        _controls.Enable();
-    }
-    
-    private void OnDisable()
-    {
-        _controls.Disable();
-    }
-
-    public SongData SongBeingSung
-    {
-        get => _songBeingSung;
-        set => _songBeingSung = value;
-    }
-
-    public bool IsSinging
-    {
-        get => _isSinging;
-        set => _isSinging = value;
     }
 
     void MovePlayer()
@@ -122,18 +122,6 @@ public class PlayerController : MonoBehaviour
             _rb2d.velocity = speed;
             
         }
-
-
-        //Vector2 currentSpeed = _rb2d.velocity;
-
-        //Vector2 temp = _rb2d.velocity;
-        //Vector3 temp3 = Vector3.SmoothDamp(currentSpeed, maxSpeed, ref accVel, accelerationTime, Mathf.Infinity, Time.fixedDeltaTime);
-        //temp.x = temp3.x;
-        //Debug.Log(temp3.x);
-
-
-        //Vector2 move = new Vector2(_move.x, 0) * (playerSpeed * Time.deltaTime);
-        //transform.Translate(move, Space.World);
     }
 
     void Jump()
@@ -141,24 +129,7 @@ public class PlayerController : MonoBehaviour
         if (_isGrounded)
         {
             _rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            //_jumpFlag = false;
-            //_isGrounded = false;
         }
-    }
-
-    /*private void OnCollisionEnter2D(Collision2D other)
-    {
-        _isGrounded = true;
-    }*/
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        _isGrounded = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        _isGrounded = false;
     }
 
     private void SingToActivators()

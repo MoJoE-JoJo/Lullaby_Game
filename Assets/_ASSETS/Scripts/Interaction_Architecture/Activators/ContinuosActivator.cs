@@ -77,13 +77,13 @@ public class ContinuosActivator : Activator
 
     private void Update()
     {
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         if (orderedNotes != notes)
         {
             orderedNotes = new HashSet<Song_Note>(notes).ToList();
             orderedNotes.Sort();
         }
-#endif
+//#endif
         if (state == State_ContinuosActivator.ACTIVATED)
         {
             wheel.HighlightHint(new SongData { Notes = notes });

@@ -9,6 +9,8 @@ TagManager:
   - NoteSelectorSegment
   - Activator
   - ActivatorSensor
+  - AudioManager
+  - NoteWheel
   layers:
   - Default
   - TransparentFX

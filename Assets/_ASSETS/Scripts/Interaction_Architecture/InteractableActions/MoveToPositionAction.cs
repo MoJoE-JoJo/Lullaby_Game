@@ -9,18 +9,46 @@ public enum State_PrototypeMoveAction { DEACTIVATED, ACTIVATED, FINISHED }
 public class MoveToPositionAction : InteractableAction
 {
     [SerializeField] private State_PrototypeMoveAction state = State_PrototypeMoveAction.DEACTIVATED;
-    private Transform target;
-    private Transform last;
-    private float moveFraction = 0f;
-    private float positionWaitTimeCounter;
-    private int moveToIndex = 1;
-    private bool forward = true;
     [SerializeField] private float moveSpeed;
     [SerializeField, Tooltip("There must always be atleast two elements in the list for the script to behave properly.")] private List<Transform> movePositions;
     [SerializeField, HideInInspector] private bool twoWay;
     [SerializeField, HideInInspector] private bool cycle;
     [SerializeField, HideInInspector] private float positionWaitTime = 1f;
+    [SerializeField] private bool debug_reset;
+    private Transform target;
+    private Transform last;
+    private float moveFraction = 0.0f;
+    private float positionWaitTimeCounter;
+    private int moveToIndex = 1;
+    private bool forward = true;
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        positionWaitTimeCounter = positionWaitTime;
+        transform.position = movePositions[0].position;
+        last = movePositions[0];
+        target = movePositions[moveToIndex];
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        if (debug_reset)
+        {
+            Reset();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (state == State_PrototypeMoveAction.ACTIVATED)
+        {
+            if (cycle) CycleMovement();
+            else if (twoWay) TwoWayMovement();
+            else OneWayMovement();
+        }
+    }
 
     override public void Activate()
     {
@@ -32,30 +60,17 @@ public class MoveToPositionAction : InteractableAction
     }
     public override void InputData(SongData data)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public override void Reset()
     {
-        positionWaitTimeCounter = positionWaitTime;
-        transform.position = movePositions[0].position;
-        //startPosition = transform.TransformPoint(startPosition);
-        //endPosition = transform.TransformPoint(endPosition);
-        last = movePositions[0];
-        target = movePositions[moveToIndex];
-
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if (state == State_PrototypeMoveAction.ACTIVATED)
-        {
-            if (cycle) CycleMovement();
-            else if (twoWay) TwoWayMovement();
-            else OneWayMovement();
-        }
+        Start();
+        moveFraction = 0.0f;
+        moveToIndex = 1;
+        forward = true;
+        state = State_PrototypeMoveAction.DEACTIVATED;
+        debug_reset = false;
     }
 
     private void OneWayMovement()

@@ -53,6 +53,22 @@ public class NoteController : MonoBehaviour
         eventInstanceList.Add(Einstance);
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (_isSinging && !_wasSingingBefore)
+        {
+            StartSinging();
+        }
+        else if (_isSinging)
+        {
+            UpdateSinging();
+        }
+        else if (!_isSinging)
+        {
+            StopSinging();
+        }
+    }
 
     public void StartSinging()
     {
@@ -107,22 +123,5 @@ public class NoteController : MonoBehaviour
         }
         eventInstance.setVolume(volume);
         eventInstance.start();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (_isSinging && !_wasSingingBefore)
-        {
-            StartSinging();
-        }
-        else if (_isSinging)
-        {
-            UpdateSinging();
-        }
-        else if (!_isSinging)
-        {
-            StopSinging();
-        }
     }
 }
