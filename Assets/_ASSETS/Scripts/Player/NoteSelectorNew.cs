@@ -77,10 +77,9 @@ public class NoteSelectorNew : MonoBehaviour
         _controls.NoteSelector.LockNote.started += context => LockUnlockNote();
 
         _controls.NoteSelector.SwitchWheelType.performed += context => fillWheel = (!fillWheel);
-    }
-
-    void Start()
-    {
+        
+        _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        
         _segmentA = this.transform.Find("SegmentA").gameObject;
         _segmentB = this.transform.Find("SegmentB").gameObject;
         _segmentC = this.transform.Find("SegmentC").gameObject;
@@ -119,8 +118,11 @@ public class NoteSelectorNew : MonoBehaviour
         _segments.Add("D", _segmentD);
         _segments.Add("E", _segmentE);
         _segments.Add("F", _segmentF);
+    }
 
-        _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    void Start()
+    {
+        
     }
 
     void Update()
