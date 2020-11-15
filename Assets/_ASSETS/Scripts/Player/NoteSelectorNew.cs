@@ -78,10 +78,7 @@ public class NoteSelectorNew : MonoBehaviour
         _controls.NoteSelector.LockNote.started += context => LockUnlockNote();
 
         _controls.NoteSelector.SwitchWheelType.performed += context => fillWheel = (!fillWheel);
-    }
 
-    void Start()
-    {
         _segmentA = this.transform.Find("SegmentA").gameObject;
         _segmentB = this.transform.Find("SegmentB").gameObject;
         _segmentC = this.transform.Find("SegmentC").gameObject;
@@ -95,7 +92,7 @@ public class NoteSelectorNew : MonoBehaviour
         backgroundD = _segmentD.transform.Find("Background").GetComponent<Image>();
         backgroundE = _segmentE.transform.Find("Background").GetComponent<Image>();
         backgroundF = _segmentF.transform.Find("Background").GetComponent<Image>();
-        
+
         fillA = _segmentA.transform.Find("Filling").GetComponent<Image>();
         fillB = _segmentB.transform.Find("Filling").GetComponent<Image>();
         fillC = _segmentC.transform.Find("Filling").GetComponent<Image>();
@@ -104,7 +101,7 @@ public class NoteSelectorNew : MonoBehaviour
         fillF = _segmentF.transform.Find("Filling").GetComponent<Image>();
 
         selector = this.transform.Find("Selector").gameObject;
-        
+
         //fill background images
         _backgrounds.Add("A", backgroundA);
         _backgrounds.Add("B", backgroundB);
@@ -112,7 +109,7 @@ public class NoteSelectorNew : MonoBehaviour
         _backgrounds.Add("D", backgroundD);
         _backgrounds.Add("E", backgroundE);
         _backgrounds.Add("F", backgroundF);
-        
+
         //fill segments
         _segments.Add("A", _segmentA);
         _segments.Add("B", _segmentB);
@@ -120,6 +117,11 @@ public class NoteSelectorNew : MonoBehaviour
         _segments.Add("D", _segmentD);
         _segments.Add("E", _segmentE);
         _segments.Add("F", _segmentF);
+    }
+
+    void Start()
+    {
+
     }
 
     void Update()
