@@ -4,12 +4,13 @@ using UnityEngine;
 
 
 public  enum State_PhysicsAction {DEACTIVATED, ACTIVATED, IDLE, ACTIVATING}
-public enum Activated_Gravity_Direction { UP, LEFT, RIGHT }
+public enum Activated_Gravity_Direction { UP, DOWN, LEFT, RIGHT }
 public class PhysicsAction : InteractableAction
 {
     [SerializeField] private State_PhysicsAction state = State_PhysicsAction.DEACTIVATED;
     [SerializeField] private Activated_Gravity_Direction flyDirection;
     [SerializeField, Tooltip("9.8 corresponds to gravity speed")] private float flySpeed = 9.8f;
+    [SerializeField, Tooltip("Adjusts the scale of gravity, 1 is for normal gravity, and 0 is for no gravity")] private float gravityScale = 0.0f;
     [SerializeField] private bool debug_reset;
     private float originalGravityScale;
     private Vector2 directionVector;
@@ -84,6 +85,9 @@ public class PhysicsAction : InteractableAction
             case Activated_Gravity_Direction.UP:
                 directionVector = Vector2.up;
                 break;
+            case Activated_Gravity_Direction.DOWN:
+                directionVector = Vector2.down;
+                break;
             case Activated_Gravity_Direction.LEFT:
                 directionVector = Vector2.left;
                 break;
@@ -91,6 +95,6 @@ public class PhysicsAction : InteractableAction
                 directionVector = Vector2.right;
                 break;
         }
-        rigbod.gravityScale = 0;
+        rigbod.gravityScale = gravityScale;
     }
 }
