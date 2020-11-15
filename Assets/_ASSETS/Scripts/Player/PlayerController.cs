@@ -1,10 +1,10 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum Facing { RIGHT, LEFT }
 
 public class PlayerController : MonoBehaviour
 {
@@ -33,11 +33,18 @@ public class PlayerController : MonoBehaviour
         get => _songBeingSung;
         set => _songBeingSung = value;
     }
-    public bool IsSinging
-    {
+    public bool IsSinging{
+
         get => _isSinging;
         set => _isSinging = value;
     }
+
+    //Animation stuff
+    private Animator _animator;
+    private Facing _facing = Facing.RIGHT;
+
+    public List<Activator> Activators
+    
 
 
 
@@ -60,6 +67,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _animator = GetComponent<Animator>();
         _rb2d = GetComponent<Rigidbody2D>();
         actiSensor = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ActivatorSensor>();
         noteController = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<NoteController>();
@@ -72,6 +80,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
+        UpdateAnimation();
         UpdateNoteController();
         //Debug.Log(_isSinging);
         SingToActivators();
@@ -140,7 +149,6 @@ public class PlayerController : MonoBehaviour
             float t = decTimer / accelerationTime;
             Vector2 speed = new Vector2(Mathf.SmoothStep(_rb2d.velocity.x, 0.0f, t), _rb2d.velocity.y);
             _rb2d.velocity = speed;
-            
         }
     }
 
@@ -189,6 +197,27 @@ public class PlayerController : MonoBehaviour
     private void StopSing()
     {
         _isSinging = false;
+    }
+
+    private void UpdateAnimation()
+    {
+        Facing wasFacing = _facing;
+
+        if (wasFacing == Facing.RIGHT && _rb2d.velocity.x < 0)
+        {
+            transform.Rotate(new Vector3(0,-180,0));
+            _facing = Facing.LEFT;
+        }
+        if (wasFacing == Facing.LEFT && _rb2d.velocity.x > 0)
+        {
+            transform.Rotate(new Vector3(0,-180,0));
+            _facing = Facing.RIGHT;
+        }
+        _animator.SetFloat("RunSpeed", Mathf.Abs(_rb2d.velocity.x));
+        _animator.SetFloat("JumpSpeed", _rb2d.velocity.y);
+        _animator.SetBool("IsGrounded", _isGrounded); //need a correct _isGrounded
+        Debug.Log(_isGrounded);
+        
     }
     
 }
