@@ -1,86 +1,190 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
+public enum State_SequenceActivator { IDLE, RESETTING, TRANSISTION, MIDSEQUENCE, COMPLETE }
 
-public enum State_SequenceActivator {EMPTYBUFFER, PARTIALLYFULLBUFFER, FULLBUFFER, CORRECTSEQUENCE, WRONGSEQUENCE, FINISHED}
-/*
 public class SequenceActivator : Activator
 {
-    private State_SequenceActivator state = State_SequenceActivator.EMPTYBUFFER;
-    [SerializeField] private InteractableAction action;
-    [SerializeField] private InteractableUIController interactableUI;
-    private List<SongData> inputBuffer = new List<SongData>();
-    [SerializeField] private List<Song_Note> correctSequence;
-    [SerializeField] private bool canDeactivate = false;
-    private bool nextIsDeactivate = false;
+
+    [SerializeField] private State_SequenceActivator state = State_SequenceActivator.IDLE;
+
+    [SerializeField] private Hint hintObject;
+    //[SerializeField] private float activationDelay;
+    //[SerializeField] private float deactivationDelay;
+    //[SerializeField] private float minDurBetweenSwitch = 4f;
+    //[SerializeField] private float autoTurnOffTime = 0;
+    //[SerializeField] private bool canDeactivate = true;
+    [SerializeField] private float transitionTime = 1.0f;
+    [SerializeField] [Range(0.0f, 1.0f)] private float minPressureValue = 0f;
+    [SerializeField] [Range(0.0f, 1.0f)] private float maxPressureValue = 1.0f;
+    //[SerializeField] private List<List<Song_Note>> sequence = new List<List<Song_Note>>();
+
+    private SequencePart nextCorrectPart;
+    private SongData lastData;
+    //private bool singingCorrect = false;
+    private float playingCorrectTimer = 0.0f;
+    private float recievingNoInputTimer = 0.0f;
+    private float transitionTimer = 0.0f;
+    private float timeSinceLastInput = 0.0f;
+
+    private int sequenceIndex = 0;
+    //private float swapTimer = 4.0f;
+    //private float turnOffTimer = 0f;
+
+    [SerializeField] private List<SequencePart> sequence = new List<SequencePart>();
+    [System.Serializable]
+    private class SequencePart
+    {
+        [SerializeField]
+        public List<Song_Note> Chord;
+        [SerializeField] public float Playtime; //amount of time the choord needs to be played before accepting
+        [SerializeField] public float DeactivationDelay; //if the delayTime is passed without recieving the correct input  (or a input??) 
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        lastData = new SongData();
+        foreach (var seqPart in sequence)
+        {
+            seqPart.Chord = seqPart.Chord.Distinct().OrderBy(x => x).ToList();
+        }
+        nextCorrectPart = sequence[0];
+    }
 
 
-    override public void ShowHint()
+    public override void ShowHint()
     {
         throw new System.NotImplementedException();
     }
 
-    override public void SongInput(SongData data)
+    public override void SongInput(SongData data)
     {
-        if (state == State_SequenceActivator.EMPTYBUFFER || state == State_SequenceActivator.PARTIALLYFULLBUFFER)
+        if (CheckNotes(data))
         {
-            state = State_SequenceActivator.PARTIALLYFULLBUFFER;
-            inputBuffer.Add(data);
-            if (inputBuffer.Count == correctSequence.Count) state = State_SequenceActivator.FULLBUFFER;
+            if (state == State_SequenceActivator.IDLE)
+            {
+                state = State_SequenceActivator.MIDSEQUENCE;
+                playingCorrectTimer = 0.0f;
+            }
+            if (state == State_SequenceActivator.MIDSEQUENCE)
+            {
+                recievingNoInputTimer = 0.0f;
+            }
         }
+        //else
+        //{
+        //    if (state == State_SequenceActivator.MIDSEQUENCE)
+        //    {
+        //        singingCorrect = false;
+        //    }
+        //}
+        timeSinceLastInput = 0;
+        lastData = data;
     }
-    //This version of a SequenceActivator will stop the user if it registers that the user has inputted data that cannot lead to a correct sequence
+
+    // Update is called once per frame
     void Update()
     {
-        if (state == State_SequenceActivator.PARTIALLYFULLBUFFER)
+        if (timeSinceLastInput > 0.2f)
         {
-            for (int i = 0; i < inputBuffer.Count; i++)
-            {
-                if (inputBuffer[i].Notes != correctSequence[i]) state = State_SequenceActivator.WRONGSEQUENCE;
-                else interactableUI.ActivateAt(i, inputBuffer[i].Notes);
-            }
+            //reset data
+            lastData = new SongData{ Notes = new List<Song_Note>()};
+            playingCorrectTimer = 0f;
         }
-        if(state == State_SequenceActivator.FULLBUFFER)
+        timeSinceLastInput += Time.deltaTime;
+
+
+
+        switch (state)
         {
-            state = State_SequenceActivator.CORRECTSEQUENCE;
-            for (int i = 0; i < inputBuffer.Count; i++)
-            {
-                if (inputBuffer[i].Notes != correctSequence[i]) state = State_SequenceActivator.WRONGSEQUENCE;
-                else interactableUI.ActivateAt(i, inputBuffer[i].Notes);
-            }
-        }
-        if(state == State_SequenceActivator.WRONGSEQUENCE)
-        {
-            inputBuffer.Clear();
-            interactableUI.InputBufferCleared();
-            state = State_SequenceActivator.EMPTYBUFFER;
-        }
-        if (state == State_SequenceActivator.CORRECTSEQUENCE)
-        {
-            if (canDeactivate)
-            {
-                if (nextIsDeactivate)
+            case State_SequenceActivator.MIDSEQUENCE:
+                if (playingCorrectTimer >= nextCorrectPart.Playtime)
                 {
-                    action.Deactivate();
-                    nextIsDeactivate = false;
+                    hintObject.HighlightHint(new SongData { Notes = nextCorrectPart.Chord });
+                    transitionTimer = 0.0f;
+                    state = State_SequenceActivator.TRANSISTION;
                 }
                 else
                 {
-                    action.Activate();
-                    nextIsDeactivate = true;
+                    hintObject.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
                 }
-                inputBuffer.Clear();
-                interactableUI.InputBufferCleared();
-                state = State_SequenceActivator.EMPTYBUFFER;
+                if (CheckNotes(lastData)) playingCorrectTimer += Time.deltaTime;
+                else if (lastData.Notes == null || lastData.Notes.Count == 0)
+                {
+                    recievingNoInputTimer += Time.deltaTime;
 
-            }
-            else
-            {
+                }
+                else state = State_SequenceActivator.RESETTING;
+
+                if (recievingNoInputTimer >= nextCorrectPart.DeactivationDelay)
+                {
+                    state = State_SequenceActivator.RESETTING;
+                }
+
+                break;
+
+            case State_SequenceActivator.TRANSISTION:
+                if (transitionTimer >= transitionTime)
+                {
+                    state = State_SequenceActivator.MIDSEQUENCE;
+                    NextPartOfSequence();
+                    playingCorrectTimer = 0.0f;
+                    recievingNoInputTimer = 0.0f;
+                }
+                transitionTimer += Time.deltaTime;
+                break;
+
+            case State_SequenceActivator.IDLE:
+                hintObject.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
+                break;
+
+            case State_SequenceActivator.RESETTING:
+                action.Deactivate();
+                ResetSequence();
+                state = State_SequenceActivator.IDLE;
+                break;
+
+            case State_SequenceActivator.COMPLETE:
                 action.Activate();
-                state = State_SequenceActivator.FINISHED;
-            }
+                //action.InputData(lastData);
+                break;
         }
     }
+
+
+    private void NextPartOfSequence()
+    {
+        sequenceIndex++;
+        if (sequenceIndex == sequence.Count)
+        {
+            state = State_SequenceActivator.COMPLETE;
+            return;
+        }
+        nextCorrectPart = sequence[sequenceIndex];
+    }
+
+    private void ResetSequence()
+    {
+        sequenceIndex = 0;
+        nextCorrectPart = sequence[sequenceIndex];
+        hintObject.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
+    }
+
+
+    //checks the inputed SongData if its notes matches with the 
+    private bool CheckNotes(SongData data)
+    {
+        if (data.Notes == null) return false;
+        if (nextCorrectPart.Chord.Count != data.Notes.Count) return false;
+        if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
+        for (int i = 0; i < data.Notes.Count; i++)
+        {
+            if (data.Notes[i] != nextCorrectPart.Chord[i]) return false;
+        }
+        return true;
+    }
 }
-*/
