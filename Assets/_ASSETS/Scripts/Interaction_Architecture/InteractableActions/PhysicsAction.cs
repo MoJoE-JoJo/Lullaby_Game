@@ -45,7 +45,7 @@ public class PhysicsAction : InteractableAction
         }
         else if (state == State_PhysicsAction.ACTIVATED)
         {
-            rigbod.gravityScale = 0;
+            rigbod.gravityScale = gravityScale;
             rigbod.AddForce(directionVector * flySpeed * songData.Volume);
         }
         else if (state == State_PhysicsAction.DEACTIVATED)

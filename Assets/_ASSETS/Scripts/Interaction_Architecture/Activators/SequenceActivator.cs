@@ -23,6 +23,7 @@ public class SequenceActivator : Activator
 
     private SequencePart nextCorrectPart;
     private SongData lastData;
+    private SongData lasterData;
     //private bool singingCorrect = false;
     private float playingCorrectTimer = 0.0f;
     private float recievingNoInputTimer = 0.0f;
@@ -84,6 +85,8 @@ public class SequenceActivator : Activator
         //}
         timeSinceLastInput = 0;
         lastData = data;
+        lasterData = data;
+
     }
 
     // Update is called once per frame
@@ -143,14 +146,22 @@ public class SequenceActivator : Activator
                 break;
 
             case State_SequenceActivator.RESETTING:
-                action.Deactivate();
-                ResetSequence();
+                foreach (InteractableAction action in actions)
+                {
+                    action.Deactivate();
+                }
+                    ResetSequence();
                 state = State_SequenceActivator.IDLE;
                 break;
 
             case State_SequenceActivator.COMPLETE:
-                action.Activate();
-                //action.InputData(lastData);
+                foreach (InteractableAction action in actions)
+                {
+                    action.InputData(lasterData);
+                    action.Activate();
+                }
+                    //action.InputData(lastData);
+
                 break;
         }
     }
@@ -179,12 +190,16 @@ public class SequenceActivator : Activator
     private bool CheckNotes(SongData data)
     {
         if (data.Notes == null) return false;
-        if (nextCorrectPart.Chord.Count != data.Notes.Count) return false;
         if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
+        /*
+        if (nextCorrectPart.Chord.Count != data.Notes.Count) return false;
+        
         for (int i = 0; i < data.Notes.Count; i++)
         {
             if (data.Notes[i] != nextCorrectPart.Chord[i]) return false;
         }
         return true;
+        */
+        return nextCorrectPart.Chord.All(i => data.Notes.Contains(i));
     }
 }

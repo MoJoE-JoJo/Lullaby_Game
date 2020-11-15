@@ -13,8 +13,8 @@ public class SwitchActivator : Activator
     [SerializeField] private MiniwheelSegmentHandler wheel;
     [SerializeField] private float activationDelay;
     [SerializeField] private float deactivationDelay;
-    [SerializeField] private float minDurBetweenSwitch = 4f;
-    [SerializeField] private float autoTurnOffTime = 0;
+    [SerializeField] private float minDurationBetweenSwitch = 4f;
+    [SerializeField, Tooltip("If 0, then there is not auto turnoff")] private float autoTurnOffTime = 0;
     [SerializeField] private bool canDeactivate = true;
     [SerializeField] [Range(0.0f, 1.0f)] private float minPressureValue = 0f;
     [SerializeField] [Range(0.0f, 1.0f)] private float maxPressureValue = 1.0f;
@@ -43,7 +43,7 @@ public class SwitchActivator : Activator
     public override void SongInput(SongData data)
     {
         //lastData = data;
-        if (CheckNotes(data) && swapTimer > minDurBetweenSwitch)
+        if (CheckNotes(data) && swapTimer > minDurationBetweenSwitch)
         {
             lastData = data;
             if (state == State_SwitchActivator.ACTIVATED && canDeactivate) state = State_SwitchActivator.DEACTIVATING;
@@ -86,10 +86,10 @@ public class SwitchActivator : Activator
                 wheel.HighlightHint(new SongData { Notes = notes });
                 foreach (InteractableAction action in actions)
                 {
-                    action.Activate();
                     action.InputData(lastData);
+                    action.Activate();
                 }
-                if (turnOffTimer > autoTurnOffTime)
+                if (autoTurnOffTime != 0.0f && turnOffTimer > autoTurnOffTime)
                 {
                     state = State_SwitchActivator.DEACTIVATING;
                 }
@@ -99,7 +99,7 @@ public class SwitchActivator : Activator
             case State_SwitchActivator.DEACTIVATING:
                 wheel.ShowNextHint(new SongData { Notes = notes });
 
-                if (timer >= activationDelay)
+                if (timer >= deactivationDelay)
                 {
                     state = State_SwitchActivator.DEACTIVATED;
                     timer = 0.0f;
@@ -127,11 +127,14 @@ public class SwitchActivator : Activator
     {
 
         if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
+        /*
         if (orderedNotes.Count != data.Notes.Count) return false;
         for (int i = 0; i < data.Notes.Count; i++)
         {
             if (data.Notes[i] != orderedNotes[i]) return false;
         }
         return true;
+        */
+        return orderedNotes.All(i => data.Notes.Contains(i));
     }
 }

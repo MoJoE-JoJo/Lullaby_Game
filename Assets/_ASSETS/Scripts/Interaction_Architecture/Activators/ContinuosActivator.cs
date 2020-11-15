@@ -47,8 +47,8 @@ public class ContinuosActivator : Activator
             {
                 foreach(InteractableAction action in actions)
                 {
-                    action.Activate();
                     action.InputData(data);
+                    action.Activate();
                 }
             }
             if(state == State_ContinuosActivator.DEACTIVATING)
@@ -125,12 +125,15 @@ public class ContinuosActivator : Activator
     private bool CheckNotes(SongData data)
     {
         if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
-        if (orderedNotes.Count != data.Notes.Count) return false;
+        //if (orderedNotes.Count != data.Notes.Count) return false;
+        /*
         for (int i = 0; i < data.Notes.Count; i++)
         {
             if (data.Notes[i] != orderedNotes[i]) return false;
         }
         return true;
+        */
+        return orderedNotes.All(i => data.Notes.Contains(i));
     }
 
 }
