@@ -4,6 +4,7 @@ using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 using System;
+using System.Linq;
 
 public class NoteController : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class NoteController : MonoBehaviour
     private SongData _songData;
     private bool _isSinging = false;
     private bool _wasSingingBefore = false;
+
+    private List<Song_Note> _currentlySingingNotes = new List<Song_Note>();
 
 
     private List<EventInstance> eventInstanceList;
@@ -81,13 +84,40 @@ public class NoteController : MonoBehaviour
         // turn on notes based on the string
         foreach (Song_Note sn in notes)
         {
-            if (sn == Song_Note.A) StartInstance(Ainstance, _songData.Volume);
-            if (sn == Song_Note.B) StartInstance(Binstance, _songData.Volume);
-            if (sn == Song_Note.C) StartInstance(Cinstance, _songData.Volume);
-            if (sn == Song_Note.D) StartInstance(Dinstance, _songData.Volume);
-            if (sn == Song_Note.E) StartInstance(Ginstance, _songData.Volume);
-            if (sn == Song_Note.F) StartInstance(Einstance, _songData.Volume);
+            if (sn == Song_Note.A)
+            {
+                StartInstance(Ainstance, _songData.Volume);
+                _currentlySingingNotes.Add(sn);
+            }
+            if (sn == Song_Note.B)
+            {
+                StartInstance(Binstance, _songData.Volume);
+                _currentlySingingNotes.Add(sn);
+            }
 
+            if (sn == Song_Note.C)
+            {
+                StartInstance(Cinstance, _songData.Volume);
+                _currentlySingingNotes.Add(sn);
+            }
+
+            if (sn == Song_Note.D)
+            {
+                StartInstance(Dinstance, _songData.Volume);
+                _currentlySingingNotes.Add(sn);
+            }
+
+            if (sn == Song_Note.E)
+            {
+                StartInstance(Ginstance, _songData.Volume);
+                _currentlySingingNotes.Add(sn);
+            }
+
+            if (sn == Song_Note.F)
+            {
+                StartInstance(Einstance, _songData.Volume);
+                _currentlySingingNotes.Add(sn);
+            }
         }
         alreadySingingNote = true;
     }
@@ -100,17 +130,132 @@ public class NoteController : MonoBehaviour
         {
             eventInstance.setParameterByName("isSinging", 0);
             eventInstance.setParameterByName("wasSingingOtherTone", 0);
-            //eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
+
+        _currentlySingingNotes.Clear();
         alreadySingingNote = false;
     }
 
     private void UpdateSinging()
     {
-        foreach (var eventInstance in eventInstanceList)
+        var notesToStop = _currentlySingingNotes.Except(_songData.Notes).ToList();
+
+        String notesStopping = "";
+
+        foreach (Song_Note noteToStop in notesToStop)
         {
-            eventInstance.setVolume(_songData.Volume);
+            if (noteToStop == Song_Note.A)
+            {
+                StopInstance(Ainstance);
+                _currentlySingingNotes.Remove(noteToStop);
+            }
+            else if (noteToStop == Song_Note.B)
+            {
+                StopInstance(Binstance);
+                _currentlySingingNotes.Remove(noteToStop);
+            }
+            else if (noteToStop == Song_Note.C)
+            {
+                StopInstance(Cinstance);
+                _currentlySingingNotes.Remove(noteToStop);
+            }
+            else if (noteToStop == Song_Note.D)
+            {
+                StopInstance(Dinstance);
+                _currentlySingingNotes.Remove(noteToStop);
+            }
+            else if (noteToStop == Song_Note.E)
+            {
+                StopInstance(Ginstance);
+                _currentlySingingNotes.Remove(noteToStop);
+            }
+            else if (noteToStop == Song_Note.F)
+            {
+                StopInstance(Einstance);
+                _currentlySingingNotes.Remove(noteToStop);
+            }
+
+            notesStopping += noteToStop.ToString();
         }
+        //Debug.Log("Notes to stop: " + notesToStop);
+
+        var notesToStart = _songData.Notes.Except(_currentlySingingNotes).ToList();
+
+        foreach (var noteToStart in notesToStart)
+        {
+            if (noteToStart == Song_Note.A)
+            {
+                StartInstance(Ainstance, _songData.Volume);
+                _currentlySingingNotes.Add(noteToStart);
+            }
+            if (noteToStart == Song_Note.B)
+            {
+                StartInstance(Binstance, _songData.Volume);
+                _currentlySingingNotes.Add(noteToStart);
+            }
+
+            if (noteToStart == Song_Note.C)
+            {
+                StartInstance(Cinstance, _songData.Volume);
+                _currentlySingingNotes.Add(noteToStart);
+            }
+
+            if (noteToStart == Song_Note.D)
+            {
+                StartInstance(Dinstance, _songData.Volume);
+                _currentlySingingNotes.Add(noteToStart);
+            }
+
+            if (noteToStart == Song_Note.E)
+            {
+                StartInstance(Ginstance, _songData.Volume);
+                _currentlySingingNotes.Add(noteToStart);
+            }
+
+            if (noteToStart == Song_Note.F)
+            {
+                StartInstance(Einstance, _songData.Volume);
+                _currentlySingingNotes.Add(noteToStart);
+            }
+        }
+
+        foreach (var instance in eventInstanceList)
+        {
+            instance.setVolume(_songData.Volume);
+        }
+
+        /*
+        var notesToUpdate = _currentlySingingNotes.Intersect(_songData.Notes).ToList();
+        foreach (var noteToUpdate in notesToUpdate)
+        {
+            if (noteToUpdate == Song_Note.A)
+            {
+                Ainstance.setVolume(_songData.Volume);
+            }
+            else if (noteToUpdate == Song_Note.B)
+            {
+                Binstance.setVolume(_songData.Volume);
+            }
+            else if (noteToUpdate == Song_Note.C)
+            {
+                Cinstance.setVolume(_songData.Volume);
+            }
+            else if (noteToUpdate == Song_Note.D)
+            {
+                Dinstance.setVolume(_songData.Volume);
+            }
+            else if (noteToUpdate == Song_Note.E)
+            {
+                Ginstance.setVolume(_songData.Volume);
+            }
+            else if (noteToUpdate == Song_Note.F)
+            {
+                Einstance.setVolume(_songData.Volume);
+            }
+        }*/
+
+
     }
 
 
@@ -123,5 +268,12 @@ public class NoteController : MonoBehaviour
         }
         eventInstance.setVolume(volume);
         eventInstance.start();
+    }
+
+
+    private void StopInstance(EventInstance eventInstance)
+    {
+        eventInstance.setParameterByName("isSinging", 0);
+        eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 }

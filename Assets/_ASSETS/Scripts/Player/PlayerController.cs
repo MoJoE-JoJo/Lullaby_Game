@@ -3,6 +3,7 @@ using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class PlayerController : MonoBehaviour
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerSpeed;
     [SerializeField, Tooltip("Must be above 0.")] private float accelerationTime;
     [SerializeField] private float jumpForce;
+    [SerializeField] private float wheelDeactivateDelay;
     private float accTimer = 0.0f;
     private float decTimer = 0.0f;
     private PlayerControls _controls;
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public bool _isGrounded;
     private Vector2 _move;
     private float songDelayTimer;
+    private Coroutine _deactivateWheel;
 
     public SongData SongBeingSung
     {
@@ -36,6 +39,8 @@ public class PlayerController : MonoBehaviour
         set => _isSinging = value;
     }
 
+
+
     private void Awake()
     {
         _controls = new PlayerControls();
@@ -45,6 +50,9 @@ public class PlayerController : MonoBehaviour
 
         _controls.Player.Move.performed += context => _move = context.ReadValue<Vector2>();
         _controls.Player.Move.canceled += context => _move = Vector2.zero;
+
+        _controls.NoteSelector.Sing.performed += context => Sing(context);
+        _controls.NoteSelector.Sing.canceled += context => StopSing();
 
         _controls.Player.Jump.performed += context => Jump();
     }
@@ -65,6 +73,7 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
         UpdateNoteController();
+        //Debug.Log(_isSinging);
         SingToActivators();
     }
 
@@ -94,11 +103,22 @@ public class PlayerController : MonoBehaviour
             noteSelector.GetComponent<NoteSelectorNew>().CenterNoteSelector();
             noteSelector.SetActive(true);
         }
+
+        if (_deactivateWheel != null)
+        {
+            StopCoroutine(_deactivateWheel);
+        }
     }
     void DeactivateNoteSelector()
     {
+        _deactivateWheel = StartCoroutine(DeactivateWheel());
+    }
+
+    private IEnumerator DeactivateWheel()
+    {
+        yield return new WaitForSeconds(wheelDeactivateDelay);
         noteSelector.SetActive(false);
-        _isSinging = false;
+        //_isSinging = false;
     }
 
     void MovePlayer()
@@ -153,8 +173,22 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateNoteController()
     {
+        //Debug.Log(_songBeingSung.Notes.ToString());
         noteController.SongData = _songBeingSung;
         noteController.IsSinging = _isSinging;
+    }
+
+    private void Sing(InputAction.CallbackContext context)
+    {
+        _isSinging = true;
+        
+        _songBeingSung.Volume = context.ReadValue<float>();
+        
+    }
+
+    private void StopSing()
+    {
+        _isSinging = false;
     }
     
 }
