@@ -69,6 +69,13 @@ public class NoteSelectorNew : MonoBehaviour
     {
         SetupControls();
 
+        _segmentA = this.transform.Find("SegmentA").gameObject;
+        _segmentB = this.transform.Find("SegmentB").gameObject;
+        _segmentC = this.transform.Find("SegmentC").gameObject;
+        _segmentD = this.transform.Find("SegmentD").gameObject;
+        _segmentE = this.transform.Find("SegmentE").gameObject;
+        _segmentF = this.transform.Find("SegmentF").gameObject;
+
         _backgroundA = _segmentA.transform.Find("Background").GetComponent<Image>();
         _backgroundB = _segmentB.transform.Find("Background").GetComponent<Image>();
         _backgroundC = _segmentC.transform.Find("Background").GetComponent<Image>();
@@ -134,11 +141,11 @@ public class NoteSelectorNew : MonoBehaviour
     private void OnDisable()
     {
         _controls.Disable();
-        fillA.fillAmount = startingImageFill;
-        fillB.fillAmount = startingImageFill;
-        fillC.fillAmount = startingImageFill;
-        fillD.fillAmount = startingImageFill;
-        fillE.fillAmount = startingImageFill;
+        _fillA.fillAmount = startingImageFill;
+        _fillB.fillAmount = startingImageFill;
+        _fillC.fillAmount = startingImageFill;
+        _fillD.fillAmount = startingImageFill;
+        _fillE.fillAmount = startingImageFill;
         foreach (var entry in _imagesLocked)
         {
             _segments[entry.Key].transform.localPosition /= lockOffsetAmount;
@@ -451,6 +458,7 @@ public class NoteSelectorNew : MonoBehaviour
     void SetupControls() //method to setup the controls through the new input system
     {
         _controls = new PlayerControls();
+        _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         _controls.NoteSelector.Move.performed += context => _selectorMove = context.ReadValue<Vector2>();
         _controls.NoteSelector.Move.canceled += context => _selectorMove = Vector2.zero;

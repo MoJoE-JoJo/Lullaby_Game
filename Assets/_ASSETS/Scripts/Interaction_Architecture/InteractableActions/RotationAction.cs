@@ -109,6 +109,11 @@ public class RotationAction : InteractableAction
         songData = data;
     }
 
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
+    }
+
     //public void SetRotationLimit(float x) 
     //{
     //    maxRotation = originalRotation + x;
