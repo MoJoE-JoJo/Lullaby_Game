@@ -125,7 +125,7 @@ public class SwitchActivator : Activator
     //checks the inputed SongData if its notes matches with the 
     private bool CheckNotes(SongData data)
     {
-
+        if (data.Notes == null) return false;
         if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
         if (orderedNotes.Count > 1 && orderedNotes.Count != data.Notes.Count) return false;
         /*
