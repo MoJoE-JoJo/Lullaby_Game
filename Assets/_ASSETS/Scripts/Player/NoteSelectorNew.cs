@@ -135,17 +135,33 @@ public class NoteSelectorNew : MonoBehaviour
 
     private void OnEnable()
     {
+        _currentSongString = "";
+        _currentSong = new SongData();
+
         _controls.Enable();
     }
 
     private void OnDisable()
     {
+        SingReleased();
+        //_anySongPlaying = false;
+        //_playerController.IsSinging = false;
+        _playerController.SongBeingSung = _lastSong;
+        //UpdatePlayerNote();
         _controls.Disable();
         _fillA.fillAmount = startingImageFill;
         _fillB.fillAmount = startingImageFill;
         _fillC.fillAmount = startingImageFill;
         _fillD.fillAmount = startingImageFill;
         _fillE.fillAmount = startingImageFill;
+
+        foreach (var background in _backgrounds)
+        {
+            var tempColor = _backgrounds[background.Key].color;
+            tempColor.a = initialBackgroundAlpha;
+            _backgrounds[background.Key].color = tempColor;
+        }
+        
         foreach (var entry in _imagesLocked)
         {
             _segments[entry.Key].transform.localPosition /= lockOffsetAmount;
@@ -153,7 +169,6 @@ public class NoteSelectorNew : MonoBehaviour
         _imagesLocked = new Dictionary<string, Image>();
         _imagesToFill = new Dictionary<string, Image>();
         _imagesToEmpty = new Dictionary<string, Image>();
-        _playerController.IsSinging = false;
     }
 
     public void CenterNoteSelector()
