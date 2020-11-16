@@ -12,7 +12,7 @@ public class NoteController : MonoBehaviour
 
     [EventRef]
     public string AEvent, BEvent, CEvent, DEvent, GEvent, EEvent;
-    private bool alreadySingingNote = false;
+    //private bool alreadySingingNote = false;
 
     //public KeyCode SingButton;
 
@@ -124,7 +124,7 @@ public class NoteController : MonoBehaviour
                 _currentlySingingNotes.Add(sn);
             }
         }
-        alreadySingingNote = true;
+        //alreadySingingNote = true;
     }
 
     public void StopSinging()
@@ -139,7 +139,7 @@ public class NoteController : MonoBehaviour
         }
 
         _currentlySingingNotes.Clear();
-        alreadySingingNote = false;
+        //alreadySingingNote = false;
     }
 
     private void UpdateSinging()
@@ -252,16 +252,16 @@ public class NoteController : MonoBehaviour
 
     private void StartInstance(EventInstance eventInstance, float volume)
     {
-        eventInstance.setParameterByName("isSinging", 1);
+        //eventInstance.setParameterByName("isSinging", 1);
         eventInstance.setVolume(volume);
         eventInstance.start();
 
-        foreach (var eventInstances in eventInstanceList)
-        {
-            eventInstances.setParameterByName("wasSingingOtherTone", 1);
-        }
+        //foreach (var eventInstances in eventInstanceList)
+        //{
+        //    eventInstances.setParameterByName("wasSingingOtherTone", 1);
+        //}
 
-        eventInstance.setParameterByName("wasSingingOtherTone", 0);
+        //eventInstance.setParameterByName("wasSingingOtherTone", 0);
     }
 
 
