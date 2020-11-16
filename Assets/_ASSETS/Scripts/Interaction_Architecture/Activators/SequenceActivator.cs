@@ -16,6 +16,7 @@ public class SequenceActivator : Activator
     //[SerializeField] private float minDurBetweenSwitch = 4f;
     //[SerializeField] private float autoTurnOffTime = 0;
     //[SerializeField] private bool canDeactivate = true;
+    [SerializeField] private bool activateOnComplete = false;
     [SerializeField] private float transitionTime = 1.0f;
     [SerializeField] [Range(0.0f, 1.0f)] private float minPressureValue = 0f;
     [SerializeField] [Range(0.0f, 1.0f)] private float maxPressureValue = 1.0f;
@@ -105,6 +106,13 @@ public class SequenceActivator : Activator
         switch (state)
         {
             case State_SequenceActivator.MIDSEQUENCE:
+                if (!activateOnComplete)
+                {
+                    //foreach (InteractableAction action in actions)
+                    //{
+                    //    action.Deactivate();
+                    //}
+                }
                 if (playingCorrectTimer >= nextCorrectPart.Playtime)
                 {
                     hintObject.HighlightHint(new SongData { Notes = nextCorrectPart.Chord });
@@ -138,6 +146,17 @@ public class SequenceActivator : Activator
                     playingCorrectTimer = 0.0f;
                     recievingNoInputTimer = 0.0f;
                 }
+                else
+                {
+                    if (!activateOnComplete)
+                    {
+                        foreach (InteractableAction action in actions)
+                        {
+                            action.InputData(lasterData);
+                            action.Activate();
+                        }
+                    }
+                }
                 transitionTimer += Time.deltaTime;
                 break;
 
@@ -155,10 +174,14 @@ public class SequenceActivator : Activator
                 break;
 
             case State_SequenceActivator.COMPLETE:
-                foreach (InteractableAction action in actions)
+                if (activateOnComplete)
                 {
-                    action.InputData(lasterData);
-                    action.Activate();
+                    foreach (InteractableAction action in actions)
+                    {
+                        action.InputData(lasterData);
+                        action.Activate();
+                    }
+                    
                 }
                     //action.InputData(lastData);
 
@@ -191,6 +214,7 @@ public class SequenceActivator : Activator
     {
         if (data.Notes == null) return false;
         if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
+        if (nextCorrectPart.Chord.Count > 1 && nextCorrectPart.Chord.Count != data.Notes.Count) return false;
         /*
         if (nextCorrectPart.Chord.Count != data.Notes.Count) return false;
         

@@ -125,7 +125,7 @@ public class ContinuosActivator : Activator
     private bool CheckNotes(SongData data)
     {
         if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
-        //if (orderedNotes.Count != data.Notes.Count) return false;
+        if (orderedNotes.Count > 1 && orderedNotes.Count != data.Notes.Count) return false;
         /*
         for (int i = 0; i < data.Notes.Count; i++)
         {
