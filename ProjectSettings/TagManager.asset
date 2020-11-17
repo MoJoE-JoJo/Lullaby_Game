@@ -11,6 +11,7 @@ TagManager:
   - ActivatorSensor
   - AudioManager
   - NoteWheel
+  - CarDestination
   layers:
   - Default
   - TransparentFX

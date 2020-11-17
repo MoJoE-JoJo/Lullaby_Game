@@ -7,10 +7,15 @@ public  enum State_PhysicsAction {DEACTIVATED, ACTIVATED, IDLE, ACTIVATING}
 public enum Activated_Gravity_Direction { UP, DOWN, LEFT, RIGHT }
 public class PhysicsAction : InteractableAction
 {
+    public State_PhysicsAction State
+    {
+        get => state;
+    }
     [SerializeField] private State_PhysicsAction state = State_PhysicsAction.DEACTIVATED;
     [SerializeField] private Activated_Gravity_Direction flyDirection;
     [SerializeField, Tooltip("9.8 corresponds to gravity speed")] private float flySpeed = 9.8f;
     [SerializeField, Tooltip("Adjusts the scale of gravity, 1 is for normal gravity, and 0 is for no gravity")] private float gravityScale = 0.0f;
+    [SerializeField] private bool usePressure = true;
     [SerializeField] private bool debug_reset;
     private float originalGravityScale;
     private Vector2 directionVector;
@@ -46,7 +51,8 @@ public class PhysicsAction : InteractableAction
         else if (state == State_PhysicsAction.ACTIVATED)
         {
             rigbod.gravityScale = gravityScale;
-            rigbod.AddForce(directionVector * flySpeed * songData.Volume);
+            if(usePressure) rigbod.AddForce(directionVector * flySpeed * songData.Volume);
+            else rigbod.AddForce(directionVector * flySpeed);
         }
         else if (state == State_PhysicsAction.DEACTIVATED)
         {
