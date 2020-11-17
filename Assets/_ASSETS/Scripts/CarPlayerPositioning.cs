@@ -8,6 +8,7 @@ public class CarPlayerPositioning : MonoBehaviour
     public Rigidbody2D carBody;
     public PhysicsAction moveAction;
     public MoveToPositionAction resetAction;
+    public List<RotationAction> wheels;
     public bool touching;
 
     // Start is called before the first frame update
@@ -23,6 +24,13 @@ public class CarPlayerPositioning : MonoBehaviour
         if(touching && (moveAction.State == State_PhysicsAction.ACTIVATED || resetAction.State == State_MoveToPositionAction.ACTIVATED))
         {
             playerBody.velocity = carBody.velocity;
+        }
+        if(resetAction.State == State_MoveToPositionAction.FINISHED)
+        {
+            foreach(RotationAction ro in wheels)
+            {
+                ro.Deactivate();
+            }
         }
     }
 
