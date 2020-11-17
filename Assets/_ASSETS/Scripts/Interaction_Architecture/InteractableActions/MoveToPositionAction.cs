@@ -8,6 +8,10 @@ public enum State_MoveToPositionAction { DEACTIVATED, ACTIVATED, FINISHED }
 
 public class MoveToPositionAction : InteractableAction
 {
+    public State_MoveToPositionAction State
+    {
+        get => state;
+    }
     [SerializeField] private State_MoveToPositionAction state = State_MoveToPositionAction.DEACTIVATED;
     [SerializeField] private float moveSpeed;
     [SerializeField, Tooltip("There must always be atleast two elements in the list for the script to behave properly.")] private List<Transform> movePositions;
@@ -15,6 +19,7 @@ public class MoveToPositionAction : InteractableAction
     [SerializeField, HideInInspector] private bool cycle;
     [SerializeField, HideInInspector] private float positionWaitTime = 1f;
     [SerializeField] private bool resetMoveOnDeactivate = false;
+    [SerializeField, Tooltip("Primarily used for the moving car, and os only meant to be used with objects that have rigidbodies")] private float reachedLocationMargin = 0.0f;
     [SerializeField] private bool debug_reset;
     private Transform target;
     private Transform last;
@@ -86,6 +91,18 @@ public class MoveToPositionAction : InteractableAction
                 Mathf.SmoothStep(last.position.y, target.position.y, moveFraction),
                 moveFraction
                 );
+        }
+        if ((transform.position - target.position).magnitude < reachedLocationMargin)
+        {
+            if (moveToIndex == movePositions.Count - 1)
+            {
+                state = State_MoveToPositionAction.FINISHED;
+            }
+            else
+            {
+                moveToIndex++;
+                moveFraction = 0;
+            }
         }
         else if (moveFraction >= 1)
         {
