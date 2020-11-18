@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CarPlayerPositioning : MonoBehaviour
 {
-    public Rigidbody2D playerBody;
-    public Rigidbody2D carBody;
-    public PhysicsAction moveAction;
-    public MoveToPositionAction resetAction;
-    public List<RotationAction> wheels;
-    public bool touching;
+    [SerializeField] private Rigidbody2D playerBody;
+    [SerializeField] private Rigidbody2D carBody;
+    [SerializeField] private PhysicsAction moveAction;
+    [SerializeField] private MoveToPositionAction resetAction;
+    [SerializeField] private List<RotationAction> wheels;
+    [SerializeField] private bool touching;
 
     // Start is called before the first frame update
     void Start()

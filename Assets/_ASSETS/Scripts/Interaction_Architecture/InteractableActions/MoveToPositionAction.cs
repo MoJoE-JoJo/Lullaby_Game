@@ -12,6 +12,11 @@ public class MoveToPositionAction : InteractableAction
     {
         get => state;
     }
+    public List<Transform> MovePositions
+    {
+        get => movePositions;
+        set => movePositions = value;
+    }
     [SerializeField] private State_MoveToPositionAction state = State_MoveToPositionAction.DEACTIVATED;
     [SerializeField] private float moveSpeed;
     [SerializeField, Tooltip("There must always be atleast two elements in the list for the script to behave properly.")] private List<Transform> movePositions;
@@ -82,6 +87,8 @@ public class MoveToPositionAction : InteractableAction
 
     private void OneWayMovement()
     {
+        last = movePositions[moveToIndex - 1];
+        target = movePositions[moveToIndex];
         if (moveFraction < 1)
         {
             moveFraction += Time.fixedDeltaTime * moveSpeed / (last.position - target.position).magnitude;
