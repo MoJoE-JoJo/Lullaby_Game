@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum Facing { RIGHT, LEFT }
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,6 +28,12 @@ public class PlayerController : MonoBehaviour
     private Vector2 _move;
     private float songDelayTimer;
     private Coroutine _deactivateWheel;
+    private float _volume;
+    
+    //animation stuff
+    //Animation stuff
+    private Animator _animator;
+    private Facing _facing = Facing.RIGHT;
 
     public SongData SongBeingSung
     {
@@ -60,6 +67,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _animator = GetComponent<Animator>();
         _rb2d = GetComponent<Rigidbody2D>();
         actiSensor = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ActivatorSensor>();
         noteController = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<NoteController>();
@@ -75,12 +83,14 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(_isSinging);
         
         //Debug.Log(_songBeingSung);
+        UpdateAnimation();
         
     }
 
     private void LateUpdate()
     {
         UpdateNoteController();
+        
         SingToActivators();
     }
 
@@ -188,14 +198,35 @@ public class PlayerController : MonoBehaviour
     private void Sing(InputAction.CallbackContext context)
     {
         _isSinging = true;
-        
-        _songBeingSung.Volume = context.ReadValue<float>();
-        
+        _volume = context.ReadValue<float>();
+        _songBeingSung.Volume = _volume;
+
     }
 
     private void StopSing()
     {
         _isSinging = false;
+    }
+    
+    private void UpdateAnimation()
+    {
+        Facing wasFacing = _facing;
+
+        if (wasFacing == Facing.RIGHT && _rb2d.velocity.x < 0)
+        {
+            transform.Rotate(new Vector3(0,-180,0));
+            _facing = Facing.LEFT;
+        }
+        if (wasFacing == Facing.LEFT && _rb2d.velocity.x > 0)
+        {
+            transform.Rotate(new Vector3(0,-180,0));
+            _facing = Facing.RIGHT;
+        }
+        _animator.SetFloat("RunSpeed", Mathf.Abs(_rb2d.velocity.x));
+        _animator.SetFloat("JumpSpeed", _rb2d.velocity.y);
+        _animator.SetBool("IsGrounded", _isGrounded);
+        _animator.SetBool("IsSinging", _isSinging);
+        _animator.SetFloat("SingVolume", _volume);
     }
     
 }
