@@ -35,7 +35,10 @@ public class ChangeCameraSize : MonoBehaviour
             case State_ChangeCameraSize.RESIZETOROOM:
                 camera.GetComponent<CameraMove>().Target = gameObject;
                 camera.GetComponent<ActivatorSensor>().ScreenSizeChanged = true;
-                if(resizeTime > 0.0f)
+                
+                //var acti = camera.GetComponent<ActivatorSensor>();
+                //acti.ScreenSizeChanged = true;
+                if (resizeTime > 0.0f)
                 {
                     if (resizeFraction < 1)
                     {
@@ -56,6 +59,8 @@ public class ChangeCameraSize : MonoBehaviour
             case State_ChangeCameraSize.RESIZETOPLAYER:
                 camera.GetComponent<CameraMove>().Target = player;
                 camera.GetComponent<ActivatorSensor>().ScreenSizeChanged = true;
+                //acti = camera.GetComponent<ActivatorSensor>();
+                //acti.ScreenSizeChanged = true;
                 if (resizeTime > 0.0f)
                 {
                     if (resizeFraction < 1)
