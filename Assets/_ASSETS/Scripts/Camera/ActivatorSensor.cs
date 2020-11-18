@@ -6,6 +6,11 @@ using UnityEngine;
 public class ActivatorSensor : MonoBehaviour
 {
     [SerializeField] private Vector2 screenSize;
+    public bool ScreenSizeChanged
+    {
+        get;
+        set;
+    }
     public List<Activator> RegisteredActivators 
     {
         get => registeredActivators;
@@ -16,6 +21,10 @@ public class ActivatorSensor : MonoBehaviour
     public void Start()
     {
         SetColliderSizeToScreen();
+    }
+    private void Update()
+    {
+        if (ScreenSizeChanged) SetColliderSizeToScreen();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -55,5 +64,6 @@ public class ActivatorSensor : MonoBehaviour
         screenSize.x = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0))) * 0.5f;
         screenSize.y = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height))) * 0.5f;
         GetComponent<BoxCollider2D>().size = screenSize * 2 / transform.lossyScale;
+        ScreenSizeChanged = false;
     }
 }
