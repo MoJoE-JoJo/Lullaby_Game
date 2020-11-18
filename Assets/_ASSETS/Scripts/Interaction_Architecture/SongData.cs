@@ -47,4 +47,22 @@ public struct SongData
         set => _duration = value;
     }
     [SerializeField] private float _duration;
+
+    public override string ToString()
+    {
+        if (_notes == null)
+        {
+            return "";
+        }
+        else
+        {
+            string toret = "";
+            foreach (var note in _notes)
+            {
+                toret += note.ToString();
+            }
+
+            return toret;
+        }
+    }
 }

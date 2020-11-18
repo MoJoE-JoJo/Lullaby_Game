@@ -72,8 +72,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        UpdateNoteController();
         //Debug.Log(_isSinging);
+        
+        //Debug.Log(_songBeingSung);
+        
+    }
+
+    private void LateUpdate()
+    {
+        UpdateNoteController();
         SingToActivators();
     }
 

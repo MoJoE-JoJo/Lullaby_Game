@@ -344,7 +344,7 @@ public class NoteSelectorNew : MonoBehaviour
     
     public void AddImageToFill(String segment)
     {
-        Debug.Log("Added image to fill");
+        //Debug.Log("Added image to fill");
         if (!_imagesToFill.ContainsKey(segment))
         {
             Image selected = null;
@@ -466,7 +466,10 @@ public class NoteSelectorNew : MonoBehaviour
 
     void UpdatePlayerNote() //give the Song information to the player script
     {
-        _playerController.SongBeingSung = _currentSong;
+        if (_anySongPlaying)
+        {
+            _playerController.SongBeingSung = _currentSong;
+        }
         //_playerController.IsSinging = _anySongPlaying;
     }
 
