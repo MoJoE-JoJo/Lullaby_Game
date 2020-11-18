@@ -4,18 +4,18 @@ using UnityEngine;
 
 
 public enum State_RotationAction { DEACTIVATED, ACTIVATED }
-public enum RotationAction_Direction { LEFT, RIGHT }
+public enum RotationAction_Direction { COUNTERCLOCKWISE, CLOCKWISE }
 public class RotationAction : InteractableAction
 {
     [SerializeField]
     private State_RotationAction state = State_RotationAction.DEACTIVATED;
     [SerializeField] private RotationAction_Direction rotateDirection;
     [SerializeField] private float rotationSpeed = 100.0f;
-    [SerializeField] private bool fixedSpeed;
+    [SerializeField, Tooltip("Usually you want this activated")] private bool fixedSpeed = true;
     [SerializeField] private float SpinDuration = 0.0f;
     [SerializeField, Tooltip("0 means no limit")] private float rotationLimit = 0.0f;
     [SerializeField] private bool spinBackOnDeactivate;
-    [SerializeField] private float margin = 1f;
+    [SerializeField, Tooltip("Usually you want this at 1")] private float margin = 1f;
 
     private int direction;
     private bool ongoing;
@@ -30,7 +30,7 @@ public class RotationAction : InteractableAction
     void Start()
     {
         ongoing = false;
-        if (rotateDirection == RotationAction_Direction.RIGHT) direction = -1;
+        if (rotateDirection == RotationAction_Direction.CLOCKWISE) direction = -1;
         else direction = 1;
 
         if (SpinDuration > 0.0f) usingTimer = true;
@@ -85,8 +85,8 @@ public class RotationAction : InteractableAction
         {
             if (isLimited)
             {
-                if (rotateDirection == RotationAction_Direction.LEFT && rigbod.rotation >= maxRotation) return;
-                else if (rotateDirection == RotationAction_Direction.RIGHT && rigbod.rotation <= maxRotation) return;
+                if (rotateDirection == RotationAction_Direction.COUNTERCLOCKWISE && rigbod.rotation >= maxRotation) return;
+                else if (rotateDirection == RotationAction_Direction.CLOCKWISE && rigbod.rotation <= maxRotation) return;
             }
 
             var pressure = songData.Volume;
