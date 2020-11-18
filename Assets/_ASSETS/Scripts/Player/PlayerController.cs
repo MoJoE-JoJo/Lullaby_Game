@@ -203,7 +203,7 @@ public class PlayerController : MonoBehaviour
     private void Sing(InputAction.CallbackContext context)
     {
         _isSinging = true;
-        _volume = context.ReadValue<float>();
+        _volume = EaseVolume(context.ReadValue<float>()); 
         _songBeingSung.Volume = _volume;
 
     }
@@ -240,6 +240,19 @@ public class PlayerController : MonoBehaviour
         _legsAnimator.SetFloat("JumpSpeed", _rb2d.velocity.y);
         _legsAnimator.SetBool("IsGrounded", _isGrounded);
         _legsAnimator.SetBool("IsSinging", _isSinging);
+    }
+    
+    float EaseVolume(float volume)
+    {
+        return volume;
+        
+        float vol = 1.1f - Mathf.Pow(1-volume, 3);
+        if (vol >= 1.0f)
+        {
+            vol = 1.0f;
+        }
+
+        return vol;
     }
     
 }
