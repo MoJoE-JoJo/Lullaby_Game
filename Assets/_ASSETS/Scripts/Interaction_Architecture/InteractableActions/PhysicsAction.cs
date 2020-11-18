@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public  enum State_PhysicsAction {DEACTIVATED, ACTIVATED, IDLE, ACTIVATING}
+public enum State_PhysicsAction { DEACTIVATED, ACTIVATED, IDLE, ACTIVATING }
 public enum Activated_Gravity_Direction { UP, DOWN, LEFT, RIGHT }
 public class PhysicsAction : InteractableAction
 {
@@ -16,13 +16,15 @@ public class PhysicsAction : InteractableAction
     private Vector2 directionVector;
     //private bool ongoing;
     private SongData songData;
-    private Vector3 originalPosition;
+    private Vector3 orgPos;
+    private Quaternion orgRot;
     // Start is called before the first frame update
     void Start()
     {
         originalGravityScale = GetComponent<Rigidbody2D>().gravityScale;
         //ongoing = false;
-        originalPosition = transform.position;
+        orgPos = transform.position;
+        orgRot = transform.rotation;
     }
 
     // Update is called once per frame
@@ -58,7 +60,7 @@ public class PhysicsAction : InteractableAction
 
     public override void Activate()
     {
-        if(state != State_PhysicsAction.ACTIVATED) state = State_PhysicsAction.ACTIVATING;
+        if (state != State_PhysicsAction.ACTIVATED) state = State_PhysicsAction.ACTIVATING;
     }
 
     public override void Deactivate()
@@ -74,11 +76,12 @@ public class PhysicsAction : InteractableAction
     public override void Reset()
     {
         //ongoing = false;
-        transform.position = originalPosition;
+        transform.position = orgPos;
+        transform.rotation = orgRot;
         debug_reset = false;
     }
 
-    private void ChangeGravity(Rigidbody2D rigbod, Activated_Gravity_Direction direction) 
+    private void ChangeGravity(Rigidbody2D rigbod, Activated_Gravity_Direction direction)
     {
         switch (direction)
         {

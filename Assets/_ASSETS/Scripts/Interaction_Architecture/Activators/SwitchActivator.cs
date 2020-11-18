@@ -10,7 +10,7 @@ public class SwitchActivator : Activator
 
     [SerializeField] private State_SwitchActivator state = State_SwitchActivator.DEACTIVATED;
 
-    [SerializeField] private MiniwheelSegmentHandler wheel;
+    [SerializeField] private MiniwheelSegmentHandler hintWheel;
     [SerializeField] private float activationDelay;
     [SerializeField] private float deactivationDelay;
     [SerializeField] private float minDurationBetweenSwitch = 4f;
@@ -42,7 +42,12 @@ public class SwitchActivator : Activator
 
     public override void SongInput(SongData data)
     {
-        if (!enabled) return;
+        if (!enabled)
+        {
+            hintWheel.Hide();
+            return;
+        }
+        else hintWheel.Show();
         //lastData = data;
         if (CheckNotes(data) && swapTimer > minDurationBetweenSwitch)
         {
@@ -74,7 +79,7 @@ public class SwitchActivator : Activator
         switch (state)
         {
             case State_SwitchActivator.ACTIVATING:
-                wheel.HighlightHint(new SongData { Notes = notes });
+                hintWheel.HighlightHint(new SongData { Notes = notes });
                 if (timer >= activationDelay)
                 {
                     state = State_SwitchActivator.ACTIVATED;
@@ -84,7 +89,7 @@ public class SwitchActivator : Activator
                 break;
 
             case State_SwitchActivator.ACTIVATED:
-                wheel.HighlightHint(new SongData { Notes = notes });
+                hintWheel.HighlightHint(new SongData { Notes = notes });
                 foreach (InteractableAction action in actions)
                 {
                     action.InputData(lastData);
@@ -98,7 +103,7 @@ public class SwitchActivator : Activator
                 break;
 
             case State_SwitchActivator.DEACTIVATING:
-                wheel.ShowNextHint(new SongData { Notes = notes });
+                hintWheel.ShowNextHint(new SongData { Notes = notes });
 
                 if (timer >= deactivationDelay)
                 {
@@ -109,7 +114,7 @@ public class SwitchActivator : Activator
                 break;
 
             case State_SwitchActivator.DEACTIVATED:
-                wheel.ShowNextHint(new SongData { Notes = notes });
+                hintWheel.ShowNextHint(new SongData { Notes = notes });
 
                 foreach (InteractableAction action in actions)
                 {

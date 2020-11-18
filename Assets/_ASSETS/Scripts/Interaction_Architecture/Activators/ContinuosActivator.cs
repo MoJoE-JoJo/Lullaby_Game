@@ -25,7 +25,12 @@ public class ContinuosActivator : Activator
 
     public override void SongInput(SongData data)
     {
-        if (!enabled) return;
+        if (!enabled)
+        {
+            hintWheel.Hide();
+            return;
+        }
+        else hintWheel.Show();
         lastData = data;
         if (CheckNotes(lastData))
         {
