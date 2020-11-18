@@ -30,10 +30,11 @@ public class PlayerController : MonoBehaviour
     private Coroutine _deactivateWheel;
     private float _volume;
     
-    //animation stuff
     //Animation stuff
     private Animator _animator;
     private Facing _facing = Facing.RIGHT;
+    private GameObject _legs;
+    private Animator _legsAnimator;
 
     public SongData SongBeingSung
     {
@@ -62,11 +63,15 @@ public class PlayerController : MonoBehaviour
         _controls.NoteSelector.Sing.canceled += context => StopSing();
 
         _controls.Player.Jump.performed += context => Jump();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        
+        _legs = transform.Find("Legs").gameObject;
+        _legsAnimator = _legs.GetComponent<Animator>();
         _animator = GetComponent<Animator>();
         _rb2d = GetComponent<Rigidbody2D>();
         actiSensor = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ActivatorSensor>();
@@ -222,11 +227,19 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(new Vector3(0,-180,0));
             _facing = Facing.RIGHT;
         }
+        
+        //Player animator
         _animator.SetFloat("RunSpeed", Mathf.Abs(_rb2d.velocity.x));
         _animator.SetFloat("JumpSpeed", _rb2d.velocity.y);
         _animator.SetBool("IsGrounded", _isGrounded);
         _animator.SetBool("IsSinging", _isSinging);
         _animator.SetFloat("SingVolume", _volume);
+        
+        //Legs animator
+        _legsAnimator.SetFloat("RunSpeed", Mathf.Abs(_rb2d.velocity.x));
+        _legsAnimator.SetFloat("JumpSpeed", _rb2d.velocity.y);
+        _legsAnimator.SetBool("IsGrounded", _isGrounded);
+        _legsAnimator.SetBool("IsSinging", _isSinging);
     }
     
 }
