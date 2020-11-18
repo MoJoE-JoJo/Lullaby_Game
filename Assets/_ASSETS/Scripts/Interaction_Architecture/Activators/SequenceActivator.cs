@@ -66,6 +66,7 @@ public class SequenceActivator : Activator
 
     public override void SongInput(SongData data)
     {
+        if (!enabled) return;
         if (CheckNotes(data))
         {
             if (state == State_SequenceActivator.IDLE)
