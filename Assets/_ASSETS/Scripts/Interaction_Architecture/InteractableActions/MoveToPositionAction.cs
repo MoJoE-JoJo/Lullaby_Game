@@ -99,7 +99,7 @@ public class MoveToPositionAction : InteractableAction
                 moveFraction
                 );
         }
-        if ((transform.position - target.position).magnitude < reachedLocationMargin)
+        if (Math.Abs((transform.position - target.position).magnitude) < reachedLocationMargin)
         {
             if (moveToIndex == movePositions.Count - 1)
             {
