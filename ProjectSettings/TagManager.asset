@@ -12,6 +12,7 @@ TagManager:
   - AudioManager
   - NoteWheel
   - CarDestination
+  - CarCheckpoint
   layers:
   - Default
   - TransparentFX

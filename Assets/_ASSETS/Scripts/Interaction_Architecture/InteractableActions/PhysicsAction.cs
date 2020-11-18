@@ -11,6 +11,11 @@ public class PhysicsAction : InteractableAction
     {
         get => state;
     }
+    public Activated_Gravity_Direction FlyDirection
+    {
+        get => flyDirection;
+        set => flyDirection = value;
+    }
     [SerializeField] private State_PhysicsAction state = State_PhysicsAction.DEACTIVATED;
     [SerializeField] private Activated_Gravity_Direction flyDirection;
     [SerializeField, Tooltip("9.8 corresponds to gravity speed")] private float flySpeed = 9.8f;
