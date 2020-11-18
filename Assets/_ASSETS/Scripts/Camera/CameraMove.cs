@@ -10,6 +10,11 @@ public class CameraMove : MonoBehaviour
         get => target;
         set => target = value;
     }
+    public float SmootTime
+    {
+        get => smoothTime;
+        set => smoothTime = value;
+    }
     [SerializeField] private float smoothTime = 0.1f;
     [SerializeField] private bool thresholdMovement;
     //Should probably make it a CustomEditor, but there are tooltips, and they won't really fuck anything up, so maybe later.
