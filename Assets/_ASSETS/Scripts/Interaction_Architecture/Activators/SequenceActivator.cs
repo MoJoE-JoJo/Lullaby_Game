@@ -10,7 +10,7 @@ public class SequenceActivator : Activator
 
     [SerializeField] private State_SequenceActivator state = State_SequenceActivator.IDLE;
 
-    [SerializeField] private Hint hintObject;
+    [SerializeField] private Hint hintWheel;
     //[SerializeField] private float activationDelay;
     //[SerializeField] private float deactivationDelay;
     //[SerializeField] private float minDurBetweenSwitch = 4f;
@@ -66,7 +66,12 @@ public class SequenceActivator : Activator
 
     public override void SongInput(SongData data)
     {
-        if (!enabled) return;
+        if (!enabled)
+        {
+            hintWheel.Hide();
+            return;
+        }
+        else hintWheel.Show();
         if (CheckNotes(data))
         {
             if (state == State_SequenceActivator.IDLE)
@@ -117,13 +122,13 @@ public class SequenceActivator : Activator
                 }
                 if (playingCorrectTimer >= nextCorrectPart.Playtime)
                 {
-                    hintObject.HighlightHint(new SongData { Notes = nextCorrectPart.Chord });
+                    hintWheel.HighlightHint(new SongData { Notes = nextCorrectPart.Chord });
                     transitionTimer = 0.0f;
                     state = State_SequenceActivator.TRANSISTION;
                 }
                 else
                 {
-                    hintObject.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
+                    hintWheel.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
                 }
                 if (CheckNotes(lastData)) playingCorrectTimer += Time.deltaTime;
                 else if (lastData.Notes == null || lastData.Notes.Count == 0)
@@ -163,7 +168,7 @@ public class SequenceActivator : Activator
                 break;
 
             case State_SequenceActivator.IDLE:
-                hintObject.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
+                hintWheel.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
                 break;
 
             case State_SequenceActivator.RESETTING:
@@ -207,7 +212,7 @@ public class SequenceActivator : Activator
     {
         sequenceIndex = 0;
         nextCorrectPart = sequence[sequenceIndex];
-        hintObject.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
+        hintWheel.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
     }
 
 
