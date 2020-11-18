@@ -25,6 +25,7 @@ public class ContinuosActivator : Activator
 
     public override void SongInput(SongData data)
     {
+        if (!enabled) return;
         lastData = data;
         if (CheckNotes(lastData))
         {
