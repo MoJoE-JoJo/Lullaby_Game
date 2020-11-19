@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(!collision.gameObject.CompareTag("MainCamera")) _isGrounded = true;
+        if(!collision.gameObject.CompareTag("MainCamera") && collision.gameObject.layer != LayerMask.NameToLayer("Camera")) _isGrounded = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)

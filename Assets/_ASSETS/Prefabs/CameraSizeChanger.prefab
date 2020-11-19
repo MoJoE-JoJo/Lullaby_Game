@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8215212032972828748}
   - component: {fileID: 8215212032972828746}
   - component: {fileID: 8215212032972828749}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: CameraSizeChanger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
