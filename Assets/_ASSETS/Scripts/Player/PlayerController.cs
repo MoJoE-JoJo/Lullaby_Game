@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum Facing { RIGHT, LEFT }
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,6 +28,13 @@ public class PlayerController : MonoBehaviour
     private Vector2 _move;
     private float songDelayTimer;
     private Coroutine _deactivateWheel;
+    private float _volume;
+    
+    //Animation stuff
+    private Animator _animator;
+    private Facing _facing = Facing.RIGHT;
+    private GameObject _legs;
+    private Animator _legsAnimator;
 
     public SongData SongBeingSung
     {
@@ -55,11 +63,16 @@ public class PlayerController : MonoBehaviour
         _controls.NoteSelector.Sing.canceled += context => StopSing();
 
         _controls.Player.Jump.performed += context => Jump();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        
+        _legs = transform.Find("Legs").gameObject;
+        _legsAnimator = _legs.GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         _rb2d = GetComponent<Rigidbody2D>();
         actiSensor = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ActivatorSensor>();
         noteController = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<NoteController>();
@@ -75,12 +88,14 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(_isSinging);
         
         //Debug.Log(_songBeingSung);
+        UpdateAnimation();
         
     }
 
     private void LateUpdate()
     {
         UpdateNoteController();
+        
         SingToActivators();
     }
 
@@ -95,7 +110,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(!collision.gameObject.CompareTag("MainCamera")) _isGrounded = true;
+        if(!collision.gameObject.CompareTag("MainCamera") && collision.gameObject.layer != LayerMask.NameToLayer("Camera")) _isGrounded = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -188,14 +203,43 @@ public class PlayerController : MonoBehaviour
     private void Sing(InputAction.CallbackContext context)
     {
         _isSinging = true;
-        
-        _songBeingSung.Volume = context.ReadValue<float>();
-        
+        _volume = context.ReadValue<float>();
+        _songBeingSung.Volume = _volume;
+
     }
 
     private void StopSing()
     {
         _isSinging = false;
+    }
+    
+    private void UpdateAnimation()
+    {
+        Facing wasFacing = _facing;
+
+        if (wasFacing == Facing.RIGHT && _rb2d.velocity.x < 0)
+        {
+            transform.Rotate(new Vector3(0,-180,0));
+            _facing = Facing.LEFT;
+        }
+        if (wasFacing == Facing.LEFT && _rb2d.velocity.x > 0)
+        {
+            transform.Rotate(new Vector3(0,-180,0));
+            _facing = Facing.RIGHT;
+        }
+        
+        //Player animator
+        _animator.SetFloat("RunSpeed", Mathf.Abs(_rb2d.velocity.x));
+        _animator.SetFloat("JumpSpeed", _rb2d.velocity.y);
+        _animator.SetBool("IsGrounded", _isGrounded);
+        _animator.SetBool("IsSinging", _isSinging);
+        _animator.SetFloat("SingVolume", _volume);
+        
+        //Legs animator
+        _legsAnimator.SetFloat("RunSpeed", Mathf.Abs(_rb2d.velocity.x));
+        _legsAnimator.SetFloat("JumpSpeed", _rb2d.velocity.y);
+        _legsAnimator.SetBool("IsGrounded", _isGrounded);
+        _legsAnimator.SetBool("IsSinging", _isSinging);
     }
     
 }

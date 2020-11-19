@@ -7,7 +7,6 @@ public enum State_SequenceActivator { IDLE, RESETTING, TRANSISTION, MIDSEQUENCE,
 
 public class SequenceActivator : Activator
 {
-
     [SerializeField] private State_SequenceActivator state = State_SequenceActivator.IDLE;
 
     [SerializeField] private Hint hintWheel;
@@ -16,7 +15,9 @@ public class SequenceActivator : Activator
     //[SerializeField] private float minDurBetweenSwitch = 4f;
     //[SerializeField] private float autoTurnOffTime = 0;
     //[SerializeField] private bool canDeactivate = true;
-    [SerializeField] private bool activateOnComplete = false;
+    [SerializeField] private bool repeatSequence = false;
+    [SerializeField, Tooltip("If true, will activate will in the transistion state, and if false, will only activate the Actions when the sequence is completed")] private bool activateWhileTransition = true;
+    [SerializeField, Tooltip("If true, it will deactivate the Actions when you need to input the next part of the sequence")] private bool deactivateMidsequence = false;
     [SerializeField] private float transitionTime = 1.0f;
     [SerializeField] [Range(0.0f, 1.0f)] private float minPressureValue = 0f;
     [SerializeField] [Range(0.0f, 1.0f)] private float maxPressureValue = 1.0f;
@@ -112,12 +113,12 @@ public class SequenceActivator : Activator
         switch (state)
         {
             case State_SequenceActivator.MIDSEQUENCE:
-                if (!activateOnComplete)
+                if (deactivateMidsequence)
                 {
-                    //foreach (InteractableAction action in actions)
-                    //{
-                    //    action.Deactivate();
-                    //}
+                    foreach (InteractableAction action in actions)
+                    {
+                        action.Deactivate();
+                    }
                 }
                 if (playingCorrectTimer >= nextCorrectPart.Playtime)
                 {
@@ -154,7 +155,7 @@ public class SequenceActivator : Activator
                 }
                 else
                 {
-                    if (!activateOnComplete)
+                    if (activateWhileTransition)
                     {
                         foreach (InteractableAction action in actions)
                         {
@@ -180,7 +181,7 @@ public class SequenceActivator : Activator
                 break;
 
             case State_SequenceActivator.COMPLETE:
-                if (activateOnComplete)
+                if (!activateWhileTransition)
                 {
                     foreach (InteractableAction action in actions)
                     {
@@ -189,7 +190,7 @@ public class SequenceActivator : Activator
                     }
                     
                 }
-                    //action.InputData(lastData);
+                //action.InputData(lastData);
 
                 break;
         }
@@ -201,6 +202,12 @@ public class SequenceActivator : Activator
         sequenceIndex++;
         if (sequenceIndex == sequence.Count)
         {
+            if (repeatSequence)
+            {
+                ResetSequence();
+                state = State_SequenceActivator.MIDSEQUENCE; //LIGE HER, TJEK
+                return;
+            }
             state = State_SequenceActivator.COMPLETE;
             return;
         }
