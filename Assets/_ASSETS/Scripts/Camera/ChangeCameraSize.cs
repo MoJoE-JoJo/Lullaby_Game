@@ -6,11 +6,11 @@ public enum State_ChangeCameraSize { STABLE, RESIZETOPLAYER, RESIZETOROOM }
 
 public class ChangeCameraSize : MonoBehaviour
 {
-    public State_ChangeCameraSize state = State_ChangeCameraSize.STABLE;
+    private State_ChangeCameraSize state = State_ChangeCameraSize.STABLE;
     [SerializeField] private Collider2D area;
     [SerializeField] private float cameraSize;
     [SerializeField] private float resizeTime = 0.0f;
-    public float resizeFraction = 0.0f;
+    private float resizeFraction = 0.0f;
     private float originalCameraSize;
     private GameObject camera;
     private GameObject player;
