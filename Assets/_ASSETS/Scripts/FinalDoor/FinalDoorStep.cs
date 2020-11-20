@@ -13,6 +13,8 @@ public class FinalDoorStep : MonoBehaviour
     [SerializeField] private int doorStepNumber = 1;
     public int doorStepIndex = 0;
     public List<MoveToPositionAction> actions;
+    [SerializeField] private CameraShakeAction shakeSmall;
+    [SerializeField] private CameraShakeAction shakeBig;
 
     private void Start()
     {
@@ -29,6 +31,10 @@ public class FinalDoorStep : MonoBehaviour
             currentHint.SetActive(false);
             actions[doorStepIndex].enabled = false;
             gameObject.SetActive(false);
+            shakeSmall.Reset();
+            shakeSmall.Deactivate();
+            shakeSmall.enabled = false;
+            shakeBig.Activate();
         }
     }
 }
