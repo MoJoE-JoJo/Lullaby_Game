@@ -13,6 +13,7 @@ TagManager:
   - NoteWheel
   - CarDestination
   - CarCheckpoint
+  - Interactable
   layers:
   - Default
   - TransparentFX
