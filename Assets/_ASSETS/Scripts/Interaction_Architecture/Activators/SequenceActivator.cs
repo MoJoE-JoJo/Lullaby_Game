@@ -112,6 +112,9 @@ public class SequenceActivator : Activator
 
         switch (state)
         {
+            case State_SequenceActivator.IDLE:
+                hintWheel.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
+                break;
             case State_SequenceActivator.MIDSEQUENCE:
                 if (deactivateMidsequence)
                 {
@@ -165,10 +168,6 @@ public class SequenceActivator : Activator
                     }
                 }
                 transitionTimer += Time.deltaTime;
-                break;
-
-            case State_SequenceActivator.IDLE:
-                hintWheel.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
                 break;
 
             case State_SequenceActivator.RESETTING:
