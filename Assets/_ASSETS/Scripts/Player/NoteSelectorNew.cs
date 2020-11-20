@@ -228,13 +228,9 @@ public class NoteSelectorNew : MonoBehaviour
             }
             else //else empty it
             {
-                if (currentImgFill > startingImageFill)
-                {
-                    entry.Value.gameObject.transform.localPosition = new Vector3(
-                        0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
+                entry.Value.gameObject.transform.localPosition = new Vector3(
+                    0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
                     //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
-                }
-
                 _currentSongString = "";
             }
         }
@@ -264,13 +260,9 @@ public class NoteSelectorNew : MonoBehaviour
                 }
                 else
                 {
-                    if (currentImgFill > startingImageFill)
-                    {
-                        entry.Value.gameObject.transform.localPosition = new Vector3(
+                    entry.Value.gameObject.transform.localPosition = new Vector3(
                             0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
-                        //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
-                    }
-
+                    //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
                     _currentSongString = "";
                 }
             }
