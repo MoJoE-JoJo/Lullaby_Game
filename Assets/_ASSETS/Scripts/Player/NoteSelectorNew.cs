@@ -10,7 +10,7 @@ public class NoteSelectorNew : MonoBehaviour
 
     
     private PlayerControls _controls;
-    public PlayerController _playerController;
+    private PlayerController _playerController;
     private bool _startedSinging;
 
     [SerializeField] private float fillRatio;
@@ -357,9 +357,10 @@ public class NoteSelectorNew : MonoBehaviour
                 {
                     entry.Value.gameObject.transform.localPosition = new Vector3(
                         0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
+                    currentYpositionFill = entry.Value.gameObject.transform.localPosition.y;
                 }
-                if (currentImgFill < fillCompletedThreshold)
-                //if (currentYpositionFill < (1-fillCompletedThreshold)*_initialPosition.y)
+                //if (currentImgFill < fillCompletedThreshold)
+                if (currentYpositionFill < (1-fillCompletedThreshold)*_initialPosition.y)
                 {
                     _currentSongString = _currentSongString.Replace(entry.Key, "");
                 }
