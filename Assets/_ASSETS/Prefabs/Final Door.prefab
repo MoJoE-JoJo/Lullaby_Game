@@ -116,7 +116,7 @@ MonoBehaviour:
   - {x: -1.28, y: 1.28, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -34302
+  m_InstanceId: -140958
 --- !u!114 &7705773051881241131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,7 +631,7 @@ MonoBehaviour:
   - {x: -1.28, y: 1.28, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -34206
+  m_InstanceId: -141298
 --- !u!114 &7705773052165510819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,6 +1190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0f9e9fc70622e4dab6c78710aeec42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorLight: {fileID: 0}
+  newIntensity: 20.85
+  fadeTime: 2.5
 --- !u!1 &7705773052843010432
 GameObject:
   m_ObjectHideFlags: 0

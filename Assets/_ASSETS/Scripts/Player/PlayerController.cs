@@ -107,6 +107,15 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         _controls.Disable();
+        _isSinging = false;
+        noteController.IsSinging = _isSinging;
+        _animator.SetFloat("RunSpeed", 0.0f);
+        _animator.SetFloat("JumpSpeed", 0.0f);
+        _animator.SetBool("IsGrounded", true);
+
+        _legsAnimator.SetFloat("RunSpeed", 0.0f);
+        _legsAnimator.SetFloat("JumpSpeed", 0.0f);
+        _legsAnimator.SetBool("IsGrounded", true);
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
