@@ -7,6 +7,10 @@ public enum State_SequenceActivator { IDLE, RESETTING, TRANSISTION, MIDSEQUENCE,
 
 public class SequenceActivator : Activator
 {
+    public int SequenceIndex
+    {
+        get => sequenceIndex;
+    }
     [SerializeField] private State_SequenceActivator state = State_SequenceActivator.IDLE;
 
     [SerializeField] private Hint hintWheel;
@@ -138,28 +142,34 @@ public class SequenceActivator : Activator
                 }
 
                 //-----Not able to skip a beat-----
-                if (beatSkipping)
+                if (!beatSkipping)
                 {
                     if (forgivingTimer <= forgivingDelay) forgivingTimer += Time.deltaTime;
                     else if (CheckNotes(lastData)) playingCorrectTimer += Time.deltaTime;
+                    else if (lastData.Notes == null || lastData.Notes.Count == 0)
+                    {
+                        recievingNoInputTimer += Time.deltaTime;
+
+                    }
+                    else state = State_SequenceActivator.RESETTING;
                 }
                 //---------------------------------
 
 
                 //-----Able to skip a beat-----
-                if (!beatSkipping)
+                if (beatSkipping)
                 {
                     if (!CheckLastNotes(lastData) && forgivingTimer <= forgivingDelay) forgivingTimer += Time.deltaTime;
                     else if (CheckLastNotes(lastData)) playingCorrectTimer += Time.deltaTime;
+                    else if (lastData.Notes == null || lastData.Notes.Count == 0)
+                    {
+                        recievingNoInputTimer += Time.deltaTime;
+
+                    }
+                    else state = State_SequenceActivator.RESETTING;
                 }
                 //-----------------------------
-
-                else if (lastData.Notes == null || lastData.Notes.Count == 0)
-                {
-                    recievingNoInputTimer += Time.deltaTime;
-
-                }
-                else state = State_SequenceActivator.RESETTING;
+                
 
                 if (recievingNoInputTimer >= nextCorrectPart.DeactivationDelay)
                 {
@@ -237,6 +247,7 @@ public class SequenceActivator : Activator
     private void ResetSequence()
     {
         sequenceIndex = 0;
+        forgivingTimer = 0.0f;
         nextCorrectPart = sequence[sequenceIndex];
         hintWheel.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
     }
