@@ -12,6 +12,7 @@ public class ChangeCameraSize : MonoBehaviour
     [SerializeField] private float resizeTime = 0.0f;
     private float resizeFraction = 0.0f;
     private float originalCameraSize;
+    private float originalCameraSmoothTime;
     private GameObject camera;
     private GameObject player;
 
@@ -20,11 +21,12 @@ public class ChangeCameraSize : MonoBehaviour
     {
         originalCameraSize = Camera.main.orthographicSize;
         camera = GameObject.FindGameObjectWithTag("MainCamera");
+        originalCameraSmoothTime = camera.GetComponent<CameraMove>().SmootTime;
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         switch (state)
         {
@@ -35,15 +37,16 @@ public class ChangeCameraSize : MonoBehaviour
             case State_ChangeCameraSize.RESIZETOROOM:
                 camera.GetComponent<CameraMove>().Target = gameObject;
                 camera.GetComponent<ActivatorSensor>().ScreenSizeChanged = true;
-                
                 //var acti = camera.GetComponent<ActivatorSensor>();
                 //acti.ScreenSizeChanged = true;
                 if (resizeTime > 0.0f)
                 {
+                    camera.GetComponent<CameraMove>().SmootTime = resizeTime;
                     if (resizeFraction < 1)
                     {
                         resizeFraction += Time.fixedDeltaTime / resizeTime;
                         Camera.main.orthographicSize = Mathf.SmoothStep(originalCameraSize, cameraSize, resizeFraction);
+                        Debug.Log("Yolo");
                     }
                     else
                     {
@@ -63,6 +66,7 @@ public class ChangeCameraSize : MonoBehaviour
                 //acti.ScreenSizeChanged = true;
                 if (resizeTime > 0.0f)
                 {
+                    camera.GetComponent<CameraMove>().SmootTime = originalCameraSmoothTime;
                     if (resizeFraction < 1)
                     {
                         resizeFraction += Time.fixedDeltaTime / resizeTime;

@@ -46,6 +46,10 @@ public class PlayerController : MonoBehaviour
         get => _isSinging;
         set => _isSinging = value;
     }
+    public Animator Animator
+    {
+        get => _animator;
+    }
 
 
 
