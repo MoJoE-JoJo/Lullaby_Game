@@ -150,7 +150,7 @@ public class SequenceActivator : Activator
                 if (!beatSkipping)
                 {
                     if (!CheckLastNotes(lastData) && forgivingTimer <= forgivingDelay) forgivingTimer += Time.deltaTime;
-                    else if (CheckLastNotes(lastData)) playingCorrectTimer += Time.deltaTime
+                    else if (CheckLastNotes(lastData)) playingCorrectTimer += Time.deltaTime;
                 }
                 //-----------------------------
 
