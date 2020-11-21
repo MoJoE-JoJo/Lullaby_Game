@@ -11,7 +11,7 @@ public class WagonPull : MonoBehaviour
     private Rigidbody2D _wagonRigidbody2D;
     [SerializeField] private Wagon_Pull pullDirection;
     [SerializeField] private float pullForce;
-    private bool _isPulling = true;
+    [SerializeField] private bool _isPulling = true;
 
     public Wagon_Pull PullDirection
     {
@@ -67,21 +67,12 @@ public class WagonPull : MonoBehaviour
     {
         if (other.CompareTag("LeftWagonDestination"))
         {
-            if (pullDirection == Wagon_Pull.LEFT)
-            {
-                _isPulling = false;
-                StopWagon();
-            }
-            
+            _isPulling = false;
             pullDirection = Wagon_Pull.LEFT;
         }
         else if (other.CompareTag("RightWagonDestination"))
         {
-            if (pullDirection == Wagon_Pull.RIGHT)
-            {
-                _isPulling = false;
-                StopWagon();
-            }
+            _isPulling = false;
             pullDirection = Wagon_Pull.RIGHT;
         }
     }
