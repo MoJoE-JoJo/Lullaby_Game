@@ -144,8 +144,8 @@ public class SequenceActivator : Activator
                 //-----Not able to skip a beat-----
                 if (!beatSkipping)
                 {
-                    if (forgivingTimer <= forgivingDelay) forgivingTimer += Time.deltaTime;
-                    else if (CheckNotes(lastData)) playingCorrectTimer += Time.deltaTime;
+                    if (CheckNotes(lastData)) playingCorrectTimer += Time.deltaTime;
+                    else if (forgivingTimer <= forgivingDelay) forgivingTimer += Time.deltaTime;
                     else if (lastData.Notes == null || lastData.Notes.Count == 0)
                     {
                         recievingNoInputTimer += Time.deltaTime;
@@ -159,8 +159,8 @@ public class SequenceActivator : Activator
                 //-----Able to skip a beat-----
                 if (beatSkipping)
                 {
-                    if (!CheckLastNotes(lastData) && forgivingTimer <= forgivingDelay) forgivingTimer += Time.deltaTime;
-                    else if (CheckLastNotes(lastData)) playingCorrectTimer += Time.deltaTime;
+                    if (CheckLastNotes(lastData)) playingCorrectTimer += Time.deltaTime;
+                    else if (!CheckLastNotes(lastData) && forgivingTimer <= forgivingDelay) forgivingTimer += Time.deltaTime;
                     else if (lastData.Notes == null || lastData.Notes.Count == 0)
                     {
                         recievingNoInputTimer += Time.deltaTime;
