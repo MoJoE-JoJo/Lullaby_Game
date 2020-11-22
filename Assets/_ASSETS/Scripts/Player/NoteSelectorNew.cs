@@ -481,7 +481,6 @@ public class NoteSelectorNew : MonoBehaviour
     {
         if (_currentSongString != "")
         {
-            Debug.Log("Current song: "+ _currentSongString);
             _anySongPlaying = true;
             _currentSong = new SongData(_currentSongString) {Volume = _singVolume};
             _lastSong = _currentSong;

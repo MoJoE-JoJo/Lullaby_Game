@@ -13,6 +13,8 @@ TagManager:
   - NoteWheel
   - CarDestination
   - CarCheckpoint
+  - RightWagonDestination
+  - LeftWagonDestination
   layers:
   - Default
   - TransparentFX
