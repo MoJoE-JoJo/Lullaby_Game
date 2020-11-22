@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Cogwheel : MonoBehaviour
 {
@@ -10,25 +11,27 @@ public class Cogwheel : MonoBehaviour
 
     private int _currentDoor;
     private bool _finishedPuzzle;
+    private Collider2D _currentPosition;
 
     [SerializeField] private List<GameObject> correctPositions;
     [SerializeField] private List<GameObject> incorrectPositions;
+
+    [SerializeField] private List<Light2D> lights;
+
+    
+    [SerializeField] private float timeTakenToReset;
 
     // Start is called before the first frame update
     void Start()
     {
         _currentDoor = 0;
+        _currentPosition = this.transform.Find("CurrentPosition").GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    void Reset()
-    {
-        transform.DORotate(Vector3.zero, 1f, RotateMode.Fast);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -38,6 +41,10 @@ public class Cogwheel : MonoBehaviour
             if (!_finishedPuzzle)
             {
                 _doors[_currentDoor].Activate();
+                //Debug.Log(lights[_currentDoor].intensity);
+                //Debug.Log(_currentDoor);
+                int lightToTween = _currentDoor;
+                DOTween.To(()=> lights[lightToTween].intensity, x=> lights[lightToTween].intensity = x, 1, 0.3f);
                 correctPositions[_currentDoor].SetActive(false);
                 incorrectPositions[_currentDoor].SetActive(false);
                 
@@ -64,12 +71,25 @@ public class Cogwheel : MonoBehaviour
                     _doors[i].Reset();
                     correctPositions[i].SetActive(false);
                     incorrectPositions[i].SetActive(false);
+                    incorrectPositions[i].SetActive(false);
+
+                    var i1 = i;
+                    DOTween.To(()=> lights[i1].intensity, x=> lights[i1].intensity = x, 0, 0.3f);
                 }
                 _currentDoor = 0;
                 correctPositions[_currentDoor].SetActive(true);
                 incorrectPositions[_currentDoor].SetActive(true);
-                Reset();
+                StartCoroutine(ResetCor());
             }
         }
     }
+
+    private IEnumerator ResetCor()
+    {
+        _currentPosition.enabled = false;
+        transform.DORotate(Vector3.zero, timeTakenToReset, RotateMode.Fast);
+        yield return new WaitForSeconds(timeTakenToReset);
+        _currentPosition.enabled = true;
+    }
+    
 }

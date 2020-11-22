@@ -204,6 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pumpForce: 1
   timeWagonIsMoving: 1
+  wagonEase: 5
 --- !u!114 &441306850600275285
 MonoBehaviour:
   m_ObjectHideFlags: 0
