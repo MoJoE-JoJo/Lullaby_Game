@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/_ASSETS/Scripts/Car/CarCheckpoint.cs.meta
+guid: 3459049cb426e974bae137e1ddd7adb5
+=======
 guid: c13d21f2e4aef31479b07532d2fafc13
+>>>>>>> origin/c_TorchLevel:Assets/_ASSETS/Scripts/Car/CarChangeSpeed.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

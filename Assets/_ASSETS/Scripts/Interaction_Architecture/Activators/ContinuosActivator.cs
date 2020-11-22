@@ -93,7 +93,13 @@ public class ContinuosActivator : Activator
             orderedNotes = new HashSet<Song_Note>(notes).ToList();
             orderedNotes.Sort();
         }
-//#endif
+        //#endif
+        if (state == State_ContinuosActivator.IDLE)
+        {
+            if (timer > 0.0f) timer = 0.0f;
+            hintWheel.ShowNextHint(new SongData { Notes = orderedNotes });
+            return;
+        }
         if (state == State_ContinuosActivator.ACTIVATED)
         {
             hintWheel.HighlightHint(new SongData { Notes = orderedNotes });
@@ -119,12 +125,7 @@ public class ContinuosActivator : Activator
 
             hintWheel.ShowNextHint(new SongData { Notes = orderedNotes });
         }
-        if(state == State_ContinuosActivator.IDLE)
-        {
-            if (timer > 0.0f) timer = 0.0f;
-            hintWheel.ShowNextHint(new SongData { Notes = orderedNotes });
 
-        }
         lastData.Notes = new List<Song_Note>();
     }
 
