@@ -33,7 +33,7 @@ public class WagonAction : InteractableAction
         //Debug.Log("Wagon Size: " + _wagonSize);
         _rightDestination = this.transform.parent.Find("RightWagonDestination").position- Vector3.right*(_wagonSize/2);
         _leftDestination = this.transform.parent.Find("LeftWagonDestination").position + Vector3.right*(_wagonSize/2);
-        Debug.Log("Left destination: " + _leftDestination);
+        //Debug.Log("Left destination: " + _leftDestination);
         //Debug.Log("Right destination: " + _rightDestination);
         
     }
