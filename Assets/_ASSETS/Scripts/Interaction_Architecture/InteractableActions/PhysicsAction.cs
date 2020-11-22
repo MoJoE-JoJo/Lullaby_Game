@@ -69,7 +69,11 @@ public class PhysicsAction : InteractableAction
         }
         else if (state == State_PhysicsAction.DEACTIVATED)
         {
-            if (hardStop) rigbod.velocity = new Vector2(0, 0);
+            if (hardStop)
+            {
+                rigbod.angularVelocity = 0f;
+                rigbod.velocity = new Vector2(0, 0);
+            }
             rigbod.gravityScale = originalGravityScale;
             //ongoing = false;
             state = State_PhysicsAction.IDLE;
