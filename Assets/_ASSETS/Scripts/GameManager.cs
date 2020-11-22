@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,35 +13,42 @@ public class GameManager : MonoBehaviour
     private float originalTimeScale;
     private PlayerController pc;
     private float fixedDeltaTime;
+    [SerializeField] private GameObject pauseMenu;
 
     private void Awake()
     {
         _controls = new PlayerControls();
         _controls.GameManager.ReloadScene.performed += context => ReloadScene();
-        _controls.GameManager.PauseGame.performed += context => PauseGame();
+        _controls.GameManager.PauseGame.performed += context =>
+        {
+            if (!paused) PauseGame();
+            else if (paused) UnPauseGame();
+        };
         originalTimeScale = Time.timeScale;
+        if(pauseMenu == null) GameObject.FindGameObjectWithTag("PauseMenu");
+        pauseMenu.SetActive(false);
         pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         this.fixedDeltaTime = Time.fixedDeltaTime;
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
-        if (!paused)
-        {
-            Time.timeScale = 0.0f;
-            pc.enabled = false;
-            pc.Animator.enabled = false;
-            Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
-            paused = true;
-        }
-        else if (paused)
-        {
-            Time.timeScale = originalTimeScale;
-            pc.enabled = true;
-            pc.Animator.enabled = true;
-            Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
-            paused = false;
-        }
+        Time.timeScale = 0.0f;
+        pc.enabled = false;
+        pc.Animator.enabled = false;
+        Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+        pauseMenu.SetActive(true);
+        paused = true;
+    }
+
+    public void UnPauseGame()
+    {
+        Time.timeScale = originalTimeScale;
+        pc.enabled = true;
+        pc.Animator.enabled = true;
+        Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+        pauseMenu.SetActive(false);
+        paused = false;
     }
 
 

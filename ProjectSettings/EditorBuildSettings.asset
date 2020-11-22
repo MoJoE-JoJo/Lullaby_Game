@@ -9,11 +9,8 @@ EditorBuildSettings:
     path: Assets/_ASSETS/_Scenes/Playgrounds/Johnny_Levels/StartScreen.unity
     guid: 6211ad6838f9f9244a5d9ff0a9d43f15
   - enabled: 1
-    path: Assets/_ASSETS/_Scenes/Playgrounds/Johnny_Levels/Final_Room.unity
-    guid: acb6f61b78e53df448c90694642b965f
-  - enabled: 1
-    path: Assets/_ASSETS/_Scenes/Prototype2.unity
-    guid: ec23ef1d3bdd1554cbaf89ddaf8f5383
+    path: Assets/_ASSETS/_Scenes/Beta.unity
+    guid: 5bb866d50ee6a3f43be6a78f9ab0c769
   - enabled: 1
     path: Assets/_ASSETS/_Scenes/Playgrounds/Johnny_Levels/End.unity
     guid: 0060e2f70c3caef469c04abfc6c4c141

@@ -46,7 +46,6 @@ public class ChangeCameraSize : MonoBehaviour
                     {
                         resizeFraction += Time.fixedDeltaTime / resizeTime;
                         Camera.main.orthographicSize = Mathf.SmoothStep(originalCameraSize, cameraSize, resizeFraction);
-                        //Debug.Log("Yolo");
                     }
                     else
                     {
