@@ -177,6 +177,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PauseGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""de3cb12a-8fe2-4b4a-9368-51c4a303f792"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -188,6 +196,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ReloadScene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bf3ed4fa-8445-4dc1-bf9a-fb7226d8ab56"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -209,6 +228,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // GameManager
         m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
         m_GameManager_ReloadScene = m_GameManager.FindAction("ReloadScene", throwIfNotFound: true);
+        m_GameManager_PauseGame = m_GameManager.FindAction("PauseGame", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -357,11 +377,13 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_GameManager;
     private IGameManagerActions m_GameManagerActionsCallbackInterface;
     private readonly InputAction m_GameManager_ReloadScene;
+    private readonly InputAction m_GameManager_PauseGame;
     public struct GameManagerActions
     {
         private @PlayerControls m_Wrapper;
         public GameManagerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @ReloadScene => m_Wrapper.m_GameManager_ReloadScene;
+        public InputAction @PauseGame => m_Wrapper.m_GameManager_PauseGame;
         public InputActionMap Get() { return m_Wrapper.m_GameManager; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -374,6 +396,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @ReloadScene.started -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnReloadScene;
                 @ReloadScene.performed -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnReloadScene;
                 @ReloadScene.canceled -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnReloadScene;
+                @PauseGame.started -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnPauseGame;
+                @PauseGame.performed -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnPauseGame;
+                @PauseGame.canceled -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnPauseGame;
             }
             m_Wrapper.m_GameManagerActionsCallbackInterface = instance;
             if (instance != null)
@@ -381,6 +406,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @ReloadScene.started += instance.OnReloadScene;
                 @ReloadScene.performed += instance.OnReloadScene;
                 @ReloadScene.canceled += instance.OnReloadScene;
+                @PauseGame.started += instance.OnPauseGame;
+                @PauseGame.performed += instance.OnPauseGame;
+                @PauseGame.canceled += instance.OnPauseGame;
             }
         }
     }
@@ -400,5 +428,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public interface IGameManagerActions
     {
         void OnReloadScene(InputAction.CallbackContext context);
+        void OnPauseGame(InputAction.CallbackContext context);
     }
 }

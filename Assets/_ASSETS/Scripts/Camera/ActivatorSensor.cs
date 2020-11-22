@@ -11,6 +11,7 @@ public class ActivatorSensor : MonoBehaviour
         get;
         set;
     }
+    //private bool screenSizeChanged = true;
     public List<Activator> RegisteredActivators 
     {
         get => registeredActivators;
@@ -20,11 +21,11 @@ public class ActivatorSensor : MonoBehaviour
 
     public void Start()
     {
-        SetColliderSizeToScreen();
+        //screenSizeChanged = true;
     }
     private void Update()
     {
-        if (ScreenSizeChanged) SetColliderSizeToScreen();
+        SetColliderSizeToScreen();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -34,6 +35,7 @@ public class ActivatorSensor : MonoBehaviour
             var activators = collision.GetComponents<Activator>();
             foreach (Activator acti in activators)
             {
+                acti.enabled = true;
                 RegisteredActivators.Add(acti);
             }
         }
@@ -46,6 +48,7 @@ public class ActivatorSensor : MonoBehaviour
             var activators = collision.GetComponents<Activator>();
             foreach (Activator acti in activators)
             {
+                acti.enabled = false;
                 RegisteredActivators.Remove(acti);
             }
         }
