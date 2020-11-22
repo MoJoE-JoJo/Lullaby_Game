@@ -43,7 +43,7 @@ public class ChangeLightAction : InteractableAction
 
     public override void Reset()
     {
-        lightSource.intensity = originalIntensity;
+        //lightSource.intensity = originalIntensity;
     }
 
     // Update is called once per frame

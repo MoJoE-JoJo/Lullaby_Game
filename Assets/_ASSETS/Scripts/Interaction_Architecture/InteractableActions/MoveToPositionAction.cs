@@ -26,7 +26,7 @@ public class MoveToPositionAction : InteractableAction
     [SerializeField] private bool resetMoveOnDeactivate = false;
     [SerializeField, Tooltip("Primarily used for the moving car, and os only meant to be used with objects that have rigidbodies")] private float reachedLocationMargin = 0.0f;
     [SerializeField] private bool debug_reset;
-    [SerializeField] private bool useLinearMovementOnOneWay = false;
+    [SerializeField] private bool useLinearMovement = false;
     [SerializeField] private bool disableActivateOnFinish = false;
     private Transform target;
     private Transform last;
@@ -95,7 +95,7 @@ public class MoveToPositionAction : InteractableAction
         if (moveFraction < 1)
         {
             moveFraction += Time.fixedDeltaTime * moveSpeed / (last.position - target.position).magnitude;
-            if (useLinearMovementOnOneWay)
+            if (useLinearMovement)
             {
                 transform.position = Vector3.Lerp(last.position, target.position, moveFraction);
             }
@@ -105,7 +105,7 @@ public class MoveToPositionAction : InteractableAction
                 (
                 Mathf.SmoothStep(last.position.x, target.position.x, moveFraction),
                 Mathf.SmoothStep(last.position.y, target.position.y, moveFraction),
-                moveFraction
+                0.0f
                 );
             }
             
@@ -151,12 +151,19 @@ public class MoveToPositionAction : InteractableAction
                 target = movePositions[moveToIndex];
             }
             moveFraction += Time.fixedDeltaTime * moveSpeed / (last.position - target.position).magnitude;
-            transform.position = new Vector3
+            if (useLinearMovement)
+            {
+                transform.position = Vector3.Lerp(last.position, target.position, moveFraction);
+            }
+            else
+            {
+                transform.position = new Vector3
                 (
-                Mathf.SmoothStep(last.position.x, target.position.x, moveFraction), 
-                Mathf.SmoothStep(last.position.y, target.position.y, moveFraction), 
-                moveFraction
+                Mathf.SmoothStep(last.position.x, target.position.x, moveFraction),
+                Mathf.SmoothStep(last.position.y, target.position.y, moveFraction),
+                0.0f
                 );
+            }
 
 
         }
@@ -201,12 +208,19 @@ public class MoveToPositionAction : InteractableAction
             last = movePositions[lastIndex];
             target = movePositions[moveToIndex];
             moveFraction += Time.fixedDeltaTime * moveSpeed / (last.position - target.position).magnitude;
-            transform.position = new Vector3
+            if (useLinearMovement)
+            {
+                transform.position = Vector3.Lerp(last.position, target.position, moveFraction);
+            }
+            else
+            {
+                transform.position = new Vector3
                 (
                 Mathf.SmoothStep(last.position.x, target.position.x, moveFraction),
                 Mathf.SmoothStep(last.position.y, target.position.y, moveFraction),
-                moveFraction
+                0.0f
                 );
+            }
         }
         else if (moveFraction >= 1)
         {
