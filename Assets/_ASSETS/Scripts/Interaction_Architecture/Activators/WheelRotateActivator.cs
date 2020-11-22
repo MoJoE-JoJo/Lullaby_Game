@@ -66,18 +66,6 @@ public class WheelRotateActivator : Activator
         //else hintWheel.Show();
 
         CheckNotes(data);
-        
-        if (CheckNotes(data))
-        {
-            if (state == State_WheelRotateActivator.CLOCKWISE)
-            {
-                
-            }
-            if (state == State_WheelRotateActivator.COUNTERCLOCKWISE)
-            {
-                
-            }
-        }
 
         timeSinceLastInput = 0;
     }
@@ -153,7 +141,7 @@ public class WheelRotateActivator : Activator
                 }
                 else if (newCurrentSongNote != currentSongNote)
                 {
-                    currentSongNote = newCurrentSongNote;
+                    setPreviousNext(newCurrentSongNote);
                     state = State_WheelRotateActivator.IDLE;
                 }
                 else if (newCurrentSongNote == currentSongNote)
