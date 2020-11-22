@@ -13,6 +13,8 @@ public class WagonAction : InteractableAction
     [SerializeField] private float pumpForce;
     [SerializeField] private float timeWagonIsMoving;
 
+    [SerializeField]private Ease wagonEase;
+
     //private Mesh _mesh;
     private float _wagonSize;
 
@@ -65,7 +67,7 @@ public class WagonAction : InteractableAction
                 
                 
                 transform.DOMove(finalLocation, timeWagon, false)
-                    .SetEase(Ease.InOutQuint);
+                    .SetEase(wagonEase);
                 //Debug.Log("Activate");
                 //transform.position += Vector3.left * (pumpForce * Time.deltaTime);
                 //AddForce();
@@ -86,7 +88,7 @@ public class WagonAction : InteractableAction
                 }
                 
                 transform.DOMove(finalLocation, timeWagon, false)
-                    .SetEase(Ease.InOutQuint);
+                    .SetEase(wagonEase);
                 //transform.position += Vector3.right * (pumpForce * Time.deltaTime);
 
                 //AddForce();
