@@ -18,6 +18,7 @@ TagManager:
   - LeftWagonDestination
   - WheelCorrectPosition
   - WheelIncorrectPosition
+  - GlobalLight
   layers:
   - Default
   - TransparentFX

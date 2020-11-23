@@ -37,7 +37,7 @@ public class CameraShakeAction : InteractableAction
 
     public override void Deactivate()
     {
-        shaker.ShakeDuration = 0.0f;
+        if(!shakeOnce)shaker.ShakeDuration = 0.0f;
     }
 
     public override void InputData(SongData data)
