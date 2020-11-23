@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+guid: c13d21f2e4aef31479b07532d2fafc13
+=======
+<<<<<<< HEAD:Assets/_ASSETS/Scripts/Car/CarChangeDirection.cs.meta
+guid: 3d749ae84aeb0f648986dabbff129edc
+=======
+guid: c13d21f2e4aef31479b07532d2fafc13
+>>>>>>> origin/c_Actual_Tutorial:Assets/_ASSETS/Scripts/Car/CarChangeSpeed.cs.meta
+>>>>>>> origin/c_Actual_Tutorial
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
