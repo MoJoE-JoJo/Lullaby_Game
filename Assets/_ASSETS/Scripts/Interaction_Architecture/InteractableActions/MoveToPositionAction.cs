@@ -28,12 +28,14 @@ public class MoveToPositionAction : InteractableAction
     [SerializeField] private bool debug_reset;
     [SerializeField] private bool useLinearMovement = false;
     [SerializeField] private bool disableActivateOnFinish = false;
+    [SerializeField] private bool resetSlowyWhenDeactivated = false;
     private Transform target;
     private Transform last;
     private float moveFraction = 0.0f;
     private float positionWaitTimeCounter;
     private int moveToIndex = 1;
     private bool forward = true;
+    private Vector3 orgPos;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +44,8 @@ public class MoveToPositionAction : InteractableAction
         transform.position = movePositions[0].position;
         last = movePositions[0];
         target = movePositions[moveToIndex];
+
+        orgPos = this.transform.position;
     }
 
     // Update is called once per frame
@@ -50,6 +54,13 @@ public class MoveToPositionAction : InteractableAction
         if (debug_reset)
         {
             Reset();
+        }
+
+        // quick and dirty, does dont think this works well with more than 2 points of movement
+        //if state deactivated and bool true, move back towards starting pos
+        if (state == State_MoveToPositionAction.DEACTIVATED && resetSlowyWhenDeactivated)
+        {
+            transform.position = Vector3.Lerp(this.transform.position, orgPos, Time.deltaTime);
         }
     }
 
