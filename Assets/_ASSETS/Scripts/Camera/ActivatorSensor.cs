@@ -18,6 +18,8 @@ public class ActivatorSensor : MonoBehaviour
         private set => registeredActivators = value;
     }
     [SerializeField] private List<Activator> registeredActivators = new List<Activator>();
+    private float collisionTimer = 0.0f;
+    private bool collisionPossible = false;
 
     public void Start()
     {
@@ -27,6 +29,21 @@ public class ActivatorSensor : MonoBehaviour
     {
         SetColliderSizeToScreen();
     }
+
+    /*
+    private void FixedUpdate()
+    {
+        if (collisionTimer < 0.1f)
+        {
+            collisionTimer += Time.fixedDeltaTime;
+            collisionPossible = false;
+        }
+        if (collisionTimer >= 0.5f)
+        {
+            collisionTimer = 0.f;
+            collisionPossible = true;
+        }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
