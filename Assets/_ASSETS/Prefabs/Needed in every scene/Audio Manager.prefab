@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05625e540bfb89428070bdcb8ece73f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AEvent: event:/Tones/prototype1_Tones/A3
+  AEvent: event:/Tones/A3
   BEvent: event:/Tones/prototype1_Tones/B3
   CEvent: event:/Tones/prototype1_Tones/C4
   DEvent: event:/Tones/prototype1_Tones/D4
   GEvent: event:/Tones/prototype1_Tones/G3
-  EEvent: event:/Tones/prototype1_Tones/E4
+  EEvent: event:/Tones/E4
 --- !u!114 &3990979850767676577
 MonoBehaviour:
   m_ObjectHideFlags: 0
