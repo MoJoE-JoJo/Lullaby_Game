@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AEvent: event:/Tones/A3
-  BEvent: event:/Tones/prototype1_Tones/B3
-  CEvent: event:/Tones/prototype1_Tones/C4
-  DEvent: event:/Tones/prototype1_Tones/D4
-  GEvent: event:/Tones/prototype1_Tones/G3
+  BEvent: event:/Tones/B3
+  CEvent: event:/Tones/C4
+  DEvent: event:/Tones/D4
+  GEvent: event:/Tones/G3
   EEvent: event:/Tones/E4
 --- !u!114 &3990979850767676577
 MonoBehaviour:
