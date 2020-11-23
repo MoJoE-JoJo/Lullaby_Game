@@ -15,13 +15,17 @@ public class ChangeCameraSize : MonoBehaviour
     private float originalCameraSmoothTime;
     private GameObject camera;
     private GameObject player;
+    private CameraMove cameraMove;
+    private ActivatorSensor actiSen;
 
 
     void Start()
     {
         originalCameraSize = Camera.main.orthographicSize;
         camera = GameObject.FindGameObjectWithTag("MainCamera");
-        originalCameraSmoothTime = camera.GetComponent<CameraMove>().SmootTime;
+        cameraMove = camera.GetComponent<CameraMove>();
+        actiSen = camera.GetComponent<ActivatorSensor>();
+        originalCameraSmoothTime = cameraMove.SmootTime;
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -32,16 +36,16 @@ public class ChangeCameraSize : MonoBehaviour
         {
             case State_ChangeCameraSize.STABLE:
                 resizeFraction = 0.0f;
-                camera.GetComponent<ActivatorSensor>().ScreenSizeChanged = false;
+                actiSen.ScreenSizeChanged = false;
                 break;
             case State_ChangeCameraSize.RESIZETOROOM:
-                camera.GetComponent<CameraMove>().Target = gameObject;
-                camera.GetComponent<ActivatorSensor>().ScreenSizeChanged = true;
+                cameraMove.Target = gameObject;
+                actiSen.ScreenSizeChanged = true;
                 //var acti = camera.GetComponent<ActivatorSensor>();
                 //acti.ScreenSizeChanged = true;
                 if (resizeTime > 0.0f)
                 {
-                    camera.GetComponent<CameraMove>().SmootTime = resizeTime;
+                    cameraMove.SmootTime = resizeTime;
                     if (resizeFraction < 1)
                     {
                         resizeFraction += Time.fixedDeltaTime / resizeTime;
@@ -59,13 +63,13 @@ public class ChangeCameraSize : MonoBehaviour
                 }
                 break;
             case State_ChangeCameraSize.RESIZETOPLAYER:
-                camera.GetComponent<CameraMove>().Target = player;
-                camera.GetComponent<ActivatorSensor>().ScreenSizeChanged = true;
+                cameraMove.Target = player;
+                actiSen.ScreenSizeChanged = true;
                 //acti = camera.GetComponent<ActivatorSensor>();
                 //acti.ScreenSizeChanged = true;
                 if (resizeTime > 0.0f)
                 {
-                    camera.GetComponent<CameraMove>().SmootTime = originalCameraSmoothTime;
+                    cameraMove.SmootTime = originalCameraSmoothTime;
                     if (resizeFraction < 1)
                     {
                         resizeFraction += Time.fixedDeltaTime / resizeTime;
