@@ -242,7 +242,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.6}
+  m_Offset: {x: 0, y: -1.8}
   serializedVersion: 2
   m_Radius: 0.38131356
 --- !u!114 &5066455344472595647
@@ -263,9 +263,9 @@ MonoBehaviour:
     _duration: 0
   _isSinging: 0
   songDelay: 0
-  playerSpeed: 2
+  playerSpeed: 1.4
   accelerationTime: 0.35
-  jumpForce: 2
+  jumpForce: 3
   wheelDeactivateDelay: 0
   _isGrounded: 0
 --- !u!114 &5066455344472595636
