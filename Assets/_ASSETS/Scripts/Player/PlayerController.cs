@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum Facing { RIGHT, LEFT }
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,6 +28,15 @@ public class PlayerController : MonoBehaviour
     private Vector2 _move;
     private float songDelayTimer;
     private Coroutine _deactivateWheel;
+    private float _volume;
+    
+    //Animation stuff
+    private Animator _animator;
+    private Facing _facing = Facing.RIGHT;
+    private GameObject _legs;
+    private Animator _legsAnimator;
+    [SerializeField]private float playerTurningThreshold;
+    private Coroutine _invert = null;
 
     public SongData SongBeingSung
     {
@@ -37,6 +47,10 @@ public class PlayerController : MonoBehaviour
     {
         get => _isSinging;
         set => _isSinging = value;
+    }
+    public Animator Animator
+    {
+        get => _animator;
     }
 
 
@@ -55,11 +69,16 @@ public class PlayerController : MonoBehaviour
         _controls.NoteSelector.Sing.canceled += context => StopSing();
 
         _controls.Player.Jump.performed += context => Jump();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        
+        _legs = transform.Find("Legs").gameObject;
+        _legsAnimator = _legs.GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         _rb2d = GetComponent<Rigidbody2D>();
         actiSensor = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ActivatorSensor>();
         noteController = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<NoteController>();
@@ -72,8 +91,17 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        UpdateNoteController();
         //Debug.Log(_isSinging);
+        
+        //Debug.Log(_songBeingSung);
+        UpdateAnimation();
+        
+    }
+
+    private void LateUpdate()
+    {
+        UpdateNoteController();
+        
         SingToActivators();
     }
 
@@ -85,10 +113,19 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         _controls.Disable();
+        _isSinging = false;
+        noteController.IsSinging = _isSinging;
+        _animator.SetFloat("RunSpeed", 0.0f);
+        _animator.SetFloat("JumpSpeed", 0.0f);
+        _animator.SetBool("IsGrounded", true);
+
+        _legsAnimator.SetFloat("RunSpeed", 0.0f);
+        _legsAnimator.SetFloat("JumpSpeed", 0.0f);
+        _legsAnimator.SetBool("IsGrounded", true);
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(!collision.gameObject.CompareTag("MainCamera")) _isGrounded = true;
+        if(!collision.gameObject.CompareTag("MainCamera") && collision.gameObject.layer != LayerMask.NameToLayer("Camera")) _isGrounded = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -158,11 +195,10 @@ public class PlayerController : MonoBehaviour
         {
             if (songDelayTimer >= songDelay)
             {
-                //Debug.Log("yolo");
                 _songBeingSung.Duration = Time.deltaTime;
                 actiSensor.SendSong(_songBeingSung);
             }
-            if (songDelayTimer < songDelay) songDelayTimer += Time.deltaTime;
+            else if (songDelayTimer < songDelay) songDelayTimer += Time.deltaTime;
         }
         else if(songDelayTimer > 0.0001f && !_isSinging)
         {
@@ -181,14 +217,89 @@ public class PlayerController : MonoBehaviour
     private void Sing(InputAction.CallbackContext context)
     {
         _isSinging = true;
-        
-        _songBeingSung.Volume = context.ReadValue<float>();
-        
+        _volume = EaseVolume(context.ReadValue<float>()); 
+        _songBeingSung.Volume = _volume;
+
     }
 
     private void StopSing()
     {
         _isSinging = false;
+    }
+    
+    private void UpdateAnimation()
+    {
+        Facing wasFacing = _facing;
+        
+
+        if (wasFacing == Facing.RIGHT && _move.x < -playerTurningThreshold)
+        {
+            if (_invert == null)
+            {
+                _invert = StartCoroutine(InvertPlayer(Facing.LEFT));
+            }
+        }
+        if (wasFacing == Facing.LEFT && _move.x > playerTurningThreshold)
+        {
+            if (_invert == null)
+            {
+                _invert = StartCoroutine(InvertPlayer(Facing.RIGHT));
+            }
+        }
+        
+        //Player animator
+        _animator.SetFloat("RunSpeed", Mathf.Abs(_rb2d.velocity.x));
+        _animator.SetFloat("JumpSpeed", _rb2d.velocity.y);
+        _animator.SetBool("IsGrounded", _isGrounded);
+        _animator.SetBool("IsSinging", _isSinging);
+        _animator.SetFloat("SingVolume", _volume);
+        
+        //Legs animator
+        _legsAnimator.SetFloat("RunSpeed", Mathf.Abs(_rb2d.velocity.x));
+        _legsAnimator.SetFloat("JumpSpeed", _rb2d.velocity.y);
+        _legsAnimator.SetBool("IsGrounded", _isGrounded);
+        _legsAnimator.SetBool("IsSinging", _isSinging);
+    }
+    
+    float EaseVolume(float volume)
+    {
+        return volume;
+        
+        float vol = 1.1f - Mathf.Pow(1-volume, 3);
+        if (vol >= 1.0f)
+        {
+            vol = 1.0f;
+        }
+
+        return vol;
+    }
+
+    private IEnumerator InvertPlayer(Facing facing)
+    {
+        yield return new WaitForSeconds(0.001f);
+
+        switch (facing)
+        {
+            case Facing.LEFT:
+                if (_move.x < -playerTurningThreshold)
+                {
+                    Debug.Log("Player x vel: " + _rb2d.velocity.x);
+                    transform.Rotate(new Vector3(0,-180,0));
+                    _facing = Facing.LEFT;
+                }
+                break;
+            case Facing.RIGHT:
+                if (_move.x > playerTurningThreshold)
+                {
+                    Debug.Log("Player x vel: " + _rb2d.velocity.x);
+                    transform.Rotate(new Vector3(0,-180,0));
+                    _facing = Facing.RIGHT;
+                }
+                break;
+        }
+
+        _invert = null;
+
     }
     
 }

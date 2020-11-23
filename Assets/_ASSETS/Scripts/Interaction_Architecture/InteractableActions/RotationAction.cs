@@ -44,6 +44,8 @@ public class RotationAction : InteractableAction
             maxRotation = originalRotation + (rotationLimit * direction);
             isLimited = true;
         }
+        
+        Debug.Log(maxRotation);
     }
 
     public override void Activate()
@@ -111,7 +113,7 @@ public class RotationAction : InteractableAction
 
     public override void Reset()
     {
-        throw new System.NotImplementedException();
+        rigbod.rotation = originalRotation;
     }
 
     //public void SetRotationLimit(float x) 

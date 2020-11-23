@@ -3,26 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public  enum State_PhysicsAction {DEACTIVATED, ACTIVATED, IDLE, ACTIVATING}
+public enum State_PhysicsAction { DEACTIVATED, ACTIVATED, IDLE, ACTIVATING }
 public enum Activated_Gravity_Direction { UP, DOWN, LEFT, RIGHT }
 public class PhysicsAction : InteractableAction
 {
+    public State_PhysicsAction State
+    {
+        get => state;
+    }
+    public Activated_Gravity_Direction FlyDirection
+    {
+        get => flyDirection;
+        set => flyDirection = value;
+    }
+    public float FlySpeed
+    {
+        get => flySpeed;
+        set => flySpeed = value;
+    }
     [SerializeField] private State_PhysicsAction state = State_PhysicsAction.DEACTIVATED;
     [SerializeField] private Activated_Gravity_Direction flyDirection;
     [SerializeField, Tooltip("9.8 corresponds to gravity speed")] private float flySpeed = 9.8f;
     [SerializeField, Tooltip("Adjusts the scale of gravity, 1 is for normal gravity, and 0 is for no gravity")] private float gravityScale = 0.0f;
+    [SerializeField] private bool usePressure = true;
+    [SerializeField] private bool hardStop;
     [SerializeField] private bool debug_reset;
     private float originalGravityScale;
     private Vector2 directionVector;
     //private bool ongoing;
     private SongData songData;
-    private Vector3 originalPosition;
+    private Vector3 orgPos;
+    private Quaternion orgRot;
     // Start is called before the first frame update
     void Start()
     {
         originalGravityScale = GetComponent<Rigidbody2D>().gravityScale;
         //ongoing = false;
-        originalPosition = transform.position;
+        orgPos = transform.position;
+        orgRot = transform.rotation;
     }
 
     // Update is called once per frame
@@ -46,10 +64,16 @@ public class PhysicsAction : InteractableAction
         else if (state == State_PhysicsAction.ACTIVATED)
         {
             rigbod.gravityScale = gravityScale;
-            rigbod.AddForce(directionVector * flySpeed * songData.Volume);
+            if (usePressure) rigbod.AddForce(directionVector * flySpeed * songData.Volume);
+            else rigbod.AddForce(directionVector * flySpeed);
         }
         else if (state == State_PhysicsAction.DEACTIVATED)
         {
+            if (hardStop)
+            {
+                rigbod.angularVelocity = 0f;
+                rigbod.velocity = new Vector2(0, 0);
+            }
             rigbod.gravityScale = originalGravityScale;
             //ongoing = false;
             state = State_PhysicsAction.IDLE;
@@ -58,7 +82,7 @@ public class PhysicsAction : InteractableAction
 
     public override void Activate()
     {
-        if(state != State_PhysicsAction.ACTIVATED) state = State_PhysicsAction.ACTIVATING;
+        if (state != State_PhysicsAction.ACTIVATED) state = State_PhysicsAction.ACTIVATING;
     }
 
     public override void Deactivate()
@@ -74,11 +98,12 @@ public class PhysicsAction : InteractableAction
     public override void Reset()
     {
         //ongoing = false;
-        transform.position = originalPosition;
+        transform.position = orgPos;
+        transform.rotation = orgRot;
         debug_reset = false;
     }
 
-    private void ChangeGravity(Rigidbody2D rigbod, Activated_Gravity_Direction direction) 
+    private void ChangeGravity(Rigidbody2D rigbod, Activated_Gravity_Direction direction)
     {
         switch (direction)
         {

@@ -25,6 +25,12 @@ public class ContinuosActivator : Activator
 
     public override void SongInput(SongData data)
     {
+        if (!enabled)
+        {
+            hintWheel.Hide();
+            return;
+        }
+        else hintWheel.Show();
         lastData = data;
         if (CheckNotes(lastData))
         {
@@ -87,7 +93,13 @@ public class ContinuosActivator : Activator
             orderedNotes = new HashSet<Song_Note>(notes).ToList();
             orderedNotes.Sort();
         }
-//#endif
+        //#endif
+        if (state == State_ContinuosActivator.IDLE)
+        {
+            if (timer > 0.0f) timer = 0.0f;
+            hintWheel.ShowNextHint(new SongData { Notes = orderedNotes });
+            return;
+        }
         if (state == State_ContinuosActivator.ACTIVATED)
         {
             hintWheel.HighlightHint(new SongData { Notes = orderedNotes });
@@ -113,17 +125,13 @@ public class ContinuosActivator : Activator
 
             hintWheel.ShowNextHint(new SongData { Notes = orderedNotes });
         }
-        if(state == State_ContinuosActivator.IDLE)
-        {
-            if (timer > 0.0f) timer = 0.0f;
-            hintWheel.ShowNextHint(new SongData { Notes = orderedNotes });
 
-        }
         lastData.Notes = new List<Song_Note>();
     }
 
     private bool CheckNotes(SongData data)
     {
+        if (data.Notes == null) return false;
         if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
         if (orderedNotes.Count > 1 && orderedNotes.Count != data.Notes.Count) return false;
         /*

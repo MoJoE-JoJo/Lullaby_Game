@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Resources/Sprites/Objects/Bell Accessories/Bell hammer_N.png.meta
 guid: 02e7584ed681d364d994e15e956d2fe8
+=======
+guid: 46a3cffcd158de54b992903e871bec88
+>>>>>>> origin/c_Actual_Tutorial:Assets/Resources/Sprites/Prototype_Sprites/Tiles/Background/png/grey-2_n.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

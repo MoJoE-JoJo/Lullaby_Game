@@ -35,13 +35,13 @@ MonoBehaviour:
       multiplicative: 0
       additive: 0
   - enabled: 0
-    name: Blend Style 2
+    name: Darkness
     maskTextureChannel: 0
     renderTextureScale: 1
-    blendMode: 1
+    blendMode: 99
     customBlendFactors:
-      multiplicative: 0
-      additive: 0
+      multiplicative: 1
+      additive: -1
   - enabled: 0
     name: Blend Style 3
     maskTextureChannel: 0

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,7 +11,8 @@ public class SwitchActivator : Activator
 
     [SerializeField] private State_SwitchActivator state = State_SwitchActivator.DEACTIVATED;
 
-    [SerializeField] private MiniwheelSegmentHandler wheel;
+    [SerializeField] private MiniwheelSegmentHandler hintWheel;
+    [SerializeField, Tooltip("If true then activation and deactivation delays are used for determining for how long the player must sing before input is registered")] private bool singForAmountOfTime = false;
     [SerializeField] private float activationDelay;
     [SerializeField] private float deactivationDelay;
     [SerializeField] private float minDurationBetweenSwitch = 4f;
@@ -23,7 +25,7 @@ public class SwitchActivator : Activator
     private List<Song_Note> orderedNotes;
     private SongData lastData;
     private float timer = 0.0f;
-    private float swapTimer = 4.0f;
+    private float swapTimer = float.PositiveInfinity;
     private float turnOffTimer = 0f;
 
     // Start is called before the first frame update
@@ -42,17 +44,55 @@ public class SwitchActivator : Activator
 
     public override void SongInput(SongData data)
     {
+        if (!enabled)
+        {
+            hintWheel.Hide();
+            return;
+        }
+        else hintWheel.Show();
         //lastData = data;
         if (CheckNotes(data) && swapTimer > minDurationBetweenSwitch)
         {
             lastData = data;
-            if (state == State_SwitchActivator.ACTIVATED && canDeactivate) state = State_SwitchActivator.DEACTIVATING;
+            if (state == State_SwitchActivator.ACTIVATED && canDeactivate)
+            {
+                if (singForAmountOfTime)
+                {
+                    if (timer >= deactivationDelay)
+                    {
+                        state = State_SwitchActivator.DEACTIVATED;
+                        timer = 0.0f;
+                        swapTimer = 0.0f;
+                    }
+                    else timer += Time.deltaTime;
+                }
+                else
+                {
+                    state = State_SwitchActivator.DEACTIVATING;
+                }
+            }
             if (state == State_SwitchActivator.DEACTIVATED)
             {
-                state = State_SwitchActivator.ACTIVATING;
-                turnOffTimer = 0f;
-}
-            swapTimer = 0.0f;
+                if (singForAmountOfTime)
+                {
+                    if (timer >= activationDelay)
+                    {
+                        state = State_SwitchActivator.ACTIVATED;
+                        timer = 0.0f;
+                        swapTimer = 0.0f;
+                    }
+                    else timer += Time.deltaTime;
+                }
+                else
+                {
+                    state = State_SwitchActivator.ACTIVATING;
+                    turnOffTimer = 0f;
+                }
+            }
+            if (!singForAmountOfTime)
+            {
+                swapTimer = 0.0f;
+            }
         }
     }
 
@@ -73,7 +113,7 @@ public class SwitchActivator : Activator
         switch (state)
         {
             case State_SwitchActivator.ACTIVATING:
-                wheel.HighlightHint(new SongData { Notes = notes });
+                hintWheel.HighlightHint(new SongData { Notes = notes });
                 if (timer >= activationDelay)
                 {
                     state = State_SwitchActivator.ACTIVATED;
@@ -83,7 +123,7 @@ public class SwitchActivator : Activator
                 break;
 
             case State_SwitchActivator.ACTIVATED:
-                wheel.HighlightHint(new SongData { Notes = notes });
+                hintWheel.HighlightHint(new SongData { Notes = notes });
                 foreach (InteractableAction action in actions)
                 {
                     action.InputData(lastData);
@@ -97,7 +137,7 @@ public class SwitchActivator : Activator
                 break;
 
             case State_SwitchActivator.DEACTIVATING:
-                wheel.ShowNextHint(new SongData { Notes = notes });
+                hintWheel.ShowNextHint(new SongData { Notes = notes });
 
                 if (timer >= deactivationDelay)
                 {
@@ -108,13 +148,13 @@ public class SwitchActivator : Activator
                 break;
 
             case State_SwitchActivator.DEACTIVATED:
-                wheel.ShowNextHint(new SongData { Notes = notes });
+                hintWheel.ShowNextHint(new SongData { Notes = notes });
 
                 foreach (InteractableAction action in actions)
                 {
                     action.Deactivate();
                 }
-                timer = 0.0f;
+                //timer = 0.0f;
                 break;
 
             default:
@@ -125,7 +165,7 @@ public class SwitchActivator : Activator
     //checks the inputed SongData if its notes matches with the 
     private bool CheckNotes(SongData data)
     {
-
+        if (data.Notes == null) return false;
         if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
         if (orderedNotes.Count > 1 && orderedNotes.Count != data.Notes.Count) return false;
         /*

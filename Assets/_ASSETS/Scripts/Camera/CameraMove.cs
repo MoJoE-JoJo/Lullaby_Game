@@ -5,12 +5,22 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
+    public GameObject Target
+    {
+        get => target;
+        set => target = value;
+    }
+    public float SmootTime
+    {
+        get => smoothTime;
+        set => smoothTime = value;
+    }
     [SerializeField] private float smoothTime = 0.1f;
     [SerializeField] private bool thresholdMovement;
     //Should probably make it a CustomEditor, but there are tooltips, and they won't really fuck anything up, so maybe later.
     [SerializeField, Tooltip("Only relevant when thresholdMovement")] private float xMoveThreshold;
     [SerializeField, Tooltip("Only relevant when thresholdMovement")] private float yMoveThreshold;
-    private GameObject player;
+    private GameObject target;
     private Vector3 newPosition;
     private Vector3 velocity = Vector3.zero;
     private Vector2 playerMovement;
@@ -19,7 +29,7 @@ public class CameraMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        target = GameObject.FindGameObjectWithTag("Player");
         playerMovement = Vector2.zero;
         cameraPosition = transform.position;
     }
@@ -34,7 +44,7 @@ public class CameraMove : MonoBehaviour
 
     private void MoveCamera()
     {
-        newPosition = player.transform.position;
+        newPosition = target.transform.position;
         newPosition.z = transform.position.z;
         transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
     }
@@ -42,7 +52,7 @@ public class CameraMove : MonoBehaviour
     private void MoveWithThreshold()
     {
         cameraPosition = transform.position;
-        playerMovement = player.transform.position;
+        playerMovement = target.transform.position;
         var playerPositionDif = cameraPosition - playerMovement;
         //Debug.Log(playerPositionDif);
         if (Math.Abs(playerPositionDif.x) >= xMoveThreshold) moveCamera = true;

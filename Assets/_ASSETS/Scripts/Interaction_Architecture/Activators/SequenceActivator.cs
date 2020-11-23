@@ -7,15 +7,19 @@ public enum State_SequenceActivator { IDLE, RESETTING, TRANSISTION, MIDSEQUENCE,
 
 public class SequenceActivator : Activator
 {
-
+    public int SequenceIndex
+    {
+        get => sequenceIndex;
+    }
     [SerializeField] private State_SequenceActivator state = State_SequenceActivator.IDLE;
 
-    [SerializeField] private Hint hintObject;
+    [SerializeField] private Hint hintWheel;
     //[SerializeField] private float activationDelay;
     //[SerializeField] private float deactivationDelay;
     //[SerializeField] private float minDurBetweenSwitch = 4f;
     //[SerializeField] private float autoTurnOffTime = 0;
     //[SerializeField] private bool canDeactivate = true;
+    [SerializeField] private bool repeatSequence = false;
     [SerializeField, Tooltip("If true, will activate will in the transistion state, and if false, will only activate the Actions when the sequence is completed")] private bool activateWhileTransition = true;
     [SerializeField, Tooltip("If true, it will deactivate the Actions when you need to input the next part of the sequence")] private bool deactivateMidsequence = false;
     [SerializeField] private float transitionTime = 1.0f;
@@ -33,6 +37,9 @@ public class SequenceActivator : Activator
     private float timeSinceLastInput = 0.0f;
 
     private int sequenceIndex = 0;
+    [SerializeField] private float forgivingDelay = 0.1f;
+    [SerializeField] private bool beatSkipping = false;
+    private float forgivingTimer = 0.0f;
     //private float swapTimer = 4.0f;
     //private float turnOffTimer = 0f;
 
@@ -66,6 +73,12 @@ public class SequenceActivator : Activator
 
     public override void SongInput(SongData data)
     {
+        if (!enabled)
+        {
+            hintWheel.Hide();
+            return;
+        }
+        else hintWheel.Show();
         if (CheckNotes(data))
         {
             if (state == State_SequenceActivator.IDLE)
@@ -106,6 +119,9 @@ public class SequenceActivator : Activator
 
         switch (state)
         {
+            case State_SequenceActivator.IDLE:
+                hintWheel.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
+                break;
             case State_SequenceActivator.MIDSEQUENCE:
                 if (deactivateMidsequence)
                 {
@@ -116,21 +132,44 @@ public class SequenceActivator : Activator
                 }
                 if (playingCorrectTimer >= nextCorrectPart.Playtime)
                 {
-                    hintObject.HighlightHint(new SongData { Notes = nextCorrectPart.Chord });
+                    hintWheel.HighlightHint(new SongData { Notes = nextCorrectPart.Chord });
                     transitionTimer = 0.0f;
                     state = State_SequenceActivator.TRANSISTION;
                 }
                 else
                 {
-                    hintObject.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
+                    hintWheel.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
                 }
-                if (CheckNotes(lastData)) playingCorrectTimer += Time.deltaTime;
-                else if (lastData.Notes == null || lastData.Notes.Count == 0)
-                {
-                    recievingNoInputTimer += Time.deltaTime;
 
+                //-----Not able to skip a beat-----
+                if (!beatSkipping)
+                {
+                    if (CheckNotes(lastData)) playingCorrectTimer += Time.deltaTime;
+                    else if (forgivingTimer <= forgivingDelay) forgivingTimer += Time.deltaTime;
+                    else if (lastData.Notes == null || lastData.Notes.Count == 0)
+                    {
+                        recievingNoInputTimer += Time.deltaTime;
+
+                    }
+                    else state = State_SequenceActivator.RESETTING;
                 }
-                else state = State_SequenceActivator.RESETTING;
+                //---------------------------------
+
+
+                //-----Able to skip a beat-----
+                if (beatSkipping)
+                {
+                    if (CheckLastNotes(lastData)) playingCorrectTimer += Time.deltaTime;
+                    else if (!CheckLastNotes(lastData) && forgivingTimer <= forgivingDelay) forgivingTimer += Time.deltaTime;
+                    else if (lastData.Notes == null || lastData.Notes.Count == 0)
+                    {
+                        recievingNoInputTimer += Time.deltaTime;
+
+                    }
+                    else state = State_SequenceActivator.RESETTING;
+                }
+                //-----------------------------
+                
 
                 if (recievingNoInputTimer >= nextCorrectPart.DeactivationDelay)
                 {
@@ -146,6 +185,7 @@ public class SequenceActivator : Activator
                     NextPartOfSequence();
                     playingCorrectTimer = 0.0f;
                     recievingNoInputTimer = 0.0f;
+                    forgivingTimer = 0.0f;
                 }
                 else
                 {
@@ -159,10 +199,6 @@ public class SequenceActivator : Activator
                     }
                 }
                 transitionTimer += Time.deltaTime;
-                break;
-
-            case State_SequenceActivator.IDLE:
-                hintObject.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
                 break;
 
             case State_SequenceActivator.RESETTING:
@@ -184,7 +220,7 @@ public class SequenceActivator : Activator
                     }
                     
                 }
-                    //action.InputData(lastData);
+                //action.InputData(lastData);
 
                 break;
         }
@@ -196,6 +232,12 @@ public class SequenceActivator : Activator
         sequenceIndex++;
         if (sequenceIndex == sequence.Count)
         {
+            if (repeatSequence)
+            {
+                ResetSequence();
+                state = State_SequenceActivator.MIDSEQUENCE; //LIGE HER, TJEK
+                return;
+            }
             state = State_SequenceActivator.COMPLETE;
             return;
         }
@@ -205,12 +247,12 @@ public class SequenceActivator : Activator
     private void ResetSequence()
     {
         sequenceIndex = 0;
+        forgivingTimer = 0.0f;
         nextCorrectPart = sequence[sequenceIndex];
-        hintObject.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
+        hintWheel.ShowNextHint(new SongData { Notes = nextCorrectPart.Chord });
     }
 
 
-    //checks the inputed SongData if its notes matches with the 
     private bool CheckNotes(SongData data)
     {
         if (data.Notes == null) return false;
@@ -226,5 +268,37 @@ public class SequenceActivator : Activator
         return true;
         */
         return nextCorrectPart.Chord.All(i => data.Notes.Contains(i));
+    }
+
+    //checks the inputed SongData if its notes matches with the 
+    private bool CheckLastNotes(SongData data)
+    {
+        if (data.Notes == null) return false;
+        if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
+
+        if(sequenceIndex == 0)
+        {
+            if (!repeatSequence)
+            {
+                if (nextCorrectPart.Chord.Count > 1 && nextCorrectPart.Chord.Count != data.Notes.Count) return false;
+                return nextCorrectPart.Chord.All(i => data.Notes.Contains(i));
+            }
+            else if (repeatSequence)
+            {
+                if (
+                    (nextCorrectPart.Chord.Count > 1 && nextCorrectPart.Chord.Count != data.Notes.Count)
+                    &&
+                    (sequence[sequence.Count - 1].Chord.Count > 1 && sequence[sequence.Count - 1].Chord.Count != data.Notes.Count)
+                   )return false;
+                return (nextCorrectPart.Chord.All(i => data.Notes.Contains(i)) || sequence[sequence.Count - 1].Chord.All(i => data.Notes.Contains(i)));
+            }
+            
+        }
+        if (
+            (nextCorrectPart.Chord.Count > 1 && nextCorrectPart.Chord.Count != data.Notes.Count)
+            &&
+            (sequence[sequenceIndex - 1].Chord.Count > 1 && sequence[sequenceIndex - 1].Chord.Count != data.Notes.Count)
+           ) return false;
+        return (nextCorrectPart.Chord.All(i => data.Notes.Contains(i)) || sequence[sequenceIndex - 1].Chord.All(i => data.Notes.Contains(i)));
     }
 }

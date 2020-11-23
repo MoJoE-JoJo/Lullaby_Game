@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/_ASSETS/Scripts/Camera/CameraShake.cs.meta
+guid: 89ad979177cf85546b1ffc28be683075
+=======
+guid: db393978c2b6122499bdd071aa127555
+>>>>>>> origin/c_Actual_Tutorial:Assets/_ASSETS/Scripts/Camera/ChangeCameraSize.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

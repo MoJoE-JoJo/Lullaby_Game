@@ -10,7 +10,7 @@ public class NoteSelectorNew : MonoBehaviour
 
     
     private PlayerControls _controls;
-    public PlayerController _playerController;
+    private PlayerController _playerController;
     private bool _startedSinging;
 
     [SerializeField] private float fillRatio;
@@ -41,9 +41,19 @@ public class NoteSelectorNew : MonoBehaviour
     private GameObject _segmentE;
     private GameObject _segmentF;
 
+    private GameObject _maskA;
+    private GameObject _maskB;
+    private GameObject _maskC;
+    private GameObject _maskD;
+    private GameObject _maskE;
+    private GameObject _maskF;
+    
+
     [SerializeField] private float lockOffsetAmount;
 
     private Dictionary<string, Image> _backgrounds = new Dictionary<string, Image>();
+    private Dictionary<string, Image> _fills = new Dictionary<string, Image>();
+    private Vector3 _initialPosition = new Vector3(0, -88, 1);
 
     [SerializeField] private float initialBackgroundAlpha;
     [SerializeField] private float hoverBackgroundAlpha;
@@ -76,6 +86,13 @@ public class NoteSelectorNew : MonoBehaviour
         _segmentE = this.transform.Find("SegmentE").gameObject;
         _segmentF = this.transform.Find("SegmentF").gameObject;
 
+        _maskA = _segmentA.transform.Find("Mask").gameObject;
+        _maskB = _segmentB.transform.Find("Mask").gameObject;
+        _maskC = _segmentC.transform.Find("Mask").gameObject;
+        _maskD = _segmentD.transform.Find("Mask").gameObject;
+        _maskE = _segmentE.transform.Find("Mask").gameObject;
+        _maskF = _segmentF.transform.Find("Mask").gameObject;
+
         _backgroundA = _segmentA.transform.Find("Background").GetComponent<Image>();
         _backgroundB = _segmentB.transform.Find("Background").GetComponent<Image>();
         _backgroundC = _segmentC.transform.Find("Background").GetComponent<Image>();
@@ -83,12 +100,12 @@ public class NoteSelectorNew : MonoBehaviour
         _backgroundE = _segmentE.transform.Find("Background").GetComponent<Image>();
         _backgroundF = _segmentF.transform.Find("Background").GetComponent<Image>();
         
-        _fillA = _segmentA.transform.Find("Filling").GetComponent<Image>();
-        _fillB = _segmentB.transform.Find("Filling").GetComponent<Image>();
-        _fillC = _segmentC.transform.Find("Filling").GetComponent<Image>();
-        _fillD = _segmentD.transform.Find("Filling").GetComponent<Image>();
-        _fillE = _segmentE.transform.Find("Filling").GetComponent<Image>();
-        _fillF = _segmentF.transform.Find("Filling").GetComponent<Image>();
+        _fillA = _maskA.transform.Find("Filling").GetComponent<Image>();
+        _fillB = _maskB.transform.Find("Filling").GetComponent<Image>();
+        _fillC = _maskC.transform.Find("Filling").GetComponent<Image>();
+        _fillD = _maskD.transform.Find("Filling").GetComponent<Image>();
+        _fillE = _maskE.transform.Find("Filling").GetComponent<Image>();
+        _fillF = _maskF.transform.Find("Filling").GetComponent<Image>();
 
         _selector = this.transform.Find("Selector").gameObject;
         
@@ -108,6 +125,14 @@ public class NoteSelectorNew : MonoBehaviour
         _segments.Add("D", _segmentD);
         _segments.Add("E", _segmentE);
         _segments.Add("F", _segmentF);
+        
+        //fill fills
+        _fills.Add("A", _fillA);
+        _fills.Add("B", _fillB);
+        _fills.Add("C", _fillC);
+        _fills.Add("D", _fillD);
+        _fills.Add("E", _fillE);
+        _fills.Add("F", _fillF);
     }
 
     void Start()
@@ -149,12 +174,11 @@ public class NoteSelectorNew : MonoBehaviour
         _playerController.SongBeingSung = _lastSong;
         //UpdatePlayerNote();
         _controls.Disable();
-        _fillA.fillAmount = startingImageFill;
-        _fillB.fillAmount = startingImageFill;
-        _fillC.fillAmount = startingImageFill;
-        _fillD.fillAmount = startingImageFill;
-        _fillE.fillAmount = startingImageFill;
-
+        foreach (var fill in _fills)
+        {
+            fill.Value.gameObject.transform.localPosition = _initialPosition;
+        }
+        
         foreach (var background in _backgrounds)
         {
             var tempColor = _backgrounds[background.Key].color;
@@ -192,7 +216,11 @@ public class NoteSelectorNew : MonoBehaviour
             //if is singing, fill wheel
             if (_singButtonDown)
             {
-                entry.Value.fillAmount = Mathf.Lerp(currentImgFill, _singVolume, fillRatio);
+                //entry.Value.gameObject.transform.localPosition = Vector3.zero;
+                entry.Value.gameObject.transform.localPosition = new Vector3(
+                    0,
+                    Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y-(_initialPosition.y*_singVolume), fillRatio));
+                //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, _singVolume, fillRatio);
                 if(!_currentSongString.Contains(entry.Key))
                 {
                     _currentSongString += entry.Key;
@@ -200,11 +228,9 @@ public class NoteSelectorNew : MonoBehaviour
             }
             else //else empty it
             {
-                if (currentImgFill > startingImageFill)
-                {
-                    entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
-                }
-
+                entry.Value.gameObject.transform.localPosition = new Vector3(
+                    0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
+                    //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
                 _currentSongString = "";
             }
         }
@@ -222,7 +248,11 @@ public class NoteSelectorNew : MonoBehaviour
 
                 if (_singButtonDown)
                 {
-                    entry.Value.fillAmount = Mathf.Lerp(currentImgFill, _singVolume, fillRatio);
+                    //entry.Value.gameObject.transform.localPosition = Vector3.zero;
+                    //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, _singVolume, fillRatio);
+                    entry.Value.gameObject.transform.localPosition = new Vector3(
+                        0,
+                        Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y-(_initialPosition.y*_singVolume), fillRatio));
                     if(!_currentSongString.Contains(entry.Key))
                     {
                         _currentSongString += entry.Key;
@@ -230,11 +260,9 @@ public class NoteSelectorNew : MonoBehaviour
                 }
                 else
                 {
-                    if (currentImgFill > startingImageFill)
-                    {
-                        entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
-                    }
-
+                    entry.Value.gameObject.transform.localPosition = new Vector3(
+                            0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
+                    //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
                     _currentSongString = "";
                 }
             }
@@ -322,13 +350,17 @@ public class NoteSelectorNew : MonoBehaviour
                 var tempColor = _backgrounds[entry.Key].color;
                 tempColor.a = initialBackgroundAlpha;
                 _backgrounds[entry.Key].color = tempColor;
-            
                 float currentImgFill = entry.Value.fillAmount;
-                if (currentImgFill > startingImageFill)
+                float currentYpositionFill = entry.Value.gameObject.transform.localPosition.y;
+                
+                if (Mathf.Abs(currentYpositionFill) > startingImageFill)
                 {
-                    entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
+                    entry.Value.gameObject.transform.localPosition = new Vector3(
+                        0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
+                    currentYpositionFill = entry.Value.gameObject.transform.localPosition.y;
                 }
-                if (currentImgFill < fillCompletedThreshold)
+                //if (currentImgFill < fillCompletedThreshold)
+                if (currentYpositionFill < (1-fillCompletedThreshold)*_initialPosition.y)
                 {
                     _currentSongString = _currentSongString.Replace(entry.Key, "");
                 }
@@ -344,7 +376,7 @@ public class NoteSelectorNew : MonoBehaviour
     
     public void AddImageToFill(String segment)
     {
-        Debug.Log("Added image to fill");
+        //Debug.Log("Added image to fill");
         if (!_imagesToFill.ContainsKey(segment))
         {
             Image selected = null;
@@ -466,7 +498,10 @@ public class NoteSelectorNew : MonoBehaviour
 
     void UpdatePlayerNote() //give the Song information to the player script
     {
-        _playerController.SongBeingSung = _currentSong;
+        if (_anySongPlaying)
+        {
+            _playerController.SongBeingSung = _currentSong;
+        }
         //_playerController.IsSinging = _anySongPlaying;
     }
 
@@ -479,7 +514,7 @@ public class NoteSelectorNew : MonoBehaviour
         _controls.NoteSelector.Move.canceled += context => _selectorMove = Vector2.zero;
 
         _controls.NoteSelector.Sing.started += context => SingPressed();
-        _controls.NoteSelector.Sing.performed += context => _singVolume = context.ReadValue<float>();
+        _controls.NoteSelector.Sing.performed += context => EaseVolume(context.ReadValue<float>());
         _controls.NoteSelector.Sing.canceled += context => SingReleased();
 
         _controls.NoteSelector.LockNote.started += context => LockUnlockNote();
@@ -487,4 +522,14 @@ public class NoteSelectorNew : MonoBehaviour
         _controls.NoteSelector.SwitchWheelType.performed += context => fillWheel = (!fillWheel);
     }
 
+    
+    void EaseVolume(float volume)
+    {
+        _singVolume = 1.1f - Mathf.Pow(1-volume, 3);
+        if (_singVolume >= 1.0f)
+        {
+            _singVolume = 1.0f;
+        }
+    }
+    
 }
