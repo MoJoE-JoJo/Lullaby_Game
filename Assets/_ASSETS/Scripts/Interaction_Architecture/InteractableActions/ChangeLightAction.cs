@@ -38,7 +38,7 @@ public class ChangeLightAction : InteractableAction
     public override void InputData(SongData data)
     {
         lastData = data;
-        if (usePressure) lightSource.intensity = OnActivateIntensity * data.Volume;
+        lightSource.intensity = OnActivateIntensity * data.Volume;
     }
 
     public override void Reset()

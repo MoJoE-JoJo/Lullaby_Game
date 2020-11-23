@@ -25,7 +25,7 @@ public class SoundAction : InteractableAction
     {
 
         if (playOnce && played) return;
-        else if (!IsPlaying(eventInstance))
+        else if (!IsPlaying(eventInstance) && playOnce)
         {
             eventInstance.start();
             played = true;
