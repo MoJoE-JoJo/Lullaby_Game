@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+guid: 3d749ae84aeb0f648986dabbff129edc
+=======
+<<<<<<< HEAD:Assets/_ASSETS/Scripts/Camera/ChangeCameraSize.cs.meta
+guid: db393978c2b6122499bdd071aa127555
+=======
+guid: 3d749ae84aeb0f648986dabbff129edc
+>>>>>>> origin/c_Actual_Tutorial:Assets/_ASSETS/Scripts/Car/CarChangeDirection.cs.meta
+>>>>>>> origin/c_Actual_Tutorial
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

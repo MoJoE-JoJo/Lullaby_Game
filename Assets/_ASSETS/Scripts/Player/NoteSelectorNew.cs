@@ -6,33 +6,33 @@ using UnityEngine.UI;
 
 public class NoteSelectorNew : MonoBehaviour
 {
-    public bool fillWheel;
+    [SerializeField] private bool fillWheel; //rotates between our 2 implemented wheel modes;
+
     
     private PlayerControls _controls;
-    public GameObject player;
     private PlayerController _playerController;
     private bool _startedSinging;
 
-    public float fillRatio;
-    public float fillCompletedThreshold;
+    [SerializeField] private float fillRatio;
+    [SerializeField] private float fillCompletedThreshold;
 
     //the collider of the selector ball
     private CircleCollider2D _circleCollider2D;
 
     [SerializeField] private float startingImageFill;
-    private Image fillA;
-    private Image fillB;
-    private Image fillC;
-    private Image fillD;
-    private Image fillE;
-    private Image fillF;
+    private Image _fillA;
+    private Image _fillB;
+    private Image _fillC;
+    private Image _fillD;
+    private Image _fillE;
+    private Image _fillF;
 
-    private Image backgroundA;
-    private Image backgroundB;
-    private Image backgroundC;
-    private Image backgroundD;
-    private Image backgroundE;
-    private Image backgroundF;
+    private Image _backgroundA;
+    private Image _backgroundB;
+    private Image _backgroundC;
+    private Image _backgroundD;
+    private Image _backgroundE;
+    private Image _backgroundF;
     
     private GameObject _segmentA;
     private GameObject _segmentB;
@@ -41,22 +41,33 @@ public class NoteSelectorNew : MonoBehaviour
     private GameObject _segmentE;
     private GameObject _segmentF;
 
-    public float lockOffsetAmount;
+    private GameObject _maskA;
+    private GameObject _maskB;
+    private GameObject _maskC;
+    private GameObject _maskD;
+    private GameObject _maskE;
+    private GameObject _maskF;
+    
 
-    private Dictionary<String, Image> _backgrounds = new Dictionary<string, Image>();
+    [SerializeField] private float lockOffsetAmount;
 
-    public float initialBackgroundAlpha;
-    public float hoverBackgroundAlpha;
+    private Dictionary<string, Image> _backgrounds = new Dictionary<string, Image>();
+    private Dictionary<string, Image> _fills = new Dictionary<string, Image>();
+    private Vector3 _initialPosition = new Vector3(0, -88, 1);
 
-    private GameObject selector;
+    [SerializeField] private float initialBackgroundAlpha;
+    [SerializeField] private float hoverBackgroundAlpha;
 
-    private Dictionary<String, Image> _imagesToFill = new Dictionary<string, Image>();
-    private Dictionary<String, Image> _imagesToEmpty = new Dictionary<string, Image>();
-    private Dictionary<String, Image> _imagesLocked = new Dictionary<string, Image>();
-    private Dictionary<String, GameObject> _segments = new Dictionary<String, GameObject>();
+    private GameObject _selector;
+
+    private Dictionary<string, Image> _imagesToFill = new Dictionary<string, Image>();
+    private Dictionary<string, Image> _imagesToEmpty = new Dictionary<string, Image>();
+    private Dictionary<string, Image> _imagesLocked = new Dictionary<string, Image>();
+    private Dictionary<string, GameObject> _segments = new Dictionary<string, GameObject>();
 
     private SongData _currentSong; //check if anySongPlaying before giving the currentSong to an Activator
-    private String _currentSongString = "";
+    private string _currentSongString = "";
+    private SongData _lastSong;
     private bool _anySongPlaying;
 
     private Vector2 _selectorMove;
@@ -66,22 +77,8 @@ public class NoteSelectorNew : MonoBehaviour
     
     void Awake()
     {
-        _controls = new PlayerControls();
+        SetupControls();
 
-        _controls.NoteSelector.Move.performed += context => _selectorMove = context.ReadValue<Vector2>();
-        _controls.NoteSelector.Move.canceled += context => _selectorMove = Vector2.zero;
-
-        _controls.NoteSelector.Sing.started += context => SingPressed();
-        _controls.NoteSelector.Sing.performed += context => _singVolume = context.ReadValue<float>();
-        _controls.NoteSelector.Sing.canceled += context => SingReleased();
-
-        _controls.NoteSelector.LockNote.started += context => LockUnlockNote();
-
-        _controls.NoteSelector.SwitchWheelType.performed += context => fillWheel = (!fillWheel);
-    }
-
-    void Start()
-    {
         _segmentA = this.transform.Find("SegmentA").gameObject;
         _segmentB = this.transform.Find("SegmentB").gameObject;
         _segmentC = this.transform.Find("SegmentC").gameObject;
@@ -89,29 +86,37 @@ public class NoteSelectorNew : MonoBehaviour
         _segmentE = this.transform.Find("SegmentE").gameObject;
         _segmentF = this.transform.Find("SegmentF").gameObject;
 
-        backgroundA = _segmentA.transform.Find("Background").GetComponent<Image>();
-        backgroundB = _segmentB.transform.Find("Background").GetComponent<Image>();
-        backgroundC = _segmentC.transform.Find("Background").GetComponent<Image>();
-        backgroundD = _segmentD.transform.Find("Background").GetComponent<Image>();
-        backgroundE = _segmentE.transform.Find("Background").GetComponent<Image>();
-        backgroundF = _segmentF.transform.Find("Background").GetComponent<Image>();
-        
-        fillA = _segmentA.transform.Find("Filling").GetComponent<Image>();
-        fillB = _segmentB.transform.Find("Filling").GetComponent<Image>();
-        fillC = _segmentC.transform.Find("Filling").GetComponent<Image>();
-        fillD = _segmentD.transform.Find("Filling").GetComponent<Image>();
-        fillE = _segmentE.transform.Find("Filling").GetComponent<Image>();
-        fillF = _segmentF.transform.Find("Filling").GetComponent<Image>();
+        _maskA = _segmentA.transform.Find("Mask").gameObject;
+        _maskB = _segmentB.transform.Find("Mask").gameObject;
+        _maskC = _segmentC.transform.Find("Mask").gameObject;
+        _maskD = _segmentD.transform.Find("Mask").gameObject;
+        _maskE = _segmentE.transform.Find("Mask").gameObject;
+        _maskF = _segmentF.transform.Find("Mask").gameObject;
 
-        selector = this.transform.Find("Selector").gameObject;
+        _backgroundA = _segmentA.transform.Find("Background").GetComponent<Image>();
+        _backgroundB = _segmentB.transform.Find("Background").GetComponent<Image>();
+        _backgroundC = _segmentC.transform.Find("Background").GetComponent<Image>();
+        _backgroundD = _segmentD.transform.Find("Background").GetComponent<Image>();
+        _backgroundE = _segmentE.transform.Find("Background").GetComponent<Image>();
+        _backgroundF = _segmentF.transform.Find("Background").GetComponent<Image>();
+        
+        _fillA = _maskA.transform.Find("Filling").GetComponent<Image>();
+        _fillB = _maskB.transform.Find("Filling").GetComponent<Image>();
+        _fillC = _maskC.transform.Find("Filling").GetComponent<Image>();
+        _fillD = _maskD.transform.Find("Filling").GetComponent<Image>();
+        _fillE = _maskE.transform.Find("Filling").GetComponent<Image>();
+        _fillF = _maskF.transform.Find("Filling").GetComponent<Image>();
+
+        _selector = this.transform.Find("Selector").gameObject;
         
         //fill background images
-        _backgrounds.Add("A", backgroundA);
-        _backgrounds.Add("B", backgroundB);
-        _backgrounds.Add("C", backgroundC);
-        _backgrounds.Add("D", backgroundD);
-        _backgrounds.Add("E", backgroundE);
-        _backgrounds.Add("F", backgroundF);
+        _backgrounds.Add("A", _backgroundA);
+        _backgrounds.Add("B", _backgroundB);
+        _backgrounds.Add("C", _backgroundC);
+        _backgrounds.Add("D", _backgroundD);
+        _backgrounds.Add("E", _backgroundE);
+        _backgrounds.Add("F", _backgroundF);
+        
         
         //fill segments
         _segments.Add("A", _segmentA);
@@ -120,14 +125,26 @@ public class NoteSelectorNew : MonoBehaviour
         _segments.Add("D", _segmentD);
         _segments.Add("E", _segmentE);
         _segments.Add("F", _segmentF);
+        
+        //fill fills
+        _fills.Add("A", _fillA);
+        _fills.Add("B", _fillB);
+        _fills.Add("C", _fillC);
+        _fills.Add("D", _fillD);
+        _fills.Add("E", _fillE);
+        _fills.Add("F", _fillF);
+    }
 
-        _playerController = player.GetComponent<PlayerController>();
+    void Start()
+    {
+
     }
 
     void Update()
     {
         CenterNoteSelector();
         MoveSelector();
+        
         if (fillWheel)
         {
             FillNotes();
@@ -141,37 +158,79 @@ public class NoteSelectorNew : MonoBehaviour
         UpdatePlayerNote();
     }
 
-    public void CenterNoteSelector()
+    private void OnEnable()
     {
-        this.transform.position = Camera.main.WorldToScreenPoint(player.transform.position);
+        _currentSongString = "";
+        _currentSong = new SongData();
+
+        _controls.Enable();
     }
 
+    private void OnDisable()
+    {
+        SingReleased();
+        //_anySongPlaying = false;
+        //_playerController.IsSinging = false;
+        _playerController.SongBeingSung = _lastSong;
+        //UpdatePlayerNote();
+        _controls.Disable();
+        foreach (var fill in _fills)
+        {
+            fill.Value.gameObject.transform.localPosition = _initialPosition;
+        }
+        
+        foreach (var background in _backgrounds)
+        {
+            var tempColor = _backgrounds[background.Key].color;
+            tempColor.a = initialBackgroundAlpha;
+            _backgrounds[background.Key].color = tempColor;
+        }
+        
+        foreach (var entry in _imagesLocked)
+        {
+            _segments[entry.Key].transform.localPosition /= lockOffsetAmount;
+        }
+        _imagesLocked = new Dictionary<string, Image>();
+        _imagesToFill = new Dictionary<string, Image>();
+        _imagesToEmpty = new Dictionary<string, Image>();
+    }
+
+    public void CenterNoteSelector()
+    {
+        this.transform.position = Camera.main.WorldToScreenPoint(_playerController.gameObject.transform.position);
+    }
+
+    //first method for filling the wheel, from the bottom up
     void FillNotes()
     {
         //first fill (or empty images locked)
         foreach (KeyValuePair<String,Image> entry in _imagesLocked)
         {
+            //increase background alpha
             var tempColor = _backgrounds[entry.Key].color;
             tempColor.a = hoverBackgroundAlpha;
             _backgrounds[entry.Key].color = tempColor;
 
             float currentImgFill = entry.Value.fillAmount;
 
+            //if is singing, fill wheel
             if (_singButtonDown)
             {
-                entry.Value.fillAmount = Mathf.Lerp(currentImgFill, _singVolume, fillRatio);
+                //entry.Value.gameObject.transform.localPosition = Vector3.zero;
+                entry.Value.gameObject.transform.localPosition = new Vector3(
+                    0,
+                    Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y-(_initialPosition.y*_singVolume), fillRatio));
+                //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, _singVolume, fillRatio);
                 if(!_currentSongString.Contains(entry.Key))
                 {
                     _currentSongString += entry.Key;
                 }
             }
-            else
+            else //else empty it
             {
-                if (currentImgFill > startingImageFill)
-                {
-                    entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
-                }
-
+                entry.Value.gameObject.transform.localPosition = new Vector3(
+                    0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
+                    //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
                 _currentSongString = "";
             }
         }
@@ -189,7 +248,11 @@ public class NoteSelectorNew : MonoBehaviour
 
                 if (_singButtonDown)
                 {
-                    entry.Value.fillAmount = Mathf.Lerp(currentImgFill, _singVolume, fillRatio);
+                    //entry.Value.gameObject.transform.localPosition = Vector3.zero;
+                    //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, _singVolume, fillRatio);
+                    entry.Value.gameObject.transform.localPosition = new Vector3(
+                        0,
+                        Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y-(_initialPosition.y*_singVolume), fillRatio));
                     if(!_currentSongString.Contains(entry.Key))
                     {
                         _currentSongString += entry.Key;
@@ -197,11 +260,9 @@ public class NoteSelectorNew : MonoBehaviour
                 }
                 else
                 {
-                    if (currentImgFill > startingImageFill)
-                    {
-                        entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
-                    }
-
+                    entry.Value.gameObject.transform.localPosition = new Vector3(
+                            0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
+                    //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
                     _currentSongString = "";
                 }
             }
@@ -209,6 +270,7 @@ public class NoteSelectorNew : MonoBehaviour
         
     }
     
+    //method for filling the wheel with alpha color
     void FillNotes2()
     {
         //first fill (or empty images locked)
@@ -248,10 +310,10 @@ public class NoteSelectorNew : MonoBehaviour
             var tempColor = _backgrounds[entry.Key].color;
 
             float currentAlpha = tempColor.a;
-            float futureColor;
 
             if (!_imagesLocked.ContainsKey(entry.Key))
             {
+                float futureColor;
                 if (_singButtonDown)
                 {
                     futureColor = initialBackgroundAlpha + (1 - initialBackgroundAlpha) * _singVolume;
@@ -278,8 +340,8 @@ public class NoteSelectorNew : MonoBehaviour
         }
         
     }
-
-    void EmptyNotes()
+    
+    void EmptyNotes() //only relevant if first FillWheel method is used
     {
         foreach (KeyValuePair<String,Image> entry in _imagesToEmpty)
         {
@@ -288,13 +350,17 @@ public class NoteSelectorNew : MonoBehaviour
                 var tempColor = _backgrounds[entry.Key].color;
                 tempColor.a = initialBackgroundAlpha;
                 _backgrounds[entry.Key].color = tempColor;
-            
                 float currentImgFill = entry.Value.fillAmount;
-                if (currentImgFill > startingImageFill)
+                float currentYpositionFill = entry.Value.gameObject.transform.localPosition.y;
+                
+                if (Mathf.Abs(currentYpositionFill) > startingImageFill)
                 {
-                    entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
+                    entry.Value.gameObject.transform.localPosition = new Vector3(
+                        0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
+                    currentYpositionFill = entry.Value.gameObject.transform.localPosition.y;
                 }
-                if (currentImgFill < fillCompletedThreshold)
+                //if (currentImgFill < fillCompletedThreshold)
+                if (currentYpositionFill < (1-fillCompletedThreshold)*_initialPosition.y)
                 {
                     _currentSongString = _currentSongString.Replace(entry.Key, "");
                 }
@@ -302,38 +368,15 @@ public class NoteSelectorNew : MonoBehaviour
         }
     }
 
-    void MoveSelector()
+    //move the wheel selector (the one you control with joystick)
+    private void MoveSelector()
     {
-        Vector2 m = new Vector2(_selectorMove.x, _selectorMove.y);
-        selector.transform.localPosition = _selectorMove*65;
+        _selector.transform.localPosition = _selectorMove*65;
     }
     
-    private void OnEnable()
-    {
-        _controls.Enable();
-    }
-    
-    private void OnDisable()
-    {
-        _controls.Disable();
-        fillA.fillAmount = startingImageFill;
-        fillB.fillAmount = startingImageFill;
-        fillC.fillAmount = startingImageFill;
-        fillD.fillAmount = startingImageFill;
-        fillE.fillAmount = startingImageFill;
-        foreach (var entry in _imagesLocked)
-        {
-            _segments[entry.Key].transform.localPosition /= lockOffsetAmount;
-        }
-        _imagesLocked = new Dictionary<string, Image>();
-        _imagesToFill = new Dictionary<string, Image>();
-        _imagesToEmpty = new Dictionary<string, Image>();
-        _playerController.IsSinging = false;
-    }
-
     public void AddImageToFill(String segment)
     {
-        Debug.Log("Added image to fill");
+        //Debug.Log("Added image to fill");
         if (!_imagesToFill.ContainsKey(segment))
         {
             Image selected = null;
@@ -341,23 +384,23 @@ public class NoteSelectorNew : MonoBehaviour
             switch (segment)
             {
                 case "A":
-                    selected = fillA;
+                    selected = _fillA;
                     break;
                 case "B":
-                    selected = fillB;
+                    selected = _fillB;
                     break;
                 case "C":
-                    selected = fillC;
+                    selected = _fillC;
                     break;
                 case "D":
-                    selected = fillD;
+                    selected = _fillD;
                     break;
                 case "E":
-                    selected = fillE;
+                    selected = _fillE;
                     break;
                 case "F":
-                    selected = fillF;
-                    break;;
+                    selected = _fillF;
+                    break;
             }
             
             _imagesToFill.Add(segment, selected);
@@ -369,7 +412,7 @@ public class NoteSelectorNew : MonoBehaviour
         }
     }
     
-    public void AddImageToEmpty(String segment)
+    public void AddImageToEmpty(String segment) //called from a different script
     {
         if (!_imagesToEmpty.ContainsKey(segment))
         {
@@ -378,22 +421,22 @@ public class NoteSelectorNew : MonoBehaviour
             switch (segment)
             {
                 case "A":
-                    selected = fillA;
+                    selected = _fillA;
                     break;
                 case "B":
-                    selected = fillB;
+                    selected = _fillB;
                     break;
                 case "C":
-                    selected = fillC;
+                    selected = _fillC;
                     break;
                 case "D":
-                    selected = fillD;
+                    selected = _fillD;
                     break;
                 case "E":
-                    selected = fillE;
+                    selected = _fillE;
                     break;
                 case "F":
-                    selected = fillF;
+                    selected = _fillF;
                     break;
             }
             
@@ -406,6 +449,7 @@ public class NoteSelectorNew : MonoBehaviour
         }
     }
 
+    //control methods
     private void SingPressed()
     {
         _singButtonDown = true;
@@ -433,33 +477,59 @@ public class NoteSelectorNew : MonoBehaviour
         }
     }
 
-    private SongData GetNote()
+    private void GetNote() //get current SongData with the wheel selections currently in place
     {
-        SongData songData = new SongData();
-        
         if (_currentSongString != "")
         {
             _anySongPlaying = true;
-            _currentSong = new SongData(_currentSongString);
-            _currentSong.Volume = _singVolume;
+            _currentSong = new SongData(_currentSongString) {Volume = _singVolume};
+            _lastSong = _currentSong;
             //Debug.Log("Current song volume: " + _currentSong.Volume);
         }
+        
         else
         {
             _anySongPlaying = false;
-            _currentSong = new SongData();
-            _currentSong.Volume = 0.0f;
+            _currentSong = new SongData {};
         }
-
-        return songData;
         //Debug.Log("Current string: " + _currentSongString);
         //Debug.Log("Current enum: " + _currentSong.NoteCoord.ToString());
     }
 
-    void UpdatePlayerNote()
+    void UpdatePlayerNote() //give the Song information to the player script
     {
-        _playerController.SongBeingSung = _currentSong;
-        _playerController.IsSinging = _anySongPlaying;
+        if (_anySongPlaying)
+        {
+            _playerController.SongBeingSung = _currentSong;
+        }
+        //_playerController.IsSinging = _anySongPlaying;
     }
 
+    void SetupControls() //method to setup the controls through the new input system
+    {
+        _controls = new PlayerControls();
+        _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        _controls.NoteSelector.Move.performed += context => _selectorMove = context.ReadValue<Vector2>();
+        _controls.NoteSelector.Move.canceled += context => _selectorMove = Vector2.zero;
+
+        _controls.NoteSelector.Sing.started += context => SingPressed();
+        _controls.NoteSelector.Sing.performed += context => EaseVolume(context.ReadValue<float>());
+        _controls.NoteSelector.Sing.canceled += context => SingReleased();
+
+        _controls.NoteSelector.LockNote.started += context => LockUnlockNote();
+
+        _controls.NoteSelector.SwitchWheelType.performed += context => fillWheel = (!fillWheel);
+    }
+
+    
+    void EaseVolume(float volume)
+    {
+        _singVolume = 1.1f - Mathf.Pow(1-volume, 3);
+        if (_singVolume >= 1.0f)
+        {
+            _singVolume = 1.0f;
+        }
+    }
+    
 }

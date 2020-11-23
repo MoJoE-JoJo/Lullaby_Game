@@ -9,6 +9,16 @@ TagManager:
   - NoteSelectorSegment
   - Activator
   - ActivatorSensor
+  - AudioManager
+  - NoteWheel
+  - CarDestination
+  - CarCheckpoint
+  - PauseMenu
+  - RightWagonDestination
+  - LeftWagonDestination
+  - WheelCorrectPosition
+  - WheelIncorrectPosition
+  - GlobalLight
   layers:
   - Default
   - TransparentFX
@@ -19,9 +29,9 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
-  - 
+  - Camera
+  - Interactable
+  - Levels
   - 
   - 
   - 
@@ -43,9 +53,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 4035989335
+    locked: 0
+  - name: Final Door
+    uniqueID: 3680673289
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Player
-    uniqueID: 3128465931
+    uniqueID: 408918395
+    locked: 0
+  - name: Objects
+    uniqueID: 2165641389
     locked: 0

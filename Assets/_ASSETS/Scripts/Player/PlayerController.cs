@@ -3,18 +3,21 @@ using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+public enum Facing { RIGHT, LEFT }
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private NoteController noteController;
-    [SerializeField] private GameObject noteSelector;
+    private NoteController noteController;
+    private GameObject noteSelector;
     [SerializeField] private SongData _songBeingSung;
     [SerializeField] private bool _isSinging;
     [SerializeField, Tooltip("Time in seconds between the character starts singing at full, and the signal starts getting sent to nearby activators")] private float songDelay;
     [SerializeField] private float playerSpeed;
     [SerializeField, Tooltip("Must be above 0.")] private float accelerationTime;
     [SerializeField] private float jumpForce;
+    [SerializeField] private float wheelDeactivateDelay;
     private float accTimer = 0.0f;
     private float decTimer = 0.0f;
     private PlayerControls _controls;
@@ -24,16 +27,37 @@ public class PlayerController : MonoBehaviour
     public bool _isGrounded;
     private Vector2 _move;
     private float songDelayTimer;
+    private Coroutine _deactivateWheel;
+    private float _volume;
+    
+    //Animation stuff
+    private Animator _animator;
+    private Facing _facing = Facing.RIGHT;
+    private GameObject _legs;
+    private Animator _legsAnimator;
+    [SerializeField]private float playerTurningThreshold;
+    private Coroutine _invert = null;
 
-    public List<Activator> Activators
+    public SongData SongBeingSung
     {
-        get => actiSensor.RegisteredActivators;
+        get => _songBeingSung;
+        set => _songBeingSung = value;
     }
+    public bool IsSinging
+    {
+        get => _isSinging;
+        set => _isSinging = value;
+    }
+    public Animator Animator
+    {
+        get => _animator;
+    }
+
+
 
     private void Awake()
     {
         _controls = new PlayerControls();
-        actiSensor = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ActivatorSensor>();
 
         _controls.NoteSelector.Move.performed += context => ActivateNoteSelector();
         _controls.NoteSelector.Move.canceled += context => DeactivateNoteSelector();
@@ -41,13 +65,25 @@ public class PlayerController : MonoBehaviour
         _controls.Player.Move.performed += context => _move = context.ReadValue<Vector2>();
         _controls.Player.Move.canceled += context => _move = Vector2.zero;
 
+        _controls.NoteSelector.Sing.performed += context => Sing(context);
+        _controls.NoteSelector.Sing.canceled += context => StopSing();
+
         _controls.Player.Jump.performed += context => Jump();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        
+        _legs = transform.Find("Legs").gameObject;
+        _legsAnimator = _legs.GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         _rb2d = GetComponent<Rigidbody2D>();
+        actiSensor = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ActivatorSensor>();
+        noteController = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<NoteController>();
+        noteSelector = GameObject.FindGameObjectWithTag("NoteWheel");
+        DeactivateNoteSelector();
         songDelayTimer = 0.0f;
     }
 
@@ -55,28 +91,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
+        //Debug.Log(_isSinging);
+        
+        //Debug.Log(_songBeingSung);
+        UpdateAnimation();
+        
+    }
+
+    private void LateUpdate()
+    {
         UpdateNoteController();
+        
         SingToActivators();
-    }
-
-    private void FixedUpdate()
-    {
-
-    }
-
-    private void ActivateNoteSelector()
-    {
-        if (!noteSelector.activeSelf)
-        {
-            noteSelector.GetComponent<NoteSelectorNew>().CenterNoteSelector();
-            noteSelector.SetActive(true);
-        }
-    }
-    
-    void DeactivateNoteSelector()
-    {
-        noteSelector.SetActive(false);
-        _isSinging = false;
     }
 
     private void OnEnable()
@@ -87,18 +113,49 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         _controls.Disable();
+        _isSinging = false;
+        noteController.IsSinging = _isSinging;
+        _animator.SetFloat("RunSpeed", 0.0f);
+        _animator.SetFloat("JumpSpeed", 0.0f);
+        _animator.SetBool("IsGrounded", true);
+
+        _legsAnimator.SetFloat("RunSpeed", 0.0f);
+        _legsAnimator.SetFloat("JumpSpeed", 0.0f);
+        _legsAnimator.SetBool("IsGrounded", true);
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(!collision.gameObject.CompareTag("MainCamera") && collision.gameObject.layer != LayerMask.NameToLayer("Camera")) _isGrounded = true;
     }
 
-    public SongData SongBeingSung
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        get => _songBeingSung;
-        set => _songBeingSung = value;
+        _isGrounded = false;
     }
 
-    public bool IsSinging
+    private void ActivateNoteSelector()
     {
-        get => _isSinging;
-        set => _isSinging = value;
+        if (!noteSelector.activeSelf)
+        {
+            noteSelector.GetComponent<NoteSelectorNew>().CenterNoteSelector();
+            noteSelector.SetActive(true);
+        }
+
+        if (_deactivateWheel != null)
+        {
+            StopCoroutine(_deactivateWheel);
+        }
+    }
+    void DeactivateNoteSelector()
+    {
+        _deactivateWheel = StartCoroutine(DeactivateWheel());
+    }
+
+    private IEnumerator DeactivateWheel()
+    {
+        yield return new WaitForSeconds(wheelDeactivateDelay);
+        noteSelector.SetActive(false);
+        //_isSinging = false;
     }
 
     void MovePlayer()
@@ -122,18 +179,6 @@ public class PlayerController : MonoBehaviour
             _rb2d.velocity = speed;
             
         }
-
-
-        //Vector2 currentSpeed = _rb2d.velocity;
-
-        //Vector2 temp = _rb2d.velocity;
-        //Vector3 temp3 = Vector3.SmoothDamp(currentSpeed, maxSpeed, ref accVel, accelerationTime, Mathf.Infinity, Time.fixedDeltaTime);
-        //temp.x = temp3.x;
-        //Debug.Log(temp3.x);
-
-
-        //Vector2 move = new Vector2(_move.x, 0) * (playerSpeed * Time.deltaTime);
-        //transform.Translate(move, Space.World);
     }
 
     void Jump()
@@ -141,24 +186,7 @@ public class PlayerController : MonoBehaviour
         if (_isGrounded)
         {
             _rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            //_jumpFlag = false;
-            //_isGrounded = false;
         }
-    }
-
-    /*private void OnCollisionEnter2D(Collision2D other)
-    {
-        _isGrounded = true;
-    }*/
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        _isGrounded = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        _isGrounded = false;
     }
 
     private void SingToActivators()
@@ -167,11 +195,10 @@ public class PlayerController : MonoBehaviour
         {
             if (songDelayTimer >= songDelay)
             {
-                //Debug.Log("yolo");
                 _songBeingSung.Duration = Time.deltaTime;
                 actiSensor.SendSong(_songBeingSung);
             }
-            if (songDelayTimer < songDelay) songDelayTimer += Time.deltaTime;
+            else if (songDelayTimer < songDelay) songDelayTimer += Time.deltaTime;
         }
         else if(songDelayTimer > 0.0001f && !_isSinging)
         {
@@ -182,8 +209,97 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateNoteController()
     {
+        //Debug.Log(_songBeingSung.Notes.ToString());
         noteController.SongData = _songBeingSung;
         noteController.IsSinging = _isSinging;
+    }
+
+    private void Sing(InputAction.CallbackContext context)
+    {
+        _isSinging = true;
+        _volume = EaseVolume(context.ReadValue<float>()); 
+        _songBeingSung.Volume = _volume;
+
+    }
+
+    private void StopSing()
+    {
+        _isSinging = false;
+    }
+    
+    private void UpdateAnimation()
+    {
+        Facing wasFacing = _facing;
+        
+
+        if (wasFacing == Facing.RIGHT && _move.x < -playerTurningThreshold)
+        {
+            if (_invert == null)
+            {
+                _invert = StartCoroutine(InvertPlayer(Facing.LEFT));
+            }
+        }
+        if (wasFacing == Facing.LEFT && _move.x > playerTurningThreshold)
+        {
+            if (_invert == null)
+            {
+                _invert = StartCoroutine(InvertPlayer(Facing.RIGHT));
+            }
+        }
+        
+        //Player animator
+        _animator.SetFloat("RunSpeed", Mathf.Abs(_rb2d.velocity.x));
+        _animator.SetFloat("JumpSpeed", _rb2d.velocity.y);
+        _animator.SetBool("IsGrounded", _isGrounded);
+        _animator.SetBool("IsSinging", _isSinging);
+        _animator.SetFloat("SingVolume", _volume);
+        
+        //Legs animator
+        _legsAnimator.SetFloat("RunSpeed", Mathf.Abs(_rb2d.velocity.x));
+        _legsAnimator.SetFloat("JumpSpeed", _rb2d.velocity.y);
+        _legsAnimator.SetBool("IsGrounded", _isGrounded);
+        _legsAnimator.SetBool("IsSinging", _isSinging);
+    }
+    
+    float EaseVolume(float volume)
+    {
+        return volume;
+        
+        float vol = 1.1f - Mathf.Pow(1-volume, 3);
+        if (vol >= 1.0f)
+        {
+            vol = 1.0f;
+        }
+
+        return vol;
+    }
+
+    private IEnumerator InvertPlayer(Facing facing)
+    {
+        yield return new WaitForSeconds(0.001f);
+
+        switch (facing)
+        {
+            case Facing.LEFT:
+                if (_move.x < -playerTurningThreshold)
+                {
+                    Debug.Log("Player x vel: " + _rb2d.velocity.x);
+                    transform.Rotate(new Vector3(0,-180,0));
+                    _facing = Facing.LEFT;
+                }
+                break;
+            case Facing.RIGHT:
+                if (_move.x > playerTurningThreshold)
+                {
+                    Debug.Log("Player x vel: " + _rb2d.velocity.x);
+                    transform.Rotate(new Vector3(0,-180,0));
+                    _facing = Facing.RIGHT;
+                }
+                break;
+        }
+
+        _invert = null;
+
     }
     
 }
