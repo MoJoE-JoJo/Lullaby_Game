@@ -26,6 +26,7 @@ public class PhysicsAction : InteractableAction
     [SerializeField, Tooltip("9.8 corresponds to gravity speed")] private float flySpeed = 9.8f;
     [SerializeField, Tooltip("Adjusts the scale of gravity, 1 is for normal gravity, and 0 is for no gravity")] private float gravityScale = 0.0f;
     [SerializeField] private bool usePressure = true;
+    [SerializeField] private bool hardStop;
     [SerializeField] private bool debug_reset;
     private float originalGravityScale;
     private Vector2 directionVector;
@@ -63,11 +64,16 @@ public class PhysicsAction : InteractableAction
         else if (state == State_PhysicsAction.ACTIVATED)
         {
             rigbod.gravityScale = gravityScale;
-            if(usePressure) rigbod.AddForce(directionVector * flySpeed * songData.Volume);
+            if (usePressure) rigbod.AddForce(directionVector * flySpeed * songData.Volume);
             else rigbod.AddForce(directionVector * flySpeed);
         }
         else if (state == State_PhysicsAction.DEACTIVATED)
         {
+            if (hardStop)
+            {
+                rigbod.angularVelocity = 0f;
+                rigbod.velocity = new Vector2(0, 0);
+            }
             rigbod.gravityScale = originalGravityScale;
             //ongoing = false;
             state = State_PhysicsAction.IDLE;
