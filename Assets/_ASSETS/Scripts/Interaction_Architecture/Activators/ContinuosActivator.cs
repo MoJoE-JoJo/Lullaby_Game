@@ -129,6 +129,13 @@ public class ContinuosActivator : Activator
         lastData.Notes = new List<Song_Note>();
     }
 
+    public override void SetEnabled(bool input)
+    {
+        enabled = input;
+
+        if (enabled) hintWheel.Show();
+        else hintWheel.Hide();
+    }
     private bool CheckNotes(SongData data)
     {
         if (data.Notes == null) return false;

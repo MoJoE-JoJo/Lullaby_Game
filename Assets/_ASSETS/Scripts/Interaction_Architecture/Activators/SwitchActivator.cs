@@ -162,6 +162,13 @@ public class SwitchActivator : Activator
         }
     }
 
+    public override void SetEnabled(bool input) 
+    {
+        enabled = input;
+
+        if (enabled) hintWheel.Show();
+        else hintWheel.Hide();
+    }
     //checks the inputed SongData if its notes matches with the 
     private bool CheckNotes(SongData data)
     {

@@ -226,6 +226,13 @@ public class SequenceActivator : Activator
         }
     }
 
+    public override void SetEnabled(bool input)
+    {
+        enabled = input;
+
+        if (enabled) hintWheel.Show();
+        else hintWheel.Hide();
+    }
 
     private void NextPartOfSequence()
     {
