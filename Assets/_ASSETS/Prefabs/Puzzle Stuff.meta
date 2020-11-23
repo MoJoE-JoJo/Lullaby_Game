@@ -1,8 +1,14 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/_ASSETS/Prefabs/Puzzle Stuff.meta
 guid: 4935d72b810472c4b82da3dde84140a3
 folderAsset: yes
 DefaultImporter:
+=======
+guid: bcbe7501b15c0054bbeeff63d8dac1b6
+NativeFormatImporter:
+>>>>>>> ef4a1a5... Introduced new tiles with lighting:Assets/floating-platform-end-right.asset.meta
   externalObjects: {}
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

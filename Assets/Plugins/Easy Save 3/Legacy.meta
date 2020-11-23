@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Plugins/Easy Save 3/Legacy.meta
 guid: d05e819cd3894b045acde4e5ab56ebd4
+=======
+guid: 962bf50996c0ae4459ce0455ccdddf24
+>>>>>>> origin/c_Actual_Tutorial:Assets/Plugins/Demigiant/DOTween.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

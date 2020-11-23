@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Resources/Sprites/Objects/Bell Accessories/Bell Accessories_N.png.meta
 guid: 3ed6be4c49aa9304b8df3a35171cee59
+=======
+guid: 18d4f105bc320a44bbe2f48096daa1c5
+>>>>>>> origin/c_Actual_Tutorial:Assets/Resources/Sprites/Prototype_Sprites/Tiles/Background/png/grey-1_n.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

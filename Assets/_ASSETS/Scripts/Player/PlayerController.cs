@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private Facing _facing = Facing.RIGHT;
     private GameObject _legs;
     private Animator _legsAnimator;
+    [SerializeField]private float playerTurningThreshold;
+    private Coroutine _invert = null;
 
     public SongData SongBeingSung
     {
@@ -215,7 +217,7 @@ public class PlayerController : MonoBehaviour
     private void Sing(InputAction.CallbackContext context)
     {
         _isSinging = true;
-        _volume = context.ReadValue<float>();
+        _volume = EaseVolume(context.ReadValue<float>()); 
         _songBeingSung.Volume = _volume;
 
     }
@@ -228,16 +230,21 @@ public class PlayerController : MonoBehaviour
     private void UpdateAnimation()
     {
         Facing wasFacing = _facing;
+        
 
-        if (wasFacing == Facing.RIGHT && _rb2d.velocity.x < 0)
+        if (wasFacing == Facing.RIGHT && _move.x < -playerTurningThreshold)
         {
-            transform.Rotate(new Vector3(0,-180,0));
-            _facing = Facing.LEFT;
+            if (_invert == null)
+            {
+                _invert = StartCoroutine(InvertPlayer(Facing.LEFT));
+            }
         }
-        if (wasFacing == Facing.LEFT && _rb2d.velocity.x > 0)
+        if (wasFacing == Facing.LEFT && _move.x > playerTurningThreshold)
         {
-            transform.Rotate(new Vector3(0,-180,0));
-            _facing = Facing.RIGHT;
+            if (_invert == null)
+            {
+                _invert = StartCoroutine(InvertPlayer(Facing.RIGHT));
+            }
         }
         
         //Player animator
@@ -252,6 +259,47 @@ public class PlayerController : MonoBehaviour
         _legsAnimator.SetFloat("JumpSpeed", _rb2d.velocity.y);
         _legsAnimator.SetBool("IsGrounded", _isGrounded);
         _legsAnimator.SetBool("IsSinging", _isSinging);
+    }
+    
+    float EaseVolume(float volume)
+    {
+        return volume;
+        
+        float vol = 1.1f - Mathf.Pow(1-volume, 3);
+        if (vol >= 1.0f)
+        {
+            vol = 1.0f;
+        }
+
+        return vol;
+    }
+
+    private IEnumerator InvertPlayer(Facing facing)
+    {
+        yield return new WaitForSeconds(0.001f);
+
+        switch (facing)
+        {
+            case Facing.LEFT:
+                if (_move.x < -playerTurningThreshold)
+                {
+                    Debug.Log("Player x vel: " + _rb2d.velocity.x);
+                    transform.Rotate(new Vector3(0,-180,0));
+                    _facing = Facing.LEFT;
+                }
+                break;
+            case Facing.RIGHT:
+                if (_move.x > playerTurningThreshold)
+                {
+                    Debug.Log("Player x vel: " + _rb2d.velocity.x);
+                    transform.Rotate(new Vector3(0,-180,0));
+                    _facing = Facing.RIGHT;
+                }
+                break;
+        }
+
+        _invert = null;
+
     }
     
 }

@@ -1,14 +1,12 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/_ASSETS/Prefabs/Puzzle Stuff/Car.meta
+<<<<<<< HEAD:Assets/Resources/Sprites/Objects/Bell Accessories.meta
+guid: ff22bcf561e22bd4e849ce8fc634fdd4
+=======
 guid: f07dd13df8ee8284db679c15cebc35f2
+>>>>>>> origin/c_Actual_Tutorial:Assets/_ASSETS/Prefabs/Puzzle Stuff/Car.meta
 folderAsset: yes
 DefaultImporter:
-=======
-guid: bcbe7501b15c0054bbeeff63d8dac1b6
-NativeFormatImporter:
->>>>>>> origin/c_NewTiles:Assets/floating-platform-end-right.asset.meta
   externalObjects: {}
-  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt.meta
 guid: 381dcb09d5029d14897e55f98031fca5
 TextScriptImporter:
+=======
+guid: f6e861f27115bb34fb275efcd544d1c5
+NativeFormatImporter:
+>>>>>>> origin/c_Actual_Tutorial:Assets/floating-platform-end.asset.meta
   externalObjects: {}
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
