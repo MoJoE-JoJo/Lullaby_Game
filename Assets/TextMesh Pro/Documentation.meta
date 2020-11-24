@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/_ASSETS/Prefabs/Needed in every scene.meta
+guid: 6573343547c609944b06f39473991b82
+=======
 guid: 8e7e8f5a82a3a134e91c54efd2274ea9
+>>>>>>> origin/c_TorchLevel:Assets/TextMesh Pro/Documentation.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
