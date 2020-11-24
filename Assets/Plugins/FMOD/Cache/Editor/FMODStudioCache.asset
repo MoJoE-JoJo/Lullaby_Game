@@ -34,6 +34,23 @@ MonoBehaviour:
   Max: 11
   Default: 0
   Exists: 1
+--- !u!114 &-9046319427721383923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/A3old/isSinging
+  m_EditorClassIdentifier: 
+  Name: isSinging
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &-9010202168352491726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +151,7 @@ MonoBehaviour:
   Path: event:/Environment/Platforms
   guid: e89c15e11bd53444864384c6c17b4871
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -244,6 +261,23 @@ MonoBehaviour:
   Max: 2
   Default: 0
   Exists: 0
+--- !u!114 &-7972705582649698698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/G3old/isSinging
+  m_EditorClassIdentifier: 
+  Name: isSinging
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &-7819942459371257031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +347,40 @@ MonoBehaviour:
   Max: 11
   Default: 0
   Exists: 0
+--- !u!114 &-7597081378246164465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Draw Bridge/Parameter 1
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 11
+  Default: 0
+  Exists: 1
+--- !u!114 &-7590736641772689460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/G3old/wasSingingOtherTone
+  m_EditorClassIdentifier: 
+  Name: wasSingingOtherTone
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &-7441835341049422608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,12 +430,12 @@ MonoBehaviour:
   Path: event:/Character/Footsteps
   guid: ba763f51bc51a5408eddd1d3de62a8be
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 4696087545776035541}
+  - {fileID: 21001238387608036}
   MinDistance: 0
   MaxDistance: 0
   Length: 0
@@ -454,16 +522,33 @@ MonoBehaviour:
   Path: event:/Tones/prototype1_Tones/G3old
   guid: 2aacd55df21311418ebee2c70a179069
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 3154718286978103028}
-  - {fileID: -8184627613992150243}
+  - {fileID: -7972705582649698698}
+  - {fileID: -7590736641772689460}
   MinDistance: 0
   MaxDistance: 0
   Length: 4200
+--- !u!114 &-7116218657458414155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/A3old/wasSingingOtherTone
+  m_EditorClassIdentifier: 
+  Name: wasSingingOtherTone
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &-7102336584743611316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,7 +599,7 @@ MonoBehaviour:
   Path: event:/Character/Rumble
   guid: 166a5b66afaff94da908bba9cdd57838
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -588,12 +673,12 @@ MonoBehaviour:
   Path: event:/Ambiance/Dungeon
   guid: c2d71e812132fb4683342e80a19213de
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 3898085199782146782}
+  - {fileID: 5371492930878672852}
   MinDistance: 0
   MaxDistance: 0
   Length: 119500
@@ -749,12 +834,12 @@ MonoBehaviour:
   Path: event:/Environment/Draw Bridge
   guid: 9bcac5f129ab0b4983494e494e81fd3e
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -9131604996135044969}
+  - {fileID: -7597081378246164465}
   MinDistance: 0
   MaxDistance: 0
   Length: 0
@@ -824,7 +909,7 @@ MonoBehaviour:
   Path: event:/Tones/C4
   guid: fb2dd33938eb414f8d11e882cc09a54b
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -847,15 +932,33 @@ MonoBehaviour:
   Path: event:/Environment/Door
   guid: e72840a060ee484ebc58bac6f70260ed
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 9092893523915025382}
+  - {fileID: 581025643429924960}
   MinDistance: 0
   MaxDistance: 0
   Length: 4535
+--- !u!114 &-5864236607322779174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/_ASSETS/Fmod_Banks/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637418169168832242
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-5861595935653727099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -890,6 +993,23 @@ MonoBehaviour:
   Max: 2
   Default: 0
   Exists: 0
+--- !u!114 &-5639795491248772726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/E4old/wasSingingOtherTone
+  m_EditorClassIdentifier: 
+  Name: wasSingingOtherTone
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &-5569327649257489519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1068,6 +1188,23 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &-4496709697846425119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/D4old/wasSingingOtherTone
+  m_EditorClassIdentifier: 
+  Name: wasSingingOtherTone
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &-4302499345238066595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1290,6 +1427,23 @@ MonoBehaviour:
   Max: 2
   Default: 0
   Exists: 0
+--- !u!114 &-2707301900283736816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/D4old/isSinging
+  m_EditorClassIdentifier: 
+  Name: isSinging
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &-2661394144748332821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1703,7 +1857,7 @@ MonoBehaviour:
   Path: event:/Tones/G3
   guid: a3ae66c556fc8c47ae350403af990688
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1861,7 +2015,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 3418741469974820653}
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   EditorEvents:
   - {fileID: 1907860386353086178}
   - {fileID: -7026189734524797804}
@@ -1888,11 +2042,45 @@ MonoBehaviour:
   - {fileID: 4252382864840041903}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   StringsBanks:
   - {fileID: 3418741469974820653}
-  stringsBankWriteTime: 637418183293417777
+  stringsBankWriteTime: 637418169168841929
   cacheVersion: 3
+--- !u!114 &21001238387608036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/Footsteps
+  m_EditorClassIdentifier: 
+  Name: Footsteps
+  Min: 0
+  Max: 11
+  Default: 0
+  Exists: 1
+--- !u!114 &57529205620177035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/B3old/isSinging
+  m_EditorClassIdentifier: 
+  Name: isSinging
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &99561024663919862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2027,16 +2215,33 @@ MonoBehaviour:
   Path: event:/Tones/prototype1_Tones/B3old
   guid: 948bb645e71c904c9ba3f43ef6915919
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -6801103556644380595}
-  - {fileID: 5539831950997654363}
+  - {fileID: 1463892120053927564}
+  - {fileID: 57529205620177035}
   MinDistance: 0
   MaxDistance: 0
   Length: 3600
+--- !u!114 &581025643429924960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Door/Door
+  m_EditorClassIdentifier: 
+  Name: Door
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &637023679335933459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2224,6 +2429,23 @@ MonoBehaviour:
   Max: 11
   Default: 0
   Exists: 0
+--- !u!114 &1463892120053927564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/B3old/wasSingingOtherTone
+  m_EditorClassIdentifier: 
+  Name: wasSingingOtherTone
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &1538654163069786860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2239,7 +2461,7 @@ MonoBehaviour:
   Path: event:/Tones/B3
   guid: 1bf9136e7df38d4a8746c188e12c42bc
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -2296,12 +2518,12 @@ MonoBehaviour:
   Path: event:/Environment/Torch
   guid: 00b01e31347f1041a20b48ddba024d91
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 3141689412945544546}
+  - {fileID: 7510796191035058232}
   MinDistance: 0
   MaxDistance: 0
   Length: 20045
@@ -2429,7 +2651,7 @@ MonoBehaviour:
   Path: event:/Environment/Bell
   guid: 33a034e702f00a4b8fb791879ac55797
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -2437,6 +2659,23 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 16010
+--- !u!114 &2572470349142274384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/C4old/wasSingingOtherTone
+  m_EditorClassIdentifier: 
+  Name: wasSingingOtherTone
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &2607551940550018960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2486,7 +2725,7 @@ MonoBehaviour:
   Path: event:/Tones/E4
   guid: ca16d490bbd72346bd19d5e791420e88
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -2610,7 +2849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/_ASSETS/Fmod_Banks/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637418183293417777
+  lastModified: 637418169168841929
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -2629,6 +2868,23 @@ MonoBehaviour:
   m_Name: parameter:/C4old/isSinging
   m_EditorClassIdentifier: 
   Name: isSinging
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
+--- !u!114 &3577667206822687297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Box/Box
+  m_EditorClassIdentifier: 
+  Name: Box
   Min: 0
   Max: 2
   Default: 0
@@ -2701,6 +2957,23 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 0
+--- !u!114 &4060302560086182673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/E4old/isSinging
+  m_EditorClassIdentifier: 
+  Name: isSinging
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &4160619597111108896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2750,7 +3023,7 @@ MonoBehaviour:
   Path: event:/Environment/Cart
   guid: fce6c12ce1d9c441a97ec191e35bfacf
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -2841,13 +3114,13 @@ MonoBehaviour:
   Path: event:/Tones/prototype1_Tones/C4old
   guid: 532561a3cc76654c83bfbd961e5cd237
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -7223689214342473016}
-  - {fileID: 4557048656606506266}
+  - {fileID: 7875620240854489180}
+  - {fileID: 2572470349142274384}
   MinDistance: 0
   MaxDistance: 0
   Length: 2983
@@ -3061,6 +3334,23 @@ MonoBehaviour:
   Max: 2
   Default: 0
   Exists: 0
+--- !u!114 &5371492930878672852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Dungeon/inTheDeep
+  m_EditorClassIdentifier: 
+  Name: inTheDeep
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &5539831950997654363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3195,12 +3485,12 @@ MonoBehaviour:
   Path: event:/Environment/Box
   guid: d6ece3fa35893f4ebcd2d47571f9efc6
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 530082060369726157}
+  - {fileID: 3577667206822687297}
   MinDistance: 0
   MaxDistance: 0
   Length: 0
@@ -3304,13 +3594,13 @@ MonoBehaviour:
   Path: event:/Tones/prototype1_Tones/A3old
   guid: 9384c71b56c8f344b993144a54ec79eb
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 6308548686712583358}
-  - {fileID: 5239870019784093254}
+  - {fileID: -7116218657458414155}
+  - {fileID: -9046319427721383923}
   MinDistance: 0
   MaxDistance: 0
   Length: 2500
@@ -3483,7 +3773,7 @@ MonoBehaviour:
   Path: event:/Character/Jump
   guid: 93208190d1850f4d8c8d5fe8eba0ba6c
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3523,7 +3813,7 @@ MonoBehaviour:
   Path: event:/Tones/D4
   guid: 2685ca1572eae0409d37619d0ad2796e
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -3582,6 +3872,23 @@ MonoBehaviour:
   Max: 2
   Default: 0
   Exists: 1
+--- !u!114 &7510796191035058232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Torch/closeToTorch
+  m_EditorClassIdentifier: 
+  Name: closeToTorch
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &7683718943858150370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3614,16 +3921,33 @@ MonoBehaviour:
   Path: event:/Tones/prototype1_Tones/D4old
   guid: f84d5098b98d7f4da5c97eca167e501d
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -3539910590723597243}
-  - {fileID: -2777816332179104095}
+  - {fileID: -4496709697846425119}
+  - {fileID: -2707301900283736816}
   MinDistance: 0
   MaxDistance: 0
   Length: 4484
+--- !u!114 &7875620240854489180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/C4old/isSinging
+  m_EditorClassIdentifier: 
+  Name: isSinging
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &7896233065384244480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3724,7 +4048,7 @@ MonoBehaviour:
   Path: event:/Tones/A3
   guid: 1f6c5e036f58d64f87d6d23c504b2dc6
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -3747,13 +4071,13 @@ MonoBehaviour:
   Path: event:/Tones/prototype1_Tones/E4old
   guid: 3985163e23aa754b9b713b8463ac3d7f
   Banks:
-  - {fileID: 1995741025135820912}
+  - {fileID: -5864236607322779174}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -5303290660445966884}
-  - {fileID: -888373188876233584}
+  - {fileID: 4060302560086182673}
+  - {fileID: -5639795491248772726}
   MinDistance: 0
   MaxDistance: 0
   Length: 4335
