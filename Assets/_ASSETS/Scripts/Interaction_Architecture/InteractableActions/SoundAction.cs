@@ -11,10 +11,13 @@ public class SoundAction : InteractableAction
     public string SoundEvent;
 
     [SerializeField] private bool playOnce;
+    [SerializeField] private bool oneFrameLateStart = false;
+    [SerializeField] private float volume = 1.0f;
 
     private bool played = false;
     private EventInstance eventInstance;
     private SongData songData;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +30,9 @@ public class SoundAction : InteractableAction
         if (playOnce && played) return;
         else if (!IsPlaying(eventInstance))
         {
-            eventInstance.start();
+            eventInstance.setVolume(volume);
+            if (!oneFrameLateStart) eventInstance.start();
+            else StartCoroutine(OneFrameLateStart());
             played = true;
         }
     }
@@ -59,5 +64,11 @@ public class SoundAction : InteractableAction
     {
         instance.getPlaybackState(out PLAYBACK_STATE state);
         return state != PLAYBACK_STATE.STOPPED;
+    }
+
+    IEnumerator OneFrameLateStart()
+    {
+        yield return null;
+        eventInstance.start();
     }
 }

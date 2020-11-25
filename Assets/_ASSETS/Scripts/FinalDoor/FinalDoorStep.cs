@@ -16,6 +16,7 @@ public class FinalDoorStep : MonoBehaviour
     [SerializeField] private CameraShakeAction shakeSmall;
     [SerializeField] private CameraShakeAction shakeBig;
 
+
     private void Start()
     {
         doorStepIndex = doorStepNumber - 1;

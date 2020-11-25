@@ -52,7 +52,7 @@ public class ActivatorSensor : MonoBehaviour
             var activators = collision.GetComponents<Activator>();
             foreach (Activator acti in activators)
             {
-                acti.enabled = true;
+                //acti.enabled = true;
                 RegisteredActivators.Add(acti);
             }
         }
@@ -65,7 +65,7 @@ public class ActivatorSensor : MonoBehaviour
             var activators = collision.GetComponents<Activator>();
             foreach (Activator acti in activators)
             {
-                acti.enabled = false;
+                //acti.enabled = false;
                 RegisteredActivators.Remove(acti);
             }
         }
