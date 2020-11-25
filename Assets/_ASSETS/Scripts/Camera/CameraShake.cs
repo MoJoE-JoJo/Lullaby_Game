@@ -46,6 +46,7 @@ public class CameraShake : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		//ShakeUpdate();
 		if (shakeDuration > 0)
 		{
 			cameraMove.Shaking = true;
@@ -61,13 +62,13 @@ public class CameraShake : MonoBehaviour
 		shakeDuration = duration;
     }
 
-	public void ShakeUpdate()
+	public void ShakeUpdate(bool moving)
     {
-		resetPos = cameraMove.transform.position;
+		resetPos = cameraMove.Target.transform.position;
+		if(moving) resetPos = cameraMove.transform.position;
 		resetPos.z = cameraMove.transform.position.z;
 		if (shakeDuration > 0)
 		{
-			cameraMove.Shaking = true;
 			var newPos = resetPos + Random.insideUnitSphere * shakeAmount;
 			newPos.z = resetPos.z;
 			camTransform.localPosition = newPos;
@@ -76,7 +77,6 @@ public class CameraShake : MonoBehaviour
 		}
 		else
 		{
-			cameraMove.Shaking = false;
 			shakeDuration = 0f;
 			//camTransform.localPosition = resetPos;
 		}

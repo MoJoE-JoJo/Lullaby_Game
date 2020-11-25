@@ -53,7 +53,7 @@ public class CameraMove : MonoBehaviour
     {
         if (thresholdMovement) MoveWithThreshold();
         else MoveCamera();
-        
+        cameraShake.ShakeUpdate(moveCamera);
     }
 
     private void MoveCamera()
@@ -79,7 +79,6 @@ public class CameraMove : MonoBehaviour
             newPosition = target.transform.position;
             newPosition.z = transform.position.z;
             transform.position = Vector3.Lerp(lastShakePosition, newPosition, shakeMoveFraction);
-            cameraShake.ShakeUpdate();
         }
     }
 
