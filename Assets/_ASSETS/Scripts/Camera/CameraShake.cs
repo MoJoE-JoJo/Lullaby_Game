@@ -44,22 +44,15 @@ public class CameraShake : MonoBehaviour
 		}
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
-		resetPos = cameraMove.Target.transform.position;
-		resetPos.z = cameraMove.transform.position.z;
 		if (shakeDuration > 0)
 		{
-			var newPos = resetPos + Random.insideUnitSphere * shakeAmount;
-			newPos.z = resetPos.z;
-			camTransform.localPosition = newPos;
-
-			shakeDuration -= Time.deltaTime * decreaseFactor;
+			cameraMove.Shaking = true;
 		}
 		else
 		{
-			shakeDuration = 0f;
-			//camTransform.localPosition = resetPos;
+			cameraMove.Shaking = false;
 		}
 	}
 
@@ -67,4 +60,25 @@ public class CameraShake : MonoBehaviour
     {
 		shakeDuration = duration;
     }
+
+	public void ShakeUpdate()
+    {
+		resetPos = cameraMove.transform.position;
+		resetPos.z = cameraMove.transform.position.z;
+		if (shakeDuration > 0)
+		{
+			cameraMove.Shaking = true;
+			var newPos = resetPos + Random.insideUnitSphere * shakeAmount;
+			newPos.z = resetPos.z;
+			camTransform.localPosition = newPos;
+
+			shakeDuration -= Time.fixedDeltaTime * decreaseFactor;
+		}
+		else
+		{
+			cameraMove.Shaking = false;
+			shakeDuration = 0f;
+			//camTransform.localPosition = resetPos;
+		}
+	}
 }

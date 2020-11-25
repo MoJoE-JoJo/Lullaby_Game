@@ -15,6 +15,11 @@ public class CameraMove : MonoBehaviour
         get => smoothTime;
         set => smoothTime = value;
     }
+    public bool Shaking
+    {
+        get;
+        set;
+    }
     [SerializeField] private float smoothTime = 0.1f;
     [SerializeField] private bool thresholdMovement;
     //Should probably make it a CustomEditor, but there are tooltips, and they won't really fuck anything up, so maybe later.
@@ -26,12 +31,21 @@ public class CameraMove : MonoBehaviour
     private Vector2 playerMovement;
     private Vector2 cameraPosition;
     private bool moveCamera = false;
+    private bool startShaking = false;
+    private Vector3 lastShakePosition;
+    private float shakeMoveFraction = 0.0f;
+    private float shakeMoveTimer = 0.0f;
+    private CameraShake cameraShake;
     // Start is called before the first frame update
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player");
         playerMovement = Vector2.zero;
         cameraPosition = transform.position;
+        if (cameraShake == null)
+        {
+            cameraShake = GetComponent(typeof(CameraShake)) as CameraShake;
+        }
     }
 
     // Update is called once per frame
@@ -44,9 +58,29 @@ public class CameraMove : MonoBehaviour
 
     private void MoveCamera()
     {
-        newPosition = target.transform.position;
-        newPosition.z = transform.position.z;
-        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+        if (!Shaking)
+        {
+            startShaking = false;
+            newPosition = target.transform.position;
+            newPosition.z = transform.position.z;
+            transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+        }
+        if (!startShaking && Shaking)
+        {
+            shakeMoveTimer = 0.0f;
+            startShaking = true;
+            lastShakePosition = transform.position;
+            lastShakePosition.z = transform.position.z;
+        }
+        if(startShaking && Shaking)
+        {
+            shakeMoveTimer += Time.fixedDeltaTime;
+            shakeMoveFraction = shakeMoveTimer / (smoothTime);
+            newPosition = target.transform.position;
+            newPosition.z = transform.position.z;
+            transform.position = Vector3.Lerp(lastShakePosition, newPosition, shakeMoveFraction);
+            cameraShake.ShakeUpdate();
+        }
     }
 
     private void MoveWithThreshold()
