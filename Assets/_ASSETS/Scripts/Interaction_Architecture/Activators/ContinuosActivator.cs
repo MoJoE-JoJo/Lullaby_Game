@@ -22,6 +22,12 @@ public class ContinuosActivator : Activator
     {
         throw new System.NotImplementedException();
     }
+    public override void SetEnabled(bool input)
+    {
+        base.SetEnabled(input);
+        if (input) hintWheel.Show();
+        else hintWheel.Hide();
+    }
 
     public override void SongInput(SongData data)
     {

@@ -10,7 +10,7 @@ public class EnableActivatorsAction : InteractableAction
     {
         foreach (Activator acti in activators)
         {
-            acti.enabled = true;
+            acti.SetEnabled(true);
         }
     }
 
@@ -18,7 +18,7 @@ public class EnableActivatorsAction : InteractableAction
     {
         foreach (Activator acti in activators)
         {
-            acti.enabled = false;
+            acti.SetEnabled(false);
         }
     }
 
