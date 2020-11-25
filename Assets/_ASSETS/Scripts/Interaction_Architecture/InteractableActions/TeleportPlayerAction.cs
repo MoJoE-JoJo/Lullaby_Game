@@ -63,7 +63,11 @@ public class TeleportPlayerAction : InteractableAction
                 {
                     playerTransform.position = teleportPosition.position;
                     state = State_TeleportPlayerAction.FADINGIN;
-                    timer = 0.0f;
+                    timer = -1f;
+
+                    Color tmp = fadeSprite.color;
+                    tmp.a = 1;
+                    fadeSprite.color = tmp;
                 }
                 else
                 { // fade to solid color
