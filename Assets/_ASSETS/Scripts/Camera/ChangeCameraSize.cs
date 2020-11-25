@@ -65,6 +65,7 @@ public class ChangeCameraSize : MonoBehaviour
             case State_ChangeCameraSize.RESIZETOPLAYER:
                 cameraMove.Target = player;
                 actiSen.ScreenSizeChanged = true;
+                cameraMove.StartShaking = false;
                 //acti = camera.GetComponent<ActivatorSensor>();
                 //acti.ScreenSizeChanged = true;
                 if (resizeTime > 0.0f)

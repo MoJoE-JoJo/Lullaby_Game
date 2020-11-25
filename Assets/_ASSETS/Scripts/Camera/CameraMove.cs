@@ -20,6 +20,11 @@ public class CameraMove : MonoBehaviour
         get;
         set;
     }
+    public bool StartShaking
+    {
+        get => startShaking;
+        set => startShaking = value;
+    }
     [SerializeField] private float smoothTime = 0.1f;
     [SerializeField] private bool thresholdMovement;
     //Should probably make it a CustomEditor, but there are tooltips, and they won't really fuck anything up, so maybe later.
