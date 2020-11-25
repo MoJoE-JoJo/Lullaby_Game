@@ -44,12 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05625e540bfb89428070bdcb8ece73f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AEvent: event:/Tones/A3
-  BEvent: event:/Tones/B3
-  CEvent: event:/Tones/C4
-  DEvent: event:/Tones/D4
-  GEvent: event:/Tones/G3
-  EEvent: event:/Tones/E4
+  AEventVoice: event:/Tones/A2_Voice
+  BEventVoice: event:/Tones/B2_Voice
+  CEventVoice: event:/Tones/C#3_Voice
+  DEventVoice: event:/Tones/E3_Voice
+  EEventVoice: event:/Tones/F#3_Voice
+  FEventVoice: event:/Tones/A3_Voice
+  AEventSynth: event:/Tones/A2_Synth
+  BEventSynth: event:/Tones/B2_Synth
+  CEventSynth: event:/Tones/C#3_Synth
+  DEventSynth: event:/Tones/E3_Synth
+  EEventSynth: event:/Tones/F#3_Synth
+  FEventSynth: event:/Tones/A3_Synth
 --- !u!114 &3990979850767676577
 MonoBehaviour:
   m_ObjectHideFlags: 0

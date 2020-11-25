@@ -71,6 +71,13 @@ public class SequenceActivator : Activator
         throw new System.NotImplementedException();
     }
 
+    public override void SetEnabled(bool input)
+    {
+        base.SetEnabled(input);
+        if (input) hintWheel.Show();
+        else hintWheel.Hide();
+    }
+
     public override void SongInput(SongData data)
     {
         if (!enabled)
