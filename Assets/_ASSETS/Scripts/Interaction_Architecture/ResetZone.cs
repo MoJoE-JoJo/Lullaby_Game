@@ -17,11 +17,14 @@ public class ResetZone : MonoBehaviour
     // when the GameObjects collider arrange for this GameObject to travel to the left of the screen
     void OnTriggerEnter2D(Collider2D col)
     {
-        player.transform.position = spawnPoint.position;
-
-        foreach (var action in actions)
+        if (col.CompareTag("Player"))
         {
-            action.Reset();
+            player.transform.position = spawnPoint.position;
+
+            foreach (var action in actions)
+            {
+                action.Reset();
+            }
         }
     }
 
