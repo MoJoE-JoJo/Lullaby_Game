@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Color: {r: 0.6666667, g: 0.5137255, b: 0.82745105, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0.68
-  m_ApplyToSortingLayers: 00000000ad101581
+  m_ApplyToSortingLayers: 00000000ad101581574f90f0
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 1
   m_LightOrder: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 0.9333334, b: 0, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0.68
-  m_ApplyToSortingLayers: 00000000ad101581
+  m_ApplyToSortingLayers: 00000000ad101581574f90f0
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 1
   m_LightOrder: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Color: {r: 0, g: 0.6039216, b: 0.8235295, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0.68
-  m_ApplyToSortingLayers: 00000000ad101581
+  m_ApplyToSortingLayers: 00000000ad101581574f90f0
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 1
   m_LightOrder: 0
@@ -253,6 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3458713602522521702}
   - component: {fileID: 3458713602522521703}
+  - component: {fileID: 2299191470532376420}
   m_Layer: 0
   m_Name: AuraHint
   m_TagString: Untagged
@@ -300,6 +301,18 @@ MonoBehaviour:
   F: {fileID: 3458713602519214894}
   lowIntensity: 0.5
   highIntensity: 1
+--- !u!114 &2299191470532376420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3458713602522521700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a491c8f7956e2348b785785d94540c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3458713602800462362
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +362,7 @@ MonoBehaviour:
   m_Color: {r: 0, g: 0.854902, b: 0.75294125, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0.68
-  m_ApplyToSortingLayers: 00000000ad101581
+  m_ApplyToSortingLayers: 00000000ad101581574f90f0
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 1
   m_LightOrder: 0
@@ -430,7 +443,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 0.6313726, b: 0, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0.68
-  m_ApplyToSortingLayers: 00000000ad101581
+  m_ApplyToSortingLayers: 00000000ad101581574f90f0
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 1
   m_LightOrder: 0
@@ -511,7 +524,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0.68
-  m_ApplyToSortingLayers: 00000000ad101581
+  m_ApplyToSortingLayers: 00000000ad101581574f90f0
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 1
   m_LightOrder: 0
