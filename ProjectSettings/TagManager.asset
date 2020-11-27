@@ -20,6 +20,7 @@ TagManager:
   - WheelIncorrectPosition
   - GlobalLight
   - FadeOverlay
+  - Elevator
   layers:
   - Default
   - TransparentFX
