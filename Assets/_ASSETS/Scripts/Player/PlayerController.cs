@@ -259,6 +259,28 @@ public class PlayerController : MonoBehaviour
         _legsAnimator.SetFloat("JumpSpeed", _rb2d.velocity.y);
         _legsAnimator.SetBool("IsGrounded", _isGrounded);
         _legsAnimator.SetBool("IsSinging", _isSinging);
+
+        var currentClip = _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        if (currentClip == "Player_Running")
+        {
+            _legsAnimator.speed = GetAnimatorSpeedLegs(Mathf.Abs(_rb2d.velocity.x / playerSpeed));
+            _animator.speed = GetAnimatorSpeedBody(Mathf.Abs(_rb2d.velocity.x / playerSpeed));
+        }
+        else
+        {
+            _legsAnimator.speed = 1f;
+            _animator.speed = 1f;
+        }
+    }
+    
+    float GetAnimatorSpeedBody(float moveX)
+    {
+        return (0.85f + moveX * (1-0.85f));
+    }
+
+    float GetAnimatorSpeedLegs(float moveX)
+    {
+        return (0.80f + moveX * (1-0.80f));
     }
     
     float EaseVolume(float volume)
