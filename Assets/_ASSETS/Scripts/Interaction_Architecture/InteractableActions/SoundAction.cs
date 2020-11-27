@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum State_SoundAction { STOPPED, ACTIVE, PLAYING }
 public class SoundAction : InteractableAction
 {
 
@@ -13,12 +14,15 @@ public class SoundAction : InteractableAction
     [SerializeField] private bool playOnce;
     [SerializeField] private bool oneFrameLateStart = false;
     [SerializeField] private float volume = 1.0f;
+    [SerializeField] float stopLoopAfterDuration = 0;
 
     private bool played = false;
+    private float timer = 0.0f;
     private EventInstance eventInstance;
     private SongData songData;
 
 
+    private State_SoundAction state = State_SoundAction.ACTIVE;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +30,15 @@ public class SoundAction : InteractableAction
     }
     public override void Activate()
     {
-
+        if (state == State_SoundAction.STOPPED) return;
         if (playOnce && played) return;
         else if (!IsPlaying(eventInstance))
         {
             eventInstance.setVolume(volume);
             if (!oneFrameLateStart) eventInstance.start();
             else StartCoroutine(OneFrameLateStart());
+            state = State_SoundAction.PLAYING;
+
             played = true;
         }
     }
@@ -45,7 +51,6 @@ public class SoundAction : InteractableAction
 
     public override void InputData(SongData data)
     {
-        songData = data;
     }
 
     public override void Reset()
@@ -57,7 +62,19 @@ public class SoundAction : InteractableAction
     // Update is called once per frame
     void Update()
     {
-        
+        if (!playOnce)
+        {
+            if (state == State_SoundAction.PLAYING)
+            {
+                timer += Time.deltaTime;
+                if (timer > stopLoopAfterDuration)
+                {
+                    eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                    played = false;
+                    state = State_SoundAction.STOPPED;
+                }
+            }
+        }
     }
 
     bool IsPlaying(EventInstance instance)

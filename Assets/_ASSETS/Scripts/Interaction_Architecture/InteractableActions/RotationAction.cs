@@ -45,7 +45,7 @@ public class RotationAction : InteractableAction
             isLimited = true;
         }
         
-        Debug.Log(maxRotation);
+        //Debug.Log(maxRotation);
     }
 
     public override void Activate()

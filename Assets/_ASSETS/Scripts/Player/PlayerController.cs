@@ -283,7 +283,7 @@ public class PlayerController : MonoBehaviour
             case Facing.LEFT:
                 if (_move.x < -playerTurningThreshold)
                 {
-                    Debug.Log("Player x vel: " + _rb2d.velocity.x);
+                    //Debug.Log("Player x vel: " + _rb2d.velocity.x);
                     transform.Rotate(new Vector3(0,-180,0));
                     _facing = Facing.LEFT;
                 }
@@ -291,7 +291,7 @@ public class PlayerController : MonoBehaviour
             case Facing.RIGHT:
                 if (_move.x > playerTurningThreshold)
                 {
-                    Debug.Log("Player x vel: " + _rb2d.velocity.x);
+                    //Debug.Log("Player x vel: " + _rb2d.velocity.x);
                     transform.Rotate(new Vector3(0,-180,0));
                     _facing = Facing.RIGHT;
                 }

@@ -8,15 +8,16 @@ using System.Linq;
 
 public class NoteController : MonoBehaviour
 {
-    private EventInstance Ainstance, Binstance, Cinstance, Dinstance, Ginstance, Einstance;
+    private EventInstance AinstanceVoice, BinstanceVoice, CinstanceVoice, DinstanceVoice, EinstanceVoice, FinstanceVoice;
+
+    private EventInstance AinstanceSynth, BinstanceSynth, CinstanceSynth, DinstanceSynth, EinstanceSynth, FinstanceSynth;
 
     [EventRef]
-    public string AEvent, BEvent, CEvent, DEvent, GEvent, EEvent;
-    //private bool alreadySingingNote = false;
+    public string AEventVoice, BEventVoice, CEventVoice, DEventVoice, EEventVoice, FEventVoice;
 
-    //public KeyCode SingButton;
+    [EventRef]
+    public string AEventSynth, BEventSynth, CEventSynth, DEventSynth, EEventSynth, FEventSynth;
 
-    //public bool ANote, BNote, CNote, DNote, GNote;
     public SongData SongData
     {
         get => _songData;
@@ -41,19 +42,33 @@ public class NoteController : MonoBehaviour
     void Start()
     {
         eventInstanceList = new List<EventInstance>();
-        Ainstance = RuntimeManager.CreateInstance(AEvent);
-        Binstance = RuntimeManager.CreateInstance(BEvent);
-        Cinstance = RuntimeManager.CreateInstance(CEvent);
-        Dinstance = RuntimeManager.CreateInstance(DEvent);
-        Ginstance = RuntimeManager.CreateInstance(GEvent);
-        Einstance = RuntimeManager.CreateInstance(EEvent);
+        AinstanceVoice = RuntimeManager.CreateInstance(AEventVoice);
+        BinstanceVoice = RuntimeManager.CreateInstance(BEventVoice);
+        CinstanceVoice = RuntimeManager.CreateInstance(CEventVoice);
+        DinstanceVoice = RuntimeManager.CreateInstance(DEventVoice);
+        EinstanceVoice = RuntimeManager.CreateInstance(EEventVoice);
+        FinstanceVoice = RuntimeManager.CreateInstance(FEventVoice);
 
-        eventInstanceList.Add(Ainstance);
-        eventInstanceList.Add(Binstance);
-        eventInstanceList.Add(Cinstance);
-        eventInstanceList.Add(Dinstance);
-        eventInstanceList.Add(Ginstance);
-        eventInstanceList.Add(Einstance);
+        AinstanceSynth = RuntimeManager.CreateInstance(AEventSynth);
+        BinstanceSynth = RuntimeManager.CreateInstance(BEventSynth);
+        CinstanceSynth = RuntimeManager.CreateInstance(CEventSynth);
+        DinstanceSynth = RuntimeManager.CreateInstance(DEventSynth);
+        EinstanceSynth = RuntimeManager.CreateInstance(EEventSynth);
+        FinstanceSynth = RuntimeManager.CreateInstance(FEventSynth);
+
+        eventInstanceList.Add(AinstanceVoice);
+        eventInstanceList.Add(BinstanceVoice);
+        eventInstanceList.Add(CinstanceVoice);
+        eventInstanceList.Add(DinstanceVoice);
+        eventInstanceList.Add(EinstanceVoice);
+        eventInstanceList.Add(FinstanceVoice);
+
+        eventInstanceList.Add(AinstanceSynth);
+        eventInstanceList.Add(BinstanceSynth);
+        eventInstanceList.Add(CinstanceSynth);
+        eventInstanceList.Add(DinstanceSynth);
+        eventInstanceList.Add(EinstanceSynth);
+        eventInstanceList.Add(FinstanceSynth);
     }
     private void FixedUpdate()
     {
@@ -91,36 +106,42 @@ public class NoteController : MonoBehaviour
         {
             if (sn == Song_Note.A)
             {
-                StartInstance(Ainstance, _songData.Volume);
+                StartInstance(AinstanceVoice, _songData.Volume);
+                StartInstance(AinstanceSynth, _songData.Volume);
                 _currentlySingingNotes.Add(sn);
             }
             if (sn == Song_Note.B)
             {
-                StartInstance(Binstance, _songData.Volume);
+                StartInstance(BinstanceVoice, _songData.Volume);
+                StartInstance(BinstanceSynth, _songData.Volume);
                 _currentlySingingNotes.Add(sn);
             }
 
             if (sn == Song_Note.C)
             {
-                StartInstance(Cinstance, _songData.Volume);
+                StartInstance(CinstanceVoice, _songData.Volume);
+                StartInstance(CinstanceSynth, _songData.Volume);
                 _currentlySingingNotes.Add(sn);
             }
 
             if (sn == Song_Note.D)
             {
-                StartInstance(Dinstance, _songData.Volume);
+                StartInstance(DinstanceVoice, _songData.Volume);
+                StartInstance(DinstanceSynth, _songData.Volume);
                 _currentlySingingNotes.Add(sn);
             }
 
             if (sn == Song_Note.E)
             {
-                StartInstance(Ginstance, _songData.Volume);
+                StartInstance(EinstanceVoice, _songData.Volume);
+                StartInstance(EinstanceSynth, _songData.Volume);
                 _currentlySingingNotes.Add(sn);
             }
 
             if (sn == Song_Note.F)
             {
-                StartInstance(Einstance, _songData.Volume);
+                StartInstance(FinstanceVoice, _songData.Volume);
+                StartInstance(FinstanceSynth, _songData.Volume);
                 _currentlySingingNotes.Add(sn);
             }
         }
@@ -133,8 +154,8 @@ public class NoteController : MonoBehaviour
 
         foreach (var eventInstance in eventInstanceList)
         {
-            eventInstance.setParameterByName("isSinging", 0);
-            eventInstance.setParameterByName("wasSingingOtherTone", 0);
+            //eventInstance.setParameterByName("isSinging", 0);
+            //eventInstance.setParameterByName("wasSingingOtherTone", 0);
             eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
 
@@ -151,14 +172,16 @@ public class NoteController : MonoBehaviour
         {
             if (noteToStart == Song_Note.A)
             {
-                StartInstance(Ainstance, _songData.Volume);
+                StartInstance(AinstanceVoice, _songData.Volume);
+                StartInstance(AinstanceSynth, _songData.Volume);
                 _currentlySingingNotes.Add(noteToStart);
                 //Debug.Log(Time.deltaTime);
                 //Debug.Log("Start A");
             }
             if (noteToStart == Song_Note.B)
             {
-                StartInstance(Binstance, _songData.Volume);
+                StartInstance(BinstanceVoice, _songData.Volume);
+                StartInstance(BinstanceSynth, _songData.Volume);
                 _currentlySingingNotes.Add(noteToStart);
                 //Debug.Log(Time.deltaTime);
                 //Debug.Log("Start B");
@@ -166,7 +189,8 @@ public class NoteController : MonoBehaviour
 
             if (noteToStart == Song_Note.C)
             {
-                StartInstance(Cinstance, _songData.Volume);
+                StartInstance(CinstanceVoice, _songData.Volume);
+                StartInstance(CinstanceSynth, _songData.Volume);
                 _currentlySingingNotes.Add(noteToStart);
                 //Debug.Log(Time.deltaTime);
                 //Debug.Log("Start C");
@@ -174,7 +198,8 @@ public class NoteController : MonoBehaviour
 
             if (noteToStart == Song_Note.D)
             {
-                StartInstance(Dinstance, _songData.Volume);
+                StartInstance(DinstanceVoice, _songData.Volume);
+                StartInstance(DinstanceSynth, _songData.Volume);
                 _currentlySingingNotes.Add(noteToStart);
                 //Debug.Log(Time.deltaTime);
                 //Debug.Log("Start D");
@@ -182,7 +207,8 @@ public class NoteController : MonoBehaviour
 
             if (noteToStart == Song_Note.E)
             {
-                StartInstance(Ginstance, _songData.Volume);
+                StartInstance(EinstanceVoice, _songData.Volume);
+                StartInstance(EinstanceSynth, _songData.Volume);
                 _currentlySingingNotes.Add(noteToStart);
                 //Debug.Log(Time.deltaTime);
                 //Debug.Log("Start E");
@@ -190,17 +216,15 @@ public class NoteController : MonoBehaviour
 
             if (noteToStart == Song_Note.F)
             {
-                StartInstance(Einstance, _songData.Volume);
+                StartInstance(FinstanceVoice, _songData.Volume);
+                StartInstance(FinstanceSynth, _songData.Volume);
                 _currentlySingingNotes.Add(noteToStart);
                 //Debug.Log(Time.deltaTime);
                 //Debug.Log("Start F");
             }
         }
         
-        
-        List<Song_Note> notesToStop = new List<Song_Note>();
-        
-        notesToStop = _currentlySingingNotes.Except(_songData.Notes).ToList();
+        var notesToStop = _currentlySingingNotes.Except(_songData.Notes).ToList();
 
         String notesStopping = "";
 
@@ -208,32 +232,38 @@ public class NoteController : MonoBehaviour
         {
             if (noteToStop == Song_Note.A)
             {
-                StopInstance(Ainstance);
+                StopInstance(AinstanceVoice);
+                StopInstance(AinstanceSynth);
                 _currentlySingingNotes.Remove(noteToStop);
             }
             else if (noteToStop == Song_Note.B)
             {
-                StopInstance(Binstance);
+                StopInstance(BinstanceVoice);
+                StopInstance(BinstanceSynth);
                 _currentlySingingNotes.Remove(noteToStop);
             }
             else if (noteToStop == Song_Note.C)
             {
-                StopInstance(Cinstance);
+                StopInstance(CinstanceVoice);
+                StopInstance(CinstanceSynth);
                 _currentlySingingNotes.Remove(noteToStop);
             }
             else if (noteToStop == Song_Note.D)
             {
-                StopInstance(Dinstance);
+                StopInstance(DinstanceVoice);
+                StopInstance(DinstanceSynth);
                 _currentlySingingNotes.Remove(noteToStop);
             }
             else if (noteToStop == Song_Note.E)
             {
-                StopInstance(Ginstance);
+                StopInstance(EinstanceVoice);
+                StopInstance(EinstanceSynth);
                 _currentlySingingNotes.Remove(noteToStop);
             }
             else if (noteToStop == Song_Note.F)
             {
-                StopInstance(Einstance);
+                StopInstance(FinstanceVoice);
+                StopInstance(FinstanceSynth);
                 _currentlySingingNotes.Remove(noteToStop);
             }
 
@@ -241,7 +271,6 @@ public class NoteController : MonoBehaviour
         }
         //Debug.Log("Notes to stop: " + notesToStop);
         
-
         foreach (var instance in eventInstanceList)
         {
             instance.setVolume(_songData.Volume);
@@ -252,16 +281,8 @@ public class NoteController : MonoBehaviour
 
     private void StartInstance(EventInstance eventInstance, float volume)
     {
-        //eventInstance.setParameterByName("isSinging", 1);
         eventInstance.setVolume(volume);
         eventInstance.start();
-
-        //foreach (var eventInstances in eventInstanceList)
-        //{
-        //    eventInstances.setParameterByName("wasSingingOtherTone", 1);
-        //}
-
-        //eventInstance.setParameterByName("wasSingingOtherTone", 0);
     }
 
 
