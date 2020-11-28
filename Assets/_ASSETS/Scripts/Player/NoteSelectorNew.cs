@@ -78,6 +78,13 @@ public class NoteSelectorNew : MonoBehaviour
     
     void Awake()
     {
+        _currentSong = new SongData("A")
+        {
+            Volume = 1f
+        };
+
+        _lastSong = _currentSong;
+        
         SetupControls();
 
         _segmentA = this.transform.Find("SegmentA").gameObject;
@@ -219,11 +226,9 @@ public class NoteSelectorNew : MonoBehaviour
             //if is singing, fill wheel
             if (_singButtonDown)
             {
-                //entry.Value.gameObject.transform.localPosition = Vector3.zero;
                 entry.Value.gameObject.transform.localPosition = new Vector3(
                     0,
                     Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y-(_initialPosition.y*_singVolume), fillRatio));
-                //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, _singVolume, fillRatio);
                 if(!_currentSongString.Contains(entry.Key))
                 {
                     _currentSongString += entry.Key;
@@ -233,8 +238,6 @@ public class NoteSelectorNew : MonoBehaviour
             {
                 entry.Value.gameObject.transform.localPosition = new Vector3(
                     0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
-                    //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
-                _currentSongString = "";
             }
         }
         
@@ -251,8 +254,6 @@ public class NoteSelectorNew : MonoBehaviour
 
                 if (_singButtonDown)
                 {
-                    //entry.Value.gameObject.transform.localPosition = Vector3.zero;
-                    //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, _singVolume, fillRatio);
                     entry.Value.gameObject.transform.localPosition = new Vector3(
                         0,
                         Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y-(_initialPosition.y*_singVolume), fillRatio));
@@ -265,8 +266,7 @@ public class NoteSelectorNew : MonoBehaviour
                 {
                     entry.Value.gameObject.transform.localPosition = new Vector3(
                             0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
-                    //entry.Value.fillAmount = Mathf.Lerp(currentImgFill, startingImageFill, fillRatio);
-                    _currentSongString = "";
+                    _currentSongString = _currentSongString.Replace(entry.Key, "");
                 }
             }
         }
@@ -362,7 +362,7 @@ public class NoteSelectorNew : MonoBehaviour
                         0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
                     currentYpositionFill = entry.Value.gameObject.transform.localPosition.y;
                 }
-                //if (currentImgFill < fillCompletedThreshold)
+
                 if (currentYpositionFill < (1-fillCompletedThreshold)*_initialPosition.y)
                 {
                     _currentSongString = _currentSongString.Replace(entry.Key, "");
@@ -470,6 +470,10 @@ public class NoteSelectorNew : MonoBehaviour
             {
                 _imagesLocked.Add(entry.Key, entry.Value);
                 _segments[entry.Key].transform.localPosition *= lockOffsetAmount;
+                if (!_currentSongString.Contains(entry.Key))
+                {
+                    _currentSongString += entry.Key;
+                }
             }
             else
             {
