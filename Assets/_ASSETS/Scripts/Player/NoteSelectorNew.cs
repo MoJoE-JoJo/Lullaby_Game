@@ -8,6 +8,7 @@ public class NoteSelectorNew : MonoBehaviour
 {
     [SerializeField] private bool fillWheel; //rotates between our 2 implemented wheel modes;
 
+    private Camera _mainCamera;
     
     private PlayerControls _controls;
     private PlayerController _playerController;
@@ -133,6 +134,8 @@ public class NoteSelectorNew : MonoBehaviour
         _fills.Add("D", _fillD);
         _fills.Add("E", _fillE);
         _fills.Add("F", _fillF);
+        
+        _mainCamera = Camera.main;
     }
 
     void Start()
@@ -197,7 +200,7 @@ public class NoteSelectorNew : MonoBehaviour
 
     public void CenterNoteSelector()
     {
-        this.transform.position = Camera.main.WorldToScreenPoint(_playerController.gameObject.transform.position);
+        this.transform.position = _mainCamera.WorldToScreenPoint(_playerController.gameObject.transform.position);
     }
 
     //first method for filling the wheel, from the bottom up
