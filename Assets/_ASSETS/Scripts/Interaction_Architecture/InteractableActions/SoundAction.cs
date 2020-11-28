@@ -67,7 +67,8 @@ public class SoundAction : InteractableAction
             if (state == State_SoundAction.PLAYING)
             {
                 timer += Time.deltaTime;
-                if (timer > stopLoopAfterDuration)
+                if (stopLoopAfterDuration == 0) return;
+                else if (timer > stopLoopAfterDuration)
                 {
                     eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                     played = false;

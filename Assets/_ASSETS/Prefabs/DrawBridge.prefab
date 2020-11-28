@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 3275473327092856470}
   - component: {fileID: 321607711}
   - component: {fileID: 321607706}
+  - component: {fileID: 2005893532851651348}
   m_Layer: 10
   m_Name: DrawBridge
   m_TagString: Activator
@@ -184,6 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actions: []
   hintWheel: {fileID: 7540723081491974339}
+  wheelSound: {fileID: 2005893532851651348}
   wheelRotateActions:
   - {fileID: 3275473327092856470}
   - {fileID: 3275473327092856469}
@@ -265,6 +267,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 12.000003
+--- !u!114 &2005893532851651348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3275473327092856471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c665a206b2e49994aaf9f237f5a2fbc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEvent: event:/Environment/Draw Bridge
+  playOnce: 0
+  oneFrameLateStart: 0
+  volume: 1
+  stopLoopAfterDuration: 0
 --- !u!1 &4557711261371190662
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +353,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2035833269
-  m_SortingLayer: 2
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bdb4fb30908b86e4698bc88e4ab98000, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

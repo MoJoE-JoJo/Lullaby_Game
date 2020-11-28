@@ -38,6 +38,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]private float playerTurningThreshold;
     private Coroutine _invert = null;
 
+    private JumpPlayer jumpPlayer;
+
+
     public SongData SongBeingSung
     {
         get => _songBeingSung;
@@ -75,7 +78,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        jumpPlayer = GetComponent<JumpPlayer>();
         _legs = transform.Find("Legs").gameObject;
         _legsAnimator = _legs.GetComponent<Animator>();
         _animator = GetComponent<Animator>();
@@ -125,7 +128,13 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(!collision.gameObject.CompareTag("MainCamera") && collision.gameObject.layer != LayerMask.NameToLayer("Camera")) _isGrounded = true;
+        if (!collision.gameObject.CompareTag("MainCamera") && 
+            !collision.gameObject.CompareTag("LoadZone") && 
+            collision.gameObject.layer != LayerMask.NameToLayer("Camera") &&
+            !_isGrounded) { 
+            _isGrounded = true;
+            jumpPlayer.playLandSound();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

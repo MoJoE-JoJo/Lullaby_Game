@@ -478,6 +478,7 @@ GameObject:
   - component: {fileID: 3098322909451863746}
   - component: {fileID: 3098322909451863747}
   - component: {fileID: 3098322909451863748}
+  - component: {fileID: 7193276530296772019}
   m_Layer: 0
   m_Name: Cogwheel
   m_TagString: Untagged
@@ -529,6 +530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actions: []
   hintWheel: {fileID: 8011237805712183700}
+  wheelSound: {fileID: 7193276530296772019}
   wheelRotateActions:
   - {fileID: 3098322909451863747}
   - {fileID: 3098322909451863748}
@@ -573,6 +575,23 @@ MonoBehaviour:
   rotationLimit: 0
   spinBackOnDeactivate: 0
   margin: 1
+--- !u!114 &7193276530296772019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3098322909451863750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c665a206b2e49994aaf9f237f5a2fbc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEvent: event:/Environment/Draw Bridge
+  playOnce: 0
+  oneFrameLateStart: 0
+  volume: 1
+  stopLoopAfterDuration: 0
 --- !u!1 &3098322909481191330
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,6 +779,7 @@ GameObject:
   - component: {fileID: 3098322910102778968}
   - component: {fileID: 3098322910102778969}
   - component: {fileID: 3098322910102778981}
+  - component: {fileID: 4685502156997997391}
   m_Layer: 10
   m_Name: Cogwheel
   m_TagString: Activator
@@ -846,6 +866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actions: []
   hintWheel: {fileID: 8011237805712183700}
+  wheelSound: {fileID: 4685502156997997391}
   wheelRotateActions:
   - {fileID: 3098322910102778968}
   - {fileID: 3098322910102778969}
@@ -956,6 +977,23 @@ MonoBehaviour:
   - {fileID: 312309417}
   - {fileID: 1447819677}
   timeTakenToReset: 1
+--- !u!114 &4685502156997997391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3098322910102778973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c665a206b2e49994aaf9f237f5a2fbc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEvent: event:/Environment/Draw Bridge
+  playOnce: 0
+  oneFrameLateStart: 0
+  volume: 1
+  stopLoopAfterDuration: 0
 --- !u!1 &3098322910196743458
 GameObject:
   m_ObjectHideFlags: 0
