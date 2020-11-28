@@ -15,6 +15,8 @@ public class SoundAction : InteractableAction
     [SerializeField] private bool oneFrameLateStart = false;
     [SerializeField] private float volume = 1.0f;
     [SerializeField] float stopLoopAfterDuration = 0;
+    [SerializeField] private bool playFromStart = false;
+
 
     private bool played = false;
     private float timer = 0.0f;
@@ -27,6 +29,15 @@ public class SoundAction : InteractableAction
     void Start()
     {
         eventInstance = RuntimeManager.CreateInstance(SoundEvent);
+        if (playFromStart)
+        {
+            eventInstance.setVolume(volume);
+            if (!oneFrameLateStart) eventInstance.start();
+            else StartCoroutine(OneFrameLateStart());
+            state = State_SoundAction.PLAYING;
+
+            played = true;
+        }
     }
     public override void Activate()
     {
