@@ -10,6 +10,7 @@ public class TeleportPlayerAction : InteractableAction
     [SerializeField] private Transform teleportPosition;
     [SerializeField] private float activationDelay;
     [SerializeField] private float fadeTime;
+    [SerializeField] private GameObject elevator;
 
     private float timer;
     private GameObject fadeOverlay;
@@ -31,6 +32,7 @@ public class TeleportPlayerAction : InteractableAction
     public override void Activate()
     {
         if (state == State_TeleportPlayerAction.FINISHED || state == State_TeleportPlayerAction.FADINGIN) return;
+        elevator.SetActive(true);
         state = State_TeleportPlayerAction.ACTIVATED;
     }
 

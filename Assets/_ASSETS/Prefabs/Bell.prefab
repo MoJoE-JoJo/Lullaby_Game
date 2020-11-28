@@ -186,6 +186,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Bell
   playOnce: 1
+  oneFrameLateStart: 0
+  volume: 1
+  stopLoopAfterDuration: 0
 --- !u!114 &2002561824420962175
 MonoBehaviour:
   m_ObjectHideFlags: 0
