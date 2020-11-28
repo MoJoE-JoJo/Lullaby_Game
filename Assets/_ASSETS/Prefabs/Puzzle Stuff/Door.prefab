@@ -121,6 +121,7 @@ MonoBehaviour:
   debug_reset: 0
   useLinearMovement: 0
   disableActivateOnFinish: 0
+  resetSlowyWhenDeactivated: 0
 --- !u!114 &1469822850641909905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +147,7 @@ MonoBehaviour:
   debug_reset: 0
   useLinearMovement: 0
   disableActivateOnFinish: 0
+  resetSlowyWhenDeactivated: 0
 --- !u!1 &1469822850778634224
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,8 +272,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2129325907
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b52f6f16c1a682f4888350178b13dd3e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -33,7 +33,7 @@ public class RumbleAction : InteractableAction
 
     public override void Deactivate()
     {
-        Gamepad.current.SetMotorSpeeds(0f,0f);
+        if(_done)Gamepad.current.SetMotorSpeeds(0f,0f);
         _done = false;
     }
 
