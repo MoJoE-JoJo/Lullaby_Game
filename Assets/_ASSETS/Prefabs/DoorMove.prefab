@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7868745385660116033}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.089, y: -0.052, z: 0}
-  m_LocalScale: {x: 0.039721664, y: 0.43353084, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.4, z: 1}
   m_Children:
   - {fileID: 2945829348139862523}
   m_Father: {fileID: 0}
@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5a96de01d7b03f846930a752dc531c80, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -74,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 034fe45b83d20c3458f24b0993287ccb, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: b52f6f16c1a682f4888350178b13dd3e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 1, y: 7.88}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -137,7 +137,7 @@ MonoBehaviour:
   state: 0
   moveSpeed: 20
   movePositions:
-  - {fileID: 7868745385660116032}
+  - {fileID: 0}
   - {fileID: 0}
   twoWay: 0
   cycle: 0
@@ -145,8 +145,9 @@ MonoBehaviour:
   resetMoveOnDeactivate: 0
   reachedLocationMargin: 0
   debug_reset: 0
-  useLinearMovementOnOneWay: 0
+  useLinearMovement: 0
   disableActivateOnFinish: 0
+  resetSlowyWhenDeactivated: 0
 --- !u!1001 &7868745385182011895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -207,12 +208,12 @@ PrefabInstance:
     - target: {fileID: 5031319115097745420, guid: b3f659a10b4fdd14e93841d1ba741f8e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 5031319115097745420, guid: b3f659a10b4fdd14e93841d1ba741f8e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.9
+      value: 3.51
       objectReference: {fileID: 0}
     - target: {fileID: 5031319115097745420, guid: b3f659a10b4fdd14e93841d1ba741f8e,
         type: 3}

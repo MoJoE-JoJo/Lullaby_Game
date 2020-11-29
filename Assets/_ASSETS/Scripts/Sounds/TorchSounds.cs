@@ -23,8 +23,6 @@ public class TorchSounds : MonoBehaviour
         torch = GetComponent<Transform>();
         //init fmod event.
         eventInstance = RuntimeManager.CreateInstance(SoundEvent);
-        eventInstance.setParameterByName("Footsteps", 1);
-
     }
 
     // Update is called once per frame
@@ -41,9 +39,8 @@ public class TorchSounds : MonoBehaviour
             {
                 eventInstance.start();
             }
-
             var closeValue = 1 - (dist / radius);
-            eventInstance.setParameterByName("closeToTorch", closeValue);
+            eventInstance.setParameterByName("closeToObject", closeValue);
         }
         else
         {

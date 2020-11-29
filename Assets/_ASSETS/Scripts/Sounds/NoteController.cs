@@ -154,8 +154,8 @@ public class NoteController : MonoBehaviour
 
         foreach (var eventInstance in eventInstanceList)
         {
-            //eventInstance.setParameterByName("isSinging", 0);
-            //eventInstance.setParameterByName("wasSingingOtherTone", 0);
+            //resetting parameter in events on stop singing
+            eventInstance.setParameterByName("wasSingingOtherTone", 0);
             eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
 
@@ -282,9 +282,11 @@ public class NoteController : MonoBehaviour
     private void StartInstance(EventInstance eventInstance, float volume)
     {
         eventInstance.setVolume(volume);
+        if (_wasSingingBefore) 
+               eventInstance.setParameterByName("wasSingingOtherTone", 1);
+        else eventInstance.setParameterByName("wasSingingOtherTone", 0);
         eventInstance.start();
     }
-
 
     private void StopInstance(EventInstance eventInstance)
     {
