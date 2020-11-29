@@ -198,9 +198,9 @@ public class NoteSelectorNew : MonoBehaviour
         
         foreach (var entry in _imagesLocked)
         {
-            _segments[entry.Key].transform.localPosition /= lockOffsetAmount;
+            //_segments[entry.Key].transform.localPosition /= lockOffsetAmount;
         }
-        _imagesLocked = new Dictionary<string, Image>();
+        //_imagesLocked = new Dictionary<string, Image>();
         _imagesToFill = new Dictionary<string, Image>();
         _imagesToEmpty = new Dictionary<string, Image>();
     }
