@@ -37,7 +37,7 @@ public class SoundAction : InteractableAction
         [SerializeField] public float startValue;
     }
 
-    private State_SoundAction state = State_SoundAction.READY;
+    [SerializeField]private State_SoundAction state = State_SoundAction.READY;
     // Start is called before the first frame update
     void Start()
     {

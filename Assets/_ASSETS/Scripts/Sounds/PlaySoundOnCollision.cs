@@ -14,7 +14,7 @@ public class PlaySoundOnCollision : MonoBehaviour
     private Transform thisTransform;
     private EventInstance eventInstance;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         eventInstance = RuntimeManager.CreateInstance(SoundEvent);
         eventInstance.setParameterByName("Box", 1);
