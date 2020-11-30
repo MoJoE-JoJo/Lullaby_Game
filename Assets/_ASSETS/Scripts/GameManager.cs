@@ -14,9 +14,11 @@ public class GameManager : MonoBehaviour
     private PlayerController pc;
     private float fixedDeltaTime;
     [SerializeField] private GameObject pauseMenu;
+    private SoundAction[] soundActions;
 
     private void Awake()
     {
+        soundActions = Resources.FindObjectsOfTypeAll<SoundAction>();
         _controls = new PlayerControls();
         _controls.GameManager.ReloadScene.performed += context => ReloadScene();
         _controls.GameManager.PauseGame.performed += context =>
@@ -33,6 +35,10 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
+        foreach(SoundAction sa in soundActions)
+        {
+            sa.PauseInstance(true);
+        }
         Time.timeScale = 0.0f;
         pc.enabled = false;
         pc.Animator.enabled = false;
@@ -43,6 +49,10 @@ public class GameManager : MonoBehaviour
 
     public void UnPauseGame()
     {
+        foreach (SoundAction sa in soundActions)
+        {
+            sa.PauseInstance(false);
+        }
         Time.timeScale = originalTimeScale;
         pc.enabled = true;
         pc.Animator.enabled = true;

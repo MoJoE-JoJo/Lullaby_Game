@@ -150,4 +150,9 @@ public class SoundAction : InteractableAction
         yield return null;
         eventInstance.start();
     }
+
+    public void PauseInstance(bool setPaused) 
+    {
+        eventInstance.setPaused(setPaused);
+    }
 }

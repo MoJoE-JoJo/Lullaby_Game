@@ -174,9 +174,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightSource: {fileID: 1173933510353075809}
-  OnActivateIntensity: 3
+  onActivateIntensity: 2.5
   changeLightColor: 0
-  lightColor: {r: 0.06741722, g: 0.9528302, b: 0.11849809, a: 1}
+  lightColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
   usePressure: 0
   changeLightColorBack: 0
 --- !u!114 &1173933510353075808

@@ -9,20 +9,24 @@ public enum State_LightManager { INMENU, INGAME};
 
 public class LightManager : MonoBehaviour
 {
-    public State_LightManager state = State_LightManager.INMENU;
-    public MiniwheelSegmentHandler[] hints;
-    public List<float> hintsBaseLow = new List<float>();
-    public List<float> hintsBaseHigh = new List<float>();
+    private State_LightManager state = State_LightManager.INMENU;
+    private MiniwheelSegmentHandler[] hints;
+    private List<float> hintsBaseLow = new List<float>();
+    private List<float> hintsBaseHigh = new List<float>();
     
-    public TorchFlickering[] flickerings;
-    public List<float> flickBaseInten = new List<float>();
+    private TorchFlickering[] flickerings;
+    private List<float> flickBaseInten = new List<float>();
     
-    public LightZone[] lightZones;
-    //public List<float> zonesBaseOld = new List<float>();
-    public List<float> zonesBaseNew = new List<float>();
-
-    public Light2D[] lights;
-    public List<float> lightsBaseInten = new List<float>();
+    private LightZone[] lightZones;
+    //private List<float> zonesBaseOld = new List<float>();
+    private List<float> zonesBaseNew = new List<float>();
+    
+    private ChangeLightAction[] lightChangers;
+    private List<float> lightChangersActivateIntensity = new List<float>();
+    private List<float> lightChangersOriginalIntensity = new List<float>();
+    
+    private Light2D[] lights;
+    private List<float> lightsBaseInten = new List<float>();
 
     //Add change light action
 
@@ -83,6 +87,13 @@ public class LightManager : MonoBehaviour
             zonesBaseNew.Add(lz.EndIntensity);
         }
 
+        lightChangers = Resources.FindObjectsOfTypeAll<ChangeLightAction>();
+        foreach(ChangeLightAction cla in lightChangers)
+        {
+            lightChangersActivateIntensity.Add(cla.OnActivateIntensity);
+            lightChangersOriginalIntensity.Add(cla.OriginalIntensity); 
+        }
+
         lights = Resources.FindObjectsOfTypeAll<Light2D>();
         foreach(Light2D light in lights)
         {
@@ -108,6 +119,11 @@ public class LightManager : MonoBehaviour
             {
                 //lightZones[i].StartIntensity = lightMultiplier * zonesBaseOld[i];
                 lightZones[i].EndIntensity = lightMultiplier * zonesBaseNew[i];
+            }
+            for (int i = 0; i < lightChangers.Length; i++)
+            {
+                lightChangers[i].OnActivateIntensity = lightMultiplier * lightChangersActivateIntensity[i];
+                lightChangers[i].OriginalIntensity = lightMultiplier * lightChangersOriginalIntensity[i];
             }
             for (int i = 0; i < lights.Length; i++)
             {
