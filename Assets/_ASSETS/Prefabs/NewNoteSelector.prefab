@@ -1185,7 +1185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fillWheel: 1
   fillRatio: 0.07
-  fillCompletedThreshold: 0.35
+  fillCompletedThreshold: 1
   startingImageFill: 0
   lockOffsetAmount: 1.15
   initialBackgroundAlpha: 0.2509
