@@ -9,7 +9,7 @@ public class TorchSounds : MonoBehaviour
 {
     [EventRef]
     public string SoundEvent;
-    [SerializeField] float radius = 30;
+    [SerializeField] float radius = 3;
     private Transform player;
     private Transform torch;
     private EventInstance eventInstance;
