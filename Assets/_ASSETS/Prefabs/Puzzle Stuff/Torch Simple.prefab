@@ -155,7 +155,7 @@ MonoBehaviour:
   singForAmountOfTime: 1
   activationDelay: 0.5
   deactivationDelay: 0.5
-  minDurationBetweenSwitch: 2
+  minDurationBetweenSwitch: 0.5
   autoTurnOffTime: 0
   canDeactivate: 1
   minPressureValue: 0
@@ -196,6 +196,7 @@ MonoBehaviour:
   useDeactivate: 1
   actions:
   - {fileID: 0}
+  ignoreUntilActive: 0
 --- !u!114 &1173933510353075809
 MonoBehaviour:
   m_ObjectHideFlags: 0
