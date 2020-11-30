@@ -5,6 +5,11 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class TorchFlickering : MonoBehaviour
 {
+    public float BaseIntensity
+    {
+        get => baseIntensity;
+        set => baseIntensity = value;
+    }
     private Light2D lightSource;
     private float baseIntensity;
     private float baseInnerRadius;

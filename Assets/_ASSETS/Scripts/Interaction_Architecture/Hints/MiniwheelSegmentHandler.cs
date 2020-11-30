@@ -8,6 +8,16 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class MiniwheelSegmentHandler: Hint
 {
+    public float LowIntensity
+    {
+        get => lowIntensity;
+        set => lowIntensity = value;
+    }
+    public float HighIntensity
+    {
+        get => highIntensity;
+        set => highIntensity = value;
+    }
     [SerializeField] private GameObject A,B,C,D,E,F;
     [SerializeField] private float lowIntensity = 0.5f;
     [SerializeField] private float highIntensity = 1.0f;

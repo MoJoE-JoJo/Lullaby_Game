@@ -5,6 +5,17 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class LightZone : MonoBehaviour
 {
+    public float StartIntensity
+    {
+        get => originalIntensity;
+        set => originalIntensity = value;
+    }
+    public float EndIntensity
+    {
+        get => newIntensity;
+        set => newIntensity = value;
+    }
+
     [SerializeField] private Light2D globalLight;
     [SerializeField] private float newIntensity;
     [SerializeField] private float changeTime;
