@@ -8,7 +8,6 @@ public class FootstepPlayer : MonoBehaviour
 {
     [EventRef]
     public string SoundEvent;
-    [SerializeField] bool playSound;
     private EventInstance eventInstance;
     // Start is called before the first frame update
     void Start()
@@ -24,10 +23,5 @@ public class FootstepPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playSound)
-        {
-        eventInstance.start();
-            playSound = false;
-        }
     }
 }

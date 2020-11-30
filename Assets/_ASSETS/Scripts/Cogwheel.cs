@@ -20,6 +20,7 @@ public class Cogwheel : MonoBehaviour
 
     
     [SerializeField] private float timeTakenToReset;
+    [SerializeField] private SoundAction currectPositionSound;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class Cogwheel : MonoBehaviour
     {
         if (other.CompareTag("WheelCorrectPosition"))
         {
+            currectPositionSound.Activate();
             if (!_finishedPuzzle)
             {
                 _doors[_currentDoor].Activate();

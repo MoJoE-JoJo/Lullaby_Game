@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Resources/Sprites/Prototype_Sprites/Tiles/png/Props.meta
+guid: 692af620804e7f746b3e66d13a81ecaf
+=======
 guid: 5888e7cbd04e5a847ba658fa2cebcc84
+>>>>>>> Development:Assets/Plugins/Easy Save 3/Legacy.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

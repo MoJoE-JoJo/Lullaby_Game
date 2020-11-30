@@ -21,6 +21,7 @@ TagManager:
   - GlobalLight
   - FadeOverlay
   - Elevator
+  - LoadZone
   layers:
   - Default
   - TransparentFX
