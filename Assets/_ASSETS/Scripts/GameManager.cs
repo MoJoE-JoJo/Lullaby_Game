@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.0f;
         pc.enabled = false;
         pc.Animator.enabled = false;
-        Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+        Time.fixedDeltaTime = float.PositiveInfinity;
         pauseMenu.SetActive(true);
         paused = true;
     }
