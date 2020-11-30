@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public enum Wagon_Pull{RIGHT, LEFT}
 
@@ -12,6 +14,8 @@ public class WagonPull : MonoBehaviour
     [SerializeField] private Wagon_Pull pullDirection;
     [SerializeField] private float pullForce;
     [SerializeField] private bool _isPulling = true;
+    private Light2D _lightRight;
+    private Light2D _lightLeft;
 
     public Wagon_Pull PullDirection
     {
@@ -28,20 +32,26 @@ public class WagonPull : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject lights = this.transform.Find("Lights").gameObject;
+        _lightRight = lights.transform.Find("LightRight").GetComponent<Light2D>();
+        _lightLeft = lights.transform.Find("LightLeft").GetComponent<Light2D>();
+        
         _wagonRigidbody2D = GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //_wagonRigidbody2D.AddForce(Vector2.right*pullForce);
         
-        
-
-        //Debug.Log(pullDirection);
+        if(pullDirection == Wagon_Pull.RIGHT)
+        {
+            _lightRight.intensity = 0;
+            _lightLeft.intensity = 1;
+        }
+        else
+        {
+            _lightRight.intensity = 1;
+            _lightLeft.intensity = 0;
+        }
     }
+    
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (_isPulling)
         {
@@ -69,11 +79,20 @@ public class WagonPull : MonoBehaviour
         {
             _isPulling = false;
             pullDirection = Wagon_Pull.LEFT;
+            DOTween.To(()=> _lightRight.intensity, x=> _lightRight.intensity = x, 1, 0.3f);
+            DOTween.To(()=> _lightLeft.intensity, x=> _lightLeft.intensity = x, 0, 0.3f);
+            //_lightRight.intensity = 1;
+            //_lightLeft.intensity = 0;
         }
         else if (other.CompareTag("RightWagonDestination"))
         {
             _isPulling = false;
             pullDirection = Wagon_Pull.RIGHT;
+            DOTween.To(()=> _lightRight.intensity, x=> _lightRight.intensity = x, 0, 0.3f);
+            DOTween.To(()=> _lightLeft.intensity, x=> _lightLeft.intensity = x, 1, 0.3f);
+
+            //_lightRight.intensity = 0;
+            //_lightLeft.intensity = 1;
         }
     }
 
