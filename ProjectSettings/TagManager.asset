@@ -26,6 +26,7 @@ TagManager:
   - LightManager
   - LoadZone
   - SpawnPoints
+  - Bell
   layers:
   - Default
   - TransparentFX

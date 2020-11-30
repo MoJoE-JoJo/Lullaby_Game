@@ -29,6 +29,8 @@ public class MoveToPositionAction : InteractableAction
     [SerializeField] private bool useLinearMovement = false;
     [SerializeField] private bool disableActivateOnFinish = false;
     [SerializeField] private bool resetSlowyWhenDeactivated = false;
+    [SerializeField] private bool needsPlayerOnTop = false;
+    private bool _isPlayerOnTop;
     private Transform target;
     private Transform last;
     private float moveFraction = 0.0f;
@@ -68,16 +70,22 @@ public class MoveToPositionAction : InteractableAction
     {
         if (state == State_MoveToPositionAction.ACTIVATED)
         {
-            if (cycle) CycleMovement();
-            else if (twoWay) TwoWayMovement();
-            else OneWayMovement();
+            if (!needsPlayerOnTop || (needsPlayerOnTop & _isPlayerOnTop))
+            {
+                if (cycle) CycleMovement();
+                else if (twoWay) TwoWayMovement();
+                else OneWayMovement();
+            }
         }
     }
 
     override public void Activate()
     {
         if (disableActivateOnFinish && state == State_MoveToPositionAction.FINISHED) return;
-        else state = State_MoveToPositionAction.ACTIVATED;
+        else if (!needsPlayerOnTop || (needsPlayerOnTop & _isPlayerOnTop))
+        {
+            state = State_MoveToPositionAction.ACTIVATED;
+        }
     }
     override public void Deactivate()
     {
@@ -247,6 +255,24 @@ public class MoveToPositionAction : InteractableAction
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _isPlayerOnTop = true;
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _isPlayerOnTop = false;
+        }
+    }
+    
+    
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(MoveToPositionAction))]

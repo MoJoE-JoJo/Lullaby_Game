@@ -11,6 +11,8 @@ public class SwingAction : InteractableAction
     [SerializeField] private float speed;
     [SerializeField] private bool once;
 
+    private Coroutine _activateSwing;
+
     private Transform orgTransform;
     private float timer = 0f;
     private bool active;
@@ -107,5 +109,11 @@ public class SwingAction : InteractableAction
         var trans = GetComponent<Transform>();
         trans.position = orgTransform.position;
         trans.rotation = orgTransform.rotation;
+    }
+
+    private IEnumerator ActivateSwing()
+    {
+        yield return new WaitForSeconds(0.25f);
+        active = true;
     }
 }
