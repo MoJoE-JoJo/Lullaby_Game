@@ -21,6 +21,7 @@ TagManager:
   - GlobalLight
   - FadeOverlay
   - Elevator
+  - Bell
   layers:
   - Default
   - TransparentFX
