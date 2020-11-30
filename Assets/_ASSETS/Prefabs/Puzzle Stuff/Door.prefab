@@ -164,9 +164,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Door
   playOnce: 1
+  dontLoopOnActive: 0
   oneFrameLateStart: 1
   volume: 1
   stopLoopAfterDuration: 0
+  useProximity: 1
+  radius: 5
+  usingParameter: 0
+  FmodParameter:
+    parameter: 
+    value: 0
+    timeBeforeChange: 0
+    startValue: 0
+  playFromStart: 0
+  state: 1
 --- !u!114 &943882195184808947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,9 +192,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Door
   playOnce: 1
+  dontLoopOnActive: 0
   oneFrameLateStart: 0
   volume: 1
   stopLoopAfterDuration: 0
+  useProximity: 1
+  radius: 5
+  usingParameter: 0
+  FmodParameter:
+    parameter: 
+    value: 0
+    timeBeforeChange: 0
+    startValue: 0
+  playFromStart: 0
+  state: 1
 --- !u!1 &1469822850778634224
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,10 +18,15 @@ public class TorchFlickering : MonoBehaviour
     [SerializeField] private bool useIntensity = true;
     [SerializeField] private bool useRadius;
     // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         lightSource = GetComponent<Light2D>();
         baseIntensity = lightSource.intensity;
+
+    }
+    void Start()
+    {
         baseInnerRadius = lightSource.pointLightInnerRadius;
         baseOuterRadius = lightSource.pointLightOuterRadius;
     }

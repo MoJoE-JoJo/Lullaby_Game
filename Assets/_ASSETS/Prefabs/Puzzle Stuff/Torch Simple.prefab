@@ -155,7 +155,7 @@ MonoBehaviour:
   singForAmountOfTime: 1
   activationDelay: 0.5
   deactivationDelay: 0.5
-  minDurationBetweenSwitch: 0.5
+  minDurationBetweenSwitch: 3
   autoTurnOffTime: 0
   canDeactivate: 1
   minPressureValue: 0
