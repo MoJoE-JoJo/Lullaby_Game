@@ -67,8 +67,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 408918395
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 80ea7030c1335184ea23d2b2e921549a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -556,8 +556,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -2129325907
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 10a75d2ce57334040890e9fb6294170a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -694,9 +694,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Bell
   playOnce: 1
+  dontLoopOnActive: 0
   oneFrameLateStart: 0
   volume: 1
   stopLoopAfterDuration: 0
+  useProximity: 0
+  radius: 50
+  usingParameter: 0
+  FmodParameter:
+    parameter: 
+    value: 0
+    timeBeforeChange: 0
+    startValue: 0
+  playFromStart: 0
+  state: 1
 --- !u!114 &8396063154656941873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,7 +752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightSource: {fileID: 0}
-  OnActivateIntensity: 1.5
+  onActivateIntensity: 0
   changeLightColor: 1
   lightColor: {r: 0.049439307, g: 0.9528302, b: 0.13733412, a: 0}
   usePressure: 0
