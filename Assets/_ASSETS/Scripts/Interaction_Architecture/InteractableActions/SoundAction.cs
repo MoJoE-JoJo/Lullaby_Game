@@ -134,9 +134,11 @@ public class SoundAction : InteractableAction
         var dist = Vector3.Distance(player.position, thisTransform.position);
         if (dist < radius)
         {
+            eventInstance.setVolume(1);
             var closeValue = 1 - (dist / radius);
             eventInstance.setParameterByName("closeToObject", closeValue);
         }
+        else eventInstance.setVolume(0);
     }
 
     private bool IsPlaying(EventInstance instance)
