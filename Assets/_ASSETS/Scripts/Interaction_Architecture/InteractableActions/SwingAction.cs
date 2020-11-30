@@ -88,18 +88,7 @@ public class SwingAction : InteractableAction
     public override void Activate()
     {
         if (done) return;
-
-        if (this.gameObject.CompareTag("Bell"))
-        {
-            if (_activateSwing == null)
-            {
-                _activateSwing = StartCoroutine(ActivateSwing());
-            }
-        }
-        else
-        {
-            active = true;
-        }
+        active = true;
     }
 
     public override void Deactivate()
@@ -124,7 +113,7 @@ public class SwingAction : InteractableAction
 
     private IEnumerator ActivateSwing()
     {
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.25f);
         active = true;
     }
 }
