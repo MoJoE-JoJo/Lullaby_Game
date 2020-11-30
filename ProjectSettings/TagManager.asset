@@ -24,6 +24,7 @@ TagManager:
   - LoadZone
   - Level
   - FadeOverlayWhite
+  - SpawnPoints
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - Camera
   - Interactable
   - Levels
-  - 
+  - BehindObject
   - 
   - 
   - 

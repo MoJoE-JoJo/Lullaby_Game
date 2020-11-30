@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -264,6 +264,94 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnPoint: {fileID: 0}
+--- !u!1001 &104524258
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -102.30714
+      objectReference: {fileID: 0}
+    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 78.43438
+      objectReference: {fileID: 0}
+    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -129.00977
+      objectReference: {fileID: 0}
+    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615826428154207488, guid: edef717fbc8a1e14785d5ca2c3c33455,
+        type: 3}
+      propertyPath: m_Name
+      value: SpawnPoints
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: edef717fbc8a1e14785d5ca2c3c33455, type: 3}
+--- !u!4 &104524259 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1424151384946137719, guid: edef717fbc8a1e14785d5ca2c3c33455,
+    type: 3}
+  m_PrefabInstance: {fileID: 104524258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &104524260 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 359352479469753528, guid: edef717fbc8a1e14785d5ca2c3c33455,
+    type: 3}
+  m_PrefabInstance: {fileID: 104524258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &104524261 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8004255101222358399, guid: edef717fbc8a1e14785d5ca2c3c33455,
+    type: 3}
+  m_PrefabInstance: {fileID: 104524258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &340625299
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +437,7 @@ GameObject:
   - component: {fileID: 403676355}
   - component: {fileID: 403676354}
   - component: {fileID: 403676353}
+  - component: {fileID: 403676356}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -421,6 +510,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &403676356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403676352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &428894308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,6 +1406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnPoint: {fileID: 0}
 --- !u!1 &802699940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2359,6 +2480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnPoint: {fileID: 104524261}
 --- !u!114 &1556223849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2422,7 +2544,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Top
+          m_StringArgument: Marcus_beta3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1556223851
@@ -2514,6 +2636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnPoint: {fileID: 104524260}
 --- !u!114 &1652025865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2565,7 +2688,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Middle
+          m_StringArgument: Marcus_beta3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1652025866
@@ -2791,6 +2914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnPoint: {fileID: 104524259}
 --- !u!114 &2045723715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2842,7 +2966,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Bottom
+          m_StringArgument: Marcus_beta3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2045723716

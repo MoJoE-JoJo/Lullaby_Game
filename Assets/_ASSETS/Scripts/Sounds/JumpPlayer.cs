@@ -8,6 +8,8 @@ public class JumpPlayer : MonoBehaviour
 {
     [EventRef]
     public string SoundEvent;
+    [SerializeField] public float minDuration = 0.3f;
+
     private EventInstance eventInstance;
     // Start is called before the first frame update
     void Start()
