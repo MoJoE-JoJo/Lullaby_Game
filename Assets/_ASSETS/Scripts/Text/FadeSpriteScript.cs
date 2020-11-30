@@ -8,7 +8,7 @@ public class FadeSpriteScript : MonoBehaviour
     SpriteRenderer rend;
     public bool hasFaded;
     public bool pressed;
-    public float timeToFinish;
+    public float fadeSpeed = .2f;
     private void Start()
     {
         rend = GetComponent<SpriteRenderer>();
@@ -29,7 +29,7 @@ public class FadeSpriteScript : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        for (float f = 0.0f; f <= 1 + 1; f += 0.05f)
+        for (float f = 0.0f; f <= 1 + 1; f += fadeSpeed)
         {
             Color c = rend.material.color;
             c.a = f;
