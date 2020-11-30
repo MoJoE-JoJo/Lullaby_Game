@@ -78,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1057402509
-  m_SortingLayer: -1
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: f3e84743665cd314aba373fa9d47c2f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -116,7 +116,7 @@ MonoBehaviour:
   - {x: -1.28, y: 1.28, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -140958
+  m_InstanceId: 493932
 --- !u!114 &7705773051881241131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,8 +140,9 @@ MonoBehaviour:
   resetMoveOnDeactivate: 0
   reachedLocationMargin: 0
   debug_reset: 0
-  useLinearMovementOnOneWay: 1
+  useLinearMovement: 0
   disableActivateOnFinish: 1
+  resetSlowyWhenDeactivated: 0
 --- !u!114 &7705773051881241132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,8 +166,9 @@ MonoBehaviour:
   resetMoveOnDeactivate: 0
   reachedLocationMargin: 0
   debug_reset: 0
-  useLinearMovementOnOneWay: 1
+  useLinearMovement: 0
   disableActivateOnFinish: 1
+  resetSlowyWhenDeactivated: 0
 --- !u!114 &7705773051881241133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,8 +192,9 @@ MonoBehaviour:
   resetMoveOnDeactivate: 0
   reachedLocationMargin: 0
   debug_reset: 0
-  useLinearMovementOnOneWay: 1
+  useLinearMovement: 0
   disableActivateOnFinish: 1
+  resetSlowyWhenDeactivated: 0
 --- !u!114 &7705773051881241134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,8 +218,9 @@ MonoBehaviour:
   resetMoveOnDeactivate: 0
   reachedLocationMargin: 0
   debug_reset: 0
-  useLinearMovementOnOneWay: 1
+  useLinearMovement: 0
   disableActivateOnFinish: 1
+  resetSlowyWhenDeactivated: 0
 --- !u!61 &2111407779
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -253,6 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7705773051952670494}
   - component: {fileID: 7705773051952670491}
+  - component: {fileID: 5022777278821357264}
   - component: {fileID: 7705773051952670492}
   - component: {fileID: 7705773051952670493}
   - component: {fileID: 7705773051952670489}
@@ -304,6 +309,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5022777278821357264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705773051952670495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82ae827b82f1604f8a8b6ca0d28226f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: []
+  state: 3
+  hintWheel: {fileID: 0}
+  singForAmountOfTime: 0
+  activationDelay: 0
+  deactivationDelay: 0
+  minDurationBetweenSwitch: 4
+  autoTurnOffTime: 0
+  canDeactivate: 1
+  minPressureValue: 0
+  maxPressureValue: 1
+  notes: 
 --- !u!114 &7705773051952670492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +376,12 @@ MonoBehaviour:
   actions: []
   shakeSmall: {fileID: 7705773051952670489}
   shakeBig: {fileID: 7705773051952670490}
+  lastStep: 0
+  lights: []
+  lightCircle: {fileID: 0}
+  invisibleWallOnDoor: {fileID: 0}
+  smallRumble: {fileID: 0}
+  bigRumble: {fileID: 0}
 --- !u!114 &7705773051952670489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,6 +397,7 @@ MonoBehaviour:
   shakeDuration: 0.5
   shakeAmount: 0.025
   decreaseFactor: 500
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!114 &7705773051952670490
 MonoBehaviour:
@@ -378,6 +414,7 @@ MonoBehaviour:
   shakeDuration: 0.2
   shakeAmount: 0.125
   decreaseFactor: 0.4
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!1 &7705773052128682791
 GameObject:
@@ -389,6 +426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7705773052128682790}
   - component: {fileID: 7705773052128682788}
+  - component: {fileID: 2481238869840136997}
   - component: {fileID: 7705773052128682789}
   - component: {fileID: 7705773052128682787}
   - component: {fileID: 7705773052128682786}
@@ -440,6 +478,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2481238869840136997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705773052128682791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82ae827b82f1604f8a8b6ca0d28226f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: []
+  state: 3
+  hintWheel: {fileID: 0}
+  singForAmountOfTime: 0
+  activationDelay: 0
+  deactivationDelay: 0
+  minDurationBetweenSwitch: 4
+  autoTurnOffTime: 0
+  canDeactivate: 1
+  minPressureValue: 0
+  maxPressureValue: 1
+  notes: 
 --- !u!114 &7705773052128682789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,6 +545,12 @@ MonoBehaviour:
   actions: []
   shakeSmall: {fileID: 7705773052128682786}
   shakeBig: {fileID: 7705773052128682785}
+  lastStep: 0
+  lights: []
+  lightCircle: {fileID: 0}
+  invisibleWallOnDoor: {fileID: 0}
+  smallRumble: {fileID: 0}
+  bigRumble: {fileID: 0}
 --- !u!114 &7705773052128682786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,6 +566,7 @@ MonoBehaviour:
   shakeDuration: 0.5
   shakeAmount: 0.025
   decreaseFactor: 500
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!114 &7705773052128682785
 MonoBehaviour:
@@ -514,6 +583,7 @@ MonoBehaviour:
   shakeDuration: 0.2
   shakeAmount: 0.125
   decreaseFactor: 0.4
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!1 &7705773052165510823
 GameObject:
@@ -593,7 +663,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1057402509
-  m_SortingLayer: -1
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 574bdf440e24007499b28936b913c6ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -631,7 +701,7 @@ MonoBehaviour:
   - {x: -1.28, y: 1.28, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -141298
+  m_InstanceId: 493976
 --- !u!114 &7705773052165510819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,8 +725,9 @@ MonoBehaviour:
   resetMoveOnDeactivate: 0
   reachedLocationMargin: 0
   debug_reset: 0
-  useLinearMovementOnOneWay: 1
+  useLinearMovement: 0
   disableActivateOnFinish: 1
+  resetSlowyWhenDeactivated: 0
 --- !u!114 &7705773052165510816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,8 +751,9 @@ MonoBehaviour:
   resetMoveOnDeactivate: 0
   reachedLocationMargin: 0
   debug_reset: 0
-  useLinearMovementOnOneWay: 1
+  useLinearMovement: 0
   disableActivateOnFinish: 1
+  resetSlowyWhenDeactivated: 0
 --- !u!114 &7705773052165510817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,8 +777,9 @@ MonoBehaviour:
   resetMoveOnDeactivate: 0
   reachedLocationMargin: 0
   debug_reset: 0
-  useLinearMovementOnOneWay: 1
+  useLinearMovement: 0
   disableActivateOnFinish: 1
+  resetSlowyWhenDeactivated: 0
 --- !u!114 &7705773052165510818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,8 +803,9 @@ MonoBehaviour:
   resetMoveOnDeactivate: 0
   reachedLocationMargin: 0
   debug_reset: 0
-  useLinearMovementOnOneWay: 1
+  useLinearMovement: 0
   disableActivateOnFinish: 1
+  resetSlowyWhenDeactivated: 0
 --- !u!61 &768520862
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -828,6 +902,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7705773052715079030}
   - component: {fileID: 7705773052715079027}
+  - component: {fileID: 896895539075228853}
   - component: {fileID: 7705773052715079028}
   - component: {fileID: 7705773052715079029}
   - component: {fileID: 7705773052715079025}
@@ -879,6 +954,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &896895539075228853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705773052715079031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82ae827b82f1604f8a8b6ca0d28226f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: []
+  state: 3
+  hintWheel: {fileID: 0}
+  singForAmountOfTime: 0
+  activationDelay: 0
+  deactivationDelay: 0
+  minDurationBetweenSwitch: 4
+  autoTurnOffTime: 0
+  canDeactivate: 1
+  minPressureValue: 0
+  maxPressureValue: 1
+  notes: 
 --- !u!114 &7705773052715079028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -922,6 +1021,12 @@ MonoBehaviour:
   actions: []
   shakeSmall: {fileID: 7705773052715079025}
   shakeBig: {fileID: 7705773052715079026}
+  lastStep: 0
+  lights: []
+  lightCircle: {fileID: 0}
+  invisibleWallOnDoor: {fileID: 0}
+  smallRumble: {fileID: 0}
+  bigRumble: {fileID: 0}
 --- !u!114 &7705773052715079025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -937,6 +1042,7 @@ MonoBehaviour:
   shakeDuration: 0.5
   shakeAmount: 0.025
   decreaseFactor: 500
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!114 &7705773052715079026
 MonoBehaviour:
@@ -953,6 +1059,7 @@ MonoBehaviour:
   shakeDuration: 0.2
   shakeAmount: 0.125
   decreaseFactor: 0.4
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!1 &7705773052761953658
 GameObject:
@@ -994,6 +1101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7705773052771374231}
   - component: {fileID: 7705773052771374228}
+  - component: {fileID: 1580601302817276601}
   - component: {fileID: 7705773052771374229}
   - component: {fileID: 7705773052771374230}
   - component: {fileID: 7705773052771374226}
@@ -1045,6 +1153,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1580601302817276601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705773052771374232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82ae827b82f1604f8a8b6ca0d28226f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: []
+  state: 3
+  hintWheel: {fileID: 0}
+  singForAmountOfTime: 0
+  activationDelay: 0
+  deactivationDelay: 0
+  minDurationBetweenSwitch: 4
+  autoTurnOffTime: 0
+  canDeactivate: 1
+  minPressureValue: 0
+  maxPressureValue: 1
+  notes: 
 --- !u!114 &7705773052771374229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1088,6 +1220,12 @@ MonoBehaviour:
   actions: []
   shakeSmall: {fileID: 7705773052771374226}
   shakeBig: {fileID: 7705773052771374227}
+  lastStep: 0
+  lights: []
+  lightCircle: {fileID: 0}
+  invisibleWallOnDoor: {fileID: 0}
+  smallRumble: {fileID: 0}
+  bigRumble: {fileID: 0}
 --- !u!114 &7705773052771374226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1103,6 +1241,7 @@ MonoBehaviour:
   shakeDuration: 0.5
   shakeAmount: 0.025
   decreaseFactor: 500
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!114 &7705773052771374227
 MonoBehaviour:
@@ -1119,6 +1258,7 @@ MonoBehaviour:
   shakeDuration: 0.2
   shakeAmount: 0.125
   decreaseFactor: 0.4
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!1 &7705773052797105465
 GameObject:
@@ -1237,6 +1377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7705773052980224420}
   - component: {fileID: 7705773052980224417}
+  - component: {fileID: 5017563557942928819}
   - component: {fileID: 7705773052980224418}
   - component: {fileID: 7705773052980224419}
   - component: {fileID: 7705773052980224479}
@@ -1288,6 +1429,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5017563557942928819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705773052980224421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82ae827b82f1604f8a8b6ca0d28226f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: []
+  state: 3
+  hintWheel: {fileID: 0}
+  singForAmountOfTime: 0
+  activationDelay: 0
+  deactivationDelay: 0
+  minDurationBetweenSwitch: 4
+  autoTurnOffTime: 0
+  canDeactivate: 1
+  minPressureValue: 0
+  maxPressureValue: 1
+  notes: 
 --- !u!114 &7705773052980224418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1331,6 +1496,12 @@ MonoBehaviour:
   actions: []
   shakeSmall: {fileID: 7705773052980224479}
   shakeBig: {fileID: 7705773052980224416}
+  lastStep: 0
+  lights: []
+  lightCircle: {fileID: 0}
+  invisibleWallOnDoor: {fileID: 0}
+  smallRumble: {fileID: 0}
+  bigRumble: {fileID: 0}
 --- !u!114 &7705773052980224479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1346,6 +1517,7 @@ MonoBehaviour:
   shakeDuration: 0.5
   shakeAmount: 0.025
   decreaseFactor: 500
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!114 &7705773052980224416
 MonoBehaviour:
@@ -1362,6 +1534,7 @@ MonoBehaviour:
   shakeDuration: 0.2
   shakeAmount: 0.125
   decreaseFactor: 0.4
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!1 &7705773053113908705
 GameObject:
@@ -1373,6 +1546,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7705773053113908704}
   - component: {fileID: 7705773053113908765}
+  - component: {fileID: 79511704337833972}
   - component: {fileID: 7705773053113908766}
   - component: {fileID: 7705773053113908767}
   - component: {fileID: 7705773053113908763}
@@ -1424,6 +1598,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &79511704337833972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705773053113908705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82ae827b82f1604f8a8b6ca0d28226f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: []
+  state: 3
+  hintWheel: {fileID: 0}
+  singForAmountOfTime: 0
+  activationDelay: 0
+  deactivationDelay: 0
+  minDurationBetweenSwitch: 4
+  autoTurnOffTime: 0
+  canDeactivate: 1
+  minPressureValue: 0
+  maxPressureValue: 1
+  notes: 
 --- !u!114 &7705773053113908766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1467,6 +1665,12 @@ MonoBehaviour:
   actions: []
   shakeSmall: {fileID: 7705773053113908763}
   shakeBig: {fileID: 7705773053113908764}
+  lastStep: 0
+  lights: []
+  lightCircle: {fileID: 0}
+  invisibleWallOnDoor: {fileID: 0}
+  smallRumble: {fileID: 0}
+  bigRumble: {fileID: 0}
 --- !u!114 &7705773053113908763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1482,6 +1686,7 @@ MonoBehaviour:
   shakeDuration: 0.5
   shakeAmount: 0.025
   decreaseFactor: 500
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!114 &7705773053113908764
 MonoBehaviour:
@@ -1498,6 +1703,7 @@ MonoBehaviour:
   shakeDuration: 0.2
   shakeAmount: 0.125
   decreaseFactor: 0.4
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!1 &7705773053128526626
 GameObject:
@@ -1546,6 +1752,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7705773053179809312}
   - component: {fileID: 7705773053179809373}
+  - component: {fileID: 6628565047248933191}
   - component: {fileID: 7705773053179809374}
   - component: {fileID: 7705773053179809375}
   - component: {fileID: 7705773053179809371}
@@ -1597,6 +1804,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6628565047248933191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705773053179809313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82ae827b82f1604f8a8b6ca0d28226f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: []
+  state: 3
+  hintWheel: {fileID: 0}
+  singForAmountOfTime: 0
+  activationDelay: 0
+  deactivationDelay: 0
+  minDurationBetweenSwitch: 4
+  autoTurnOffTime: 0
+  canDeactivate: 1
+  minPressureValue: 0
+  maxPressureValue: 1
+  notes: 
 --- !u!114 &7705773053179809374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1640,6 +1871,12 @@ MonoBehaviour:
   actions: []
   shakeSmall: {fileID: 7705773053179809371}
   shakeBig: {fileID: 7705773053179809372}
+  lastStep: 0
+  lights: []
+  lightCircle: {fileID: 0}
+  invisibleWallOnDoor: {fileID: 0}
+  smallRumble: {fileID: 0}
+  bigRumble: {fileID: 0}
 --- !u!114 &7705773053179809371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1655,6 +1892,7 @@ MonoBehaviour:
   shakeDuration: 0.5
   shakeAmount: 0.025
   decreaseFactor: 500
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!114 &7705773053179809372
 MonoBehaviour:
@@ -1671,6 +1909,7 @@ MonoBehaviour:
   shakeDuration: 0.2
   shakeAmount: 0.125
   decreaseFactor: 0.4
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!1 &7705773053198555960
 GameObject:
@@ -1904,6 +2143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7705773053695797560}
   - component: {fileID: 7705773053695797557}
+  - component: {fileID: 5559124301804402998}
   - component: {fileID: 7705773053695797558}
   - component: {fileID: 7705773053695797559}
   - component: {fileID: 7705773053695797555}
@@ -1955,6 +2195,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5559124301804402998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705773053695797561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82ae827b82f1604f8a8b6ca0d28226f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: []
+  state: 3
+  hintWheel: {fileID: 0}
+  singForAmountOfTime: 0
+  activationDelay: 0
+  deactivationDelay: 0
+  minDurationBetweenSwitch: 4
+  autoTurnOffTime: 0
+  canDeactivate: 1
+  minPressureValue: 0
+  maxPressureValue: 1
+  notes: 
 --- !u!114 &7705773053695797558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1998,6 +2262,12 @@ MonoBehaviour:
   actions: []
   shakeSmall: {fileID: 7705773053695797555}
   shakeBig: {fileID: 7705773053695797556}
+  lastStep: 0
+  lights: []
+  lightCircle: {fileID: 0}
+  invisibleWallOnDoor: {fileID: 0}
+  smallRumble: {fileID: 0}
+  bigRumble: {fileID: 0}
 --- !u!114 &7705773053695797555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2013,6 +2283,7 @@ MonoBehaviour:
   shakeDuration: 0.5
   shakeAmount: 0.025
   decreaseFactor: 500
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!114 &7705773053695797556
 MonoBehaviour:
@@ -2029,6 +2300,7 @@ MonoBehaviour:
   shakeDuration: 0.2
   shakeAmount: 0.125
   decreaseFactor: 0.4
+  shakeOnce: 0
   shaker: {fileID: 0}
 --- !u!1 &7705773053735288389
 GameObject:
@@ -2139,6 +2411,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3f659a10b4fdd14e93841d1ba741f8e, type: 3}
+--- !u!1 &3396472577672141304 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5031319115097745419, guid: b3f659a10b4fdd14e93841d1ba741f8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7705773052172726771}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3396472577672141311 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5031319115097745420, guid: b3f659a10b4fdd14e93841d1ba741f8e,
@@ -2157,12 +2435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196b4f4ad2d637a4b9986eceb2f6e7a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3396472577672141304 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5031319115097745419, guid: b3f659a10b4fdd14e93841d1ba741f8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7705773052172726771}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7705773052392608340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2247,6 +2519,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3f659a10b4fdd14e93841d1ba741f8e, type: 3}
+--- !u!1 &3396472577456814687 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5031319115097745419, guid: b3f659a10b4fdd14e93841d1ba741f8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7705773052392608340}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3396472577456814680 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5031319115097745420, guid: b3f659a10b4fdd14e93841d1ba741f8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7705773052392608340}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3396472577456814681 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5031319115097745421, guid: b3f659a10b4fdd14e93841d1ba741f8e,
@@ -2259,18 +2543,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196b4f4ad2d637a4b9986eceb2f6e7a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &3396472577456814680 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5031319115097745420, guid: b3f659a10b4fdd14e93841d1ba741f8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7705773052392608340}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3396472577456814687 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5031319115097745419, guid: b3f659a10b4fdd14e93841d1ba741f8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7705773052392608340}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7705773052423203955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2350,15 +2622,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3f659a10b4fdd14e93841d1ba741f8e, type: 3}
---- !u!4 &3396472577420346495 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5031319115097745420, guid: b3f659a10b4fdd14e93841d1ba741f8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7705773052423203955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3396472577420346488 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5031319115097745419, guid: b3f659a10b4fdd14e93841d1ba741f8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7705773052423203955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3396472577420346495 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5031319115097745420, guid: b3f659a10b4fdd14e93841d1ba741f8e,
     type: 3}
   m_PrefabInstance: {fileID: 7705773052423203955}
   m_PrefabAsset: {fileID: 0}
@@ -2674,12 +2946,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3f659a10b4fdd14e93841d1ba741f8e, type: 3}
---- !u!1 &3396472576871088451 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5031319115097745419, guid: b3f659a10b4fdd14e93841d1ba741f8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7705773052982290760}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3396472576871088452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5031319115097745420, guid: b3f659a10b4fdd14e93841d1ba741f8e,
@@ -2698,6 +2964,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196b4f4ad2d637a4b9986eceb2f6e7a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3396472576871088451 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5031319115097745419, guid: b3f659a10b4fdd14e93841d1ba741f8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7705773052982290760}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7705773053079690106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2890,18 +3162,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3f659a10b4fdd14e93841d1ba741f8e, type: 3}
---- !u!1 &3396472576263229354 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5031319115097745419, guid: b3f659a10b4fdd14e93841d1ba741f8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7705773053582387105}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &3396472576263229357 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5031319115097745420, guid: b3f659a10b4fdd14e93841d1ba741f8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7705773053582387105}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3396472576263229356 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5031319115097745421, guid: b3f659a10b4fdd14e93841d1ba741f8e,
@@ -2914,3 +3174,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196b4f4ad2d637a4b9986eceb2f6e7a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &3396472576263229357 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5031319115097745420, guid: b3f659a10b4fdd14e93841d1ba741f8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7705773053582387105}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3396472576263229354 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5031319115097745419, guid: b3f659a10b4fdd14e93841d1ba741f8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7705773053582387105}
+  m_PrefabAsset: {fileID: 0}

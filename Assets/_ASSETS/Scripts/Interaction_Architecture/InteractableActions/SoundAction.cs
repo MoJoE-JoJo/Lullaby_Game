@@ -21,6 +21,8 @@ public class SoundAction : InteractableAction
     [SerializeField] private float radius = 50;
     [SerializeField] private bool usingParameter = false;
     [SerializeField] private FModparameter FmodParameter;
+    [SerializeField] private bool playFromStart = false;
+
 
     private bool played = false;
     private float timer = 0.0f;
@@ -44,6 +46,16 @@ public class SoundAction : InteractableAction
         eventInstance = RuntimeManager.CreateInstance(SoundEvent);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         thisTransform = GetComponent<Transform>();
+
+        if (playFromStart)
+        {
+            eventInstance.setVolume(volume);
+            if (!oneFrameLateStart) eventInstance.start();
+            else StartCoroutine(OneFrameLateStart());
+            state = State_SoundAction.PLAYING;
+
+            played = true;
+        }
     }
     public override void Activate()
     {

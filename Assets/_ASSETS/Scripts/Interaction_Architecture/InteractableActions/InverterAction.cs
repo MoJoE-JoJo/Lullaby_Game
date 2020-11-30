@@ -10,6 +10,8 @@ public class InverterAction : InteractableAction
     [SerializeField, Tooltip("If true, will Deactivate itself and send Deactivate to all of its actions, when it gets an Activate")] private bool useActivate;
     [SerializeField, Tooltip("If true, will Activate itself and send Activate to all of its actions, when it gets a Deactivate")] private bool useDeactivate;
     [SerializeField] private List<InteractableAction> actions = new List<InteractableAction>();
+    [SerializeField] private bool ignoreUntilActive = false;
+    private bool ignore = true;
     private SongData lastSongData = new SongData();
 
     private void Update()
@@ -24,6 +26,10 @@ public class InverterAction : InteractableAction
     }
     public override void Activate()
     {
+        if (ignoreUntilActive)
+        {
+            ignore = false;
+        }
         if (useActivate)
         {
             state = State_InverterAction.DEACTIVATED;
@@ -36,14 +42,32 @@ public class InverterAction : InteractableAction
 
     public override void Deactivate()
     {
-        if (useDeactivate)
+        if (ignoreUntilActive)
         {
-            state = State_InverterAction.ACTIVATED;
-            foreach (InteractableAction action in actions)
+            if (!ignore)
             {
-                action.Activate();
+                if (useDeactivate)
+                {
+                    state = State_InverterAction.ACTIVATED;
+                    foreach (InteractableAction action in actions)
+                    {
+                        action.Activate();
+                    }
+                }
             }
         }
+        else
+        {
+            if (useDeactivate)
+            {
+                state = State_InverterAction.ACTIVATED;
+                foreach (InteractableAction action in actions)
+                {
+                    action.Activate();
+                }
+            }
+        }
+        
     }
 
     public override void InputData(SongData data)

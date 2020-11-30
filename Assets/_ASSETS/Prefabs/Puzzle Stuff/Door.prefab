@@ -74,6 +74,8 @@ GameObject:
   - component: {fileID: 1469822850641909900}
   - component: {fileID: 1469822850641909902}
   - component: {fileID: 1469822850641909905}
+  - component: {fileID: 9213581300098804403}
+  - component: {fileID: 943882195184808947}
   m_Layer: 10
   m_Name: Moving Part
   m_TagString: Untagged
@@ -109,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  moveSpeed: 0.025
+  moveSpeed: 0.02
   movePositions:
   - {fileID: 1469822850641909900}
   - {fileID: 1469822850778634227}
@@ -121,6 +123,7 @@ MonoBehaviour:
   debug_reset: 0
   useLinearMovement: 0
   disableActivateOnFinish: 0
+  resetSlowyWhenDeactivated: 0
 --- !u!114 &1469822850641909905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  moveSpeed: 0.025
+  moveSpeed: 0.02
   movePositions:
   - {fileID: 1469822850641909900}
   - {fileID: 1469822849946428434}
@@ -146,6 +149,41 @@ MonoBehaviour:
   debug_reset: 0
   useLinearMovement: 0
   disableActivateOnFinish: 0
+  resetSlowyWhenDeactivated: 0
+--- !u!114 &9213581300098804403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469822850641909901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c665a206b2e49994aaf9f237f5a2fbc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEvent: event:/Environment/Door
+  playOnce: 1
+  oneFrameLateStart: 1
+  volume: 1
+  stopLoopAfterDuration: 0
+--- !u!114 &943882195184808947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469822850641909901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c665a206b2e49994aaf9f237f5a2fbc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEvent: event:/Environment/Door
+  playOnce: 1
+  oneFrameLateStart: 0
+  volume: 1
+  stopLoopAfterDuration: 0
 --- !u!1 &1469822850778634224
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,8 +308,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2129325907
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b52f6f16c1a682f4888350178b13dd3e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -31,8 +31,11 @@ public class LightZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"));
-        originalIntensity = globalLight.intensity;
-        changeIntensity = true;
+        if (collision.CompareTag("Player"))
+        {
+            originalIntensity = globalLight.intensity;
+            changeIntensity = true;
+        }
+
     }
 }

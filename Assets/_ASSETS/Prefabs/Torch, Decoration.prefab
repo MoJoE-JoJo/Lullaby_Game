@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3219942477261197697}
   - component: {fileID: 3219942477261197700}
   - component: {fileID: 8938384600919247000}
-  - component: {fileID: 7257627991099708627}
+  - component: {fileID: 934530017734831147}
   m_Layer: 0
   m_Name: Torch, Decoration
   m_TagString: Untagged
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 0.9365873, b: 0.5235849, a: 1}
   m_Intensity: 1.5
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000cfa6ae32
+  m_ApplyToSortingLayers: 00000000574f90f08188ba59ad101581
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 1
   m_LightOrder: 0
@@ -90,7 +90,7 @@ MonoBehaviour:
   flickeringPercentage: 2
   useIntensity: 1
   useRadius: 0
---- !u!114 &7257627991099708627
+--- !u!114 &934530017734831147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,11 +99,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3219942477261197698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6cfdceb3d925b449b31b49de6ceb0df, type: 3}
+  m_Script: {fileID: 11500000, guid: c665a206b2e49994aaf9f237f5a2fbc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Torch
-  radius: 2
+  playOnce: 1
+  oneFrameLateStart: 0
+  volume: 1
+  stopLoopAfterDuration: 0
+  playFromStart: 1
 --- !u!1 &4387964887790912935
 GameObject:
   m_ObjectHideFlags: 0

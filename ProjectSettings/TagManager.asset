@@ -22,6 +22,8 @@ TagManager:
   - FadeOverlay
   - Elevator
   - LoadZone
+  - Level
+  - FadeOverlayWhite
   layers:
   - Default
   - TransparentFX
@@ -62,12 +64,18 @@ TagManager:
   - name: Final Door
     uniqueID: 3680673289
     locked: 0
+  - name: Levels_Decorative
+    uniqueID: 1505396865
+    locked: 0
+  - name: Objects
+    uniqueID: 2165641389
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Player
     uniqueID: 408918395
     locked: 0
-  - name: Objects
-    uniqueID: 2165641389
+  - name: FadeOverlay
+    uniqueID: 1786869061
     locked: 0
