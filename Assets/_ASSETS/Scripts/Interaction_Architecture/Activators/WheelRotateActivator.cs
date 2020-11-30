@@ -9,6 +9,7 @@ public enum State_WheelRotateActivator { IDLE, CLOCKWISE, COUNTERCLOCKWISE }
 public class WheelRotateActivator : Activator
 {
     [SerializeField] private Hint hintWheel;
+    [SerializeField] private SoundAction wheelSound;
 
     //[SerializeField] private bool repeatSequence = false;
     //[SerializeField, Tooltip("If true, will activate will in the transistion state, and if false, will only activate the Actions when the sequence is completed")] private bool activateWhileTransition = true;
@@ -21,11 +22,11 @@ public class WheelRotateActivator : Activator
     //private bool singingCorrect = false;
     //private float swapTimer = 4.0f;
     //private float turnOffTimer = 0f;
-    
-    
-    
-    
-    
+
+
+
+
+
     //FER SHIT
     private List<Song_Note> _notes;
     private Song_Note currentSongNote = Song_Note.A;
@@ -53,7 +54,7 @@ public class WheelRotateActivator : Activator
 
     public override void ShowHint()
     {
-        throw new System.NotImplementedException();
+        return;
     }
 
     public override void SongInput(SongData data)
@@ -93,17 +94,20 @@ public class WheelRotateActivator : Activator
             case State_WheelRotateActivator.IDLE:
                 wheelRotateActions[0].Deactivate();
                 wheelRotateActions[1].Deactivate();
+                wheelSound.Deactivate();
                 //do nothing
                 break;
 
             case State_WheelRotateActivator.CLOCKWISE:
                 wheelRotateActions[1].Deactivate();
                 wheelRotateActions[0].Activate();
+                wheelSound.Activate();
                 break;
 
             case State_WheelRotateActivator.COUNTERCLOCKWISE:
                 wheelRotateActions[0].Deactivate();
                 wheelRotateActions[1].Activate();
+                wheelSound.Activate();
                 break;
         }
     }
