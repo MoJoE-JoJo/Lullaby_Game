@@ -35,6 +35,10 @@ public class HittingEnd : MonoBehaviour
             whiteOverlay.transform.position = pc.transform.position;
             if(fadeTimer >= fadeTime)
             {
+                foreach (SoundAction sa in GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().SoundActions)
+                {
+                    sa.PauseInstance(true);
+                }
                 SceneManager.LoadScene("End");
             }
             fadeTimer += Time.deltaTime;

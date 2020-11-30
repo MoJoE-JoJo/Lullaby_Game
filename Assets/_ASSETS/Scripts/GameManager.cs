@@ -7,7 +7,11 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    
+    public SoundAction[] SoundActions
+    {
+        get => soundActions;
+        set => soundActions = value;
+    }
     private PlayerControls _controls;
     private bool paused = false;
     private float originalTimeScale;
