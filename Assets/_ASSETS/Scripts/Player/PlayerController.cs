@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
             collision.gameObject.layer != LayerMask.NameToLayer("Camera") &&
             !_isGrounded) { 
             _isGrounded = true;
-            if(jumpTimer > jumpSoundPlayer.minDuration) jumpSoundPlayer.playLandSound();
+            if(jumpTimer > jumpSoundPlayer.minDuration) jumpSoundPlayer.playSound();
         }
     }
 

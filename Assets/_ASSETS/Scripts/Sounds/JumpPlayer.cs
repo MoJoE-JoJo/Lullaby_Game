@@ -17,7 +17,7 @@ public class JumpPlayer : MonoBehaviour
         eventInstance = RuntimeManager.CreateInstance(SoundEvent);
     }
 
-    public void playLandSound() 
+    public void playSound() 
     {
         eventInstance.start();
     }

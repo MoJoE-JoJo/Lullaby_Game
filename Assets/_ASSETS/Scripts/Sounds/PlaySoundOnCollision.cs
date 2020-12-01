@@ -10,6 +10,10 @@ public class PlaySoundOnCollision : MonoBehaviour
     public string SoundEvent;
     [SerializeField] private bool useProximity = false;
     [SerializeField] private float radius = 20;
+    [SerializeField] private float minAirTime = 0.2f;
+
+    private float timer;
+    private bool isGrounded;
     private Transform player;
     private Transform thisTransform;
     private EventInstance eventInstance;
@@ -20,6 +24,7 @@ public class PlaySoundOnCollision : MonoBehaviour
         eventInstance.setParameterByName("Box", 1);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         thisTransform = GetComponent<Transform>();
+        timer = 0.0f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -28,14 +33,25 @@ public class PlaySoundOnCollision : MonoBehaviour
         if (dist < radius)
         {
             if (!collision.gameObject.CompareTag("MainCamera") &&
-             !collision.gameObject.CompareTag("LoadZone") &&
-             collision.gameObject.layer != LayerMask.NameToLayer("Camera")) eventInstance.start();
+             !collision.gameObject.CompareTag("LoadZone") && 
+             !collision.gameObject.CompareTag("Player") &&
+             collision.gameObject.layer != LayerMask.NameToLayer("Camera"))
+            {
+                if (timer > minAirTime) eventInstance.start();
+                isGrounded = true;
+                timer = 0.0f;
+            }
         }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        isGrounded = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!isGrounded) timer += Time.deltaTime;
     }
 }
