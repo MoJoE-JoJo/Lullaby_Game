@@ -16,7 +16,6 @@ public class RotationAction : InteractableAction
     [SerializeField, Tooltip("0 means no limit")] private float rotationLimit = 0.0f;
     [SerializeField] private bool spinBackOnDeactivate;
     [SerializeField, Tooltip("Usually you want this at 1")] private float margin = 1f;
-    [SerializeField] SimpleSoundAction bumpPlayer;
 
     private int direction;
     private bool ongoing;
@@ -27,7 +26,6 @@ public class RotationAction : InteractableAction
     private bool usingTimer;
     private bool isLimited = false;
     private float maxRotation;
-    private bool reachedMax;
     // Start is called before the first frame update
     void Start()
     {
@@ -89,25 +87,10 @@ public class RotationAction : InteractableAction
         {
             if (isLimited)
             {
-
-                if (rotateDirection == RotationAction_Direction.COUNTERCLOCKWISE && rigbod.rotation >= maxRotation) {
-                    if (!reachedMax) {
-                        reachedMax = true;
-                     //   bumpPlayer.Activate();
-                    }      
-                    return;
-                }
-                else if (rotateDirection == RotationAction_Direction.CLOCKWISE && rigbod.rotation <= maxRotation)
-                {
-                    if (!reachedMax)
-                    {
-                        reachedMax = true;
-                    //    bumpPlayer.Activate();
-                    }
-                    return;
-                }
+                if (rotateDirection == RotationAction_Direction.COUNTERCLOCKWISE && rigbod.rotation >= maxRotation) return;
+                else if (rotateDirection == RotationAction_Direction.CLOCKWISE && rigbod.rotation <= maxRotation) return;
             }
-            reachedMax = false;
+
             var pressure = songData.Volume;
             if (fixedSpeed) pressure = 1;
             rigbod.MoveRotation(rigbod.rotation + rotationSpeed * Time.fixedDeltaTime * direction * pressure);
