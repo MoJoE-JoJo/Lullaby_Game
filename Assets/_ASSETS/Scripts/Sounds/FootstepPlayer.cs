@@ -8,15 +8,18 @@ public class FootstepPlayer : MonoBehaviour
 {
     [EventRef]
     public string SoundEvent;
+    [SerializeField] private PlayerController playerController;
     private EventInstance eventInstance;
+    
     // Start is called before the first frame update
     void Start()
     {
         eventInstance = RuntimeManager.CreateInstance(SoundEvent);
-        eventInstance.setParameterByName("Footsteps", 1);
     }
 
     public void PlaySound() {
+        var value = playerController.getGround();
+        eventInstance.setParameterByName("Footsteps", value);
         eventInstance.start();
     }
 

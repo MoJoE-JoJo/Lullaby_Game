@@ -8,10 +8,14 @@ using System.Linq;
 
 public class NoteController : MonoBehaviour
 {
+    private EventInstance PercEvent;
     private EventInstance AinstanceVoice, BinstanceVoice, CinstanceVoice, DinstanceVoice, EinstanceVoice, FinstanceVoice;
 
     private EventInstance AinstanceSynth, BinstanceSynth, CinstanceSynth, DinstanceSynth, EinstanceSynth, FinstanceSynth;
 
+    [EventRef]
+    public string Perc;
+    [SerializeField] private float PercVolume = 0.05f;
     [EventRef]
     public string AEventVoice, BEventVoice, CEventVoice, DEventVoice, EEventVoice, FEventVoice;
 
@@ -42,6 +46,9 @@ public class NoteController : MonoBehaviour
     void Start()
     {
         eventInstanceList = new List<EventInstance>();
+
+        PercEvent = RuntimeManager.CreateInstance(Perc);
+
         AinstanceVoice = RuntimeManager.CreateInstance(AEventVoice);
         BinstanceVoice = RuntimeManager.CreateInstance(BEventVoice);
         CinstanceVoice = RuntimeManager.CreateInstance(CEventVoice);
@@ -99,8 +106,8 @@ public class NoteController : MonoBehaviour
         // parse SongData enum
 
         var notes = _songData.Notes;
+        StartInstance(PercEvent, PercVolume);
 
-        
         // turn on notes based on the string
         foreach (Song_Note sn in notes)
         {
@@ -167,7 +174,7 @@ public class NoteController : MonoBehaviour
     {
         var notesToStart = _songData.Notes.Except(_currentlySingingNotes);
         //Debug.Log(notesToStart);
-        
+        if (notesToStart.Count() != 0) StartInstance(PercEvent, PercVolume);
         foreach (var noteToStart in notesToStart)
         {
             if (noteToStart == Song_Note.A)

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4514530610788513117}
   - component: {fileID: 4514530610788513118}
   - component: {fileID: 4514530610788513119}
+  - component: {fileID: 1012884455345444873}
   m_Layer: 10
   m_Name: ball
   m_TagString: Activator
@@ -206,6 +207,22 @@ MonoBehaviour:
   minPressureValue: 0
   maxPressureValue: 1
   notes: 01000000
+--- !u!114 &1012884455345444873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4514530610788513121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0033b679dc67bbb4fbba66036e7c3d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEvent: event:/Environment/Box
+  useProximity: 0
+  radius: 20
+  minAirTime: 0.8
 --- !u!1 &4514530611179587176
 GameObject:
   m_ObjectHideFlags: 0

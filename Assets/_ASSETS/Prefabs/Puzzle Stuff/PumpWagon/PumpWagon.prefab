@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 441306850600275287}
   - component: {fileID: 441306850600275286}
   - component: {fileID: 441306850600275285}
+  - component: {fileID: 4842908571113997707}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Activator
@@ -210,6 +211,7 @@ MonoBehaviour:
   pumpForce: 1
   timeWagonIsMoving: 1
   wagonEase: 0
+  swapSoundPlayer: {fileID: 4842908571113997707}
 --- !u!114 &441306850600275285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +224,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62df887e4b890e48afd0e715a9ec710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4842908571113997707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441306850600275293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77d2e887ec242c54bb218a549647f663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEvent: event:/Environment/Pump Wagon Direction
 --- !u!1 &441306851324633852
 GameObject:
   m_ObjectHideFlags: 0
