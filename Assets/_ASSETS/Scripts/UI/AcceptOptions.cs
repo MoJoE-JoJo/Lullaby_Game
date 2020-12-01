@@ -23,6 +23,6 @@ public class AcceptOptions : MonoBehaviour
     {
         PlayerPrefs.SetFloat("brightness", brightnessSlider.value/10.0f);
         PlayerPrefs.Save();
-        lm.UpdateLights(brightnessSlider.value/10.0f);
+        //lm.UpdateLights(brightnessSlider.value/10.0f);
     }
 }

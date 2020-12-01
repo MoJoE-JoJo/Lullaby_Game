@@ -9,6 +9,7 @@ public enum State_LightManager { INMENU, INGAME};
 
 public class LightManager : MonoBehaviour
 {
+    /*
     private State_LightManager state = State_LightManager.INMENU;
     private MiniwheelSegmentHandler[] hints;
     private List<float> hintsBaseLow = new List<float>();
@@ -131,4 +132,5 @@ public class LightManager : MonoBehaviour
             }
         }
     }
+    */
 }
