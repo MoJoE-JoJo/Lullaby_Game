@@ -21,19 +21,19 @@ public class SpawnPoint : MonoBehaviour
                     break;
                 case ("TopSpawn"):
                     transform.position = initLoadLevelZones[1].transform.position;
-                    pos = initLoadLevelZones[0].transform.position;
+                    pos = initLoadLevelZones[1].transform.position;
                     pos.z = GameObject.FindGameObjectWithTag("MainCamera").transform.position.z;
                     GameObject.FindGameObjectWithTag("MainCamera").transform.position = pos;
                     break;
                 case ("MiddleSpawn"):
                     transform.position = initLoadLevelZones[2].transform.position;
-                    pos = initLoadLevelZones[0].transform.position;
+                    pos = initLoadLevelZones[2].transform.position;
                     pos.z = GameObject.FindGameObjectWithTag("MainCamera").transform.position.z;
                     GameObject.FindGameObjectWithTag("MainCamera").transform.position = pos;
                     break;
                 case ("BottomSpawn"):
                     transform.position = initLoadLevelZones[3].transform.position;
-                    pos = initLoadLevelZones[0].transform.position;
+                    pos = initLoadLevelZones[3].transform.position;
                     pos.z = GameObject.FindGameObjectWithTag("MainCamera").transform.position.z;
                     GameObject.FindGameObjectWithTag("MainCamera").transform.position = pos;
                     break;
