@@ -12,6 +12,11 @@ public class GameManager : MonoBehaviour
         get => soundActions;
         set => soundActions = value;
     }
+    public TorchSounds[] TorchSounds
+    {
+        get;
+        set;
+    }
     private PlayerControls _controls;
     private bool paused = false;
     private float originalTimeScale;
@@ -22,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        TorchSounds = Resources.FindObjectsOfTypeAll<TorchSounds>();
         soundActions = Resources.FindObjectsOfTypeAll<SoundAction>();
         _controls = new PlayerControls();
         _controls.GameManager.ReloadScene.performed += context => ReloadScene();

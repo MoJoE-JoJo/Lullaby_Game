@@ -53,4 +53,9 @@ public class TorchSounds : MonoBehaviour
         instance.getPlaybackState(out PLAYBACK_STATE state);
         return state != PLAYBACK_STATE.STOPPED;
     }
+
+    public void PauseInstance(bool setPaused)
+    {
+        eventInstance.setPaused(setPaused);
+    }
 }

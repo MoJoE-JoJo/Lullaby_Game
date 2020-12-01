@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Torch
-  radius: 3
+  radius: 1
 --- !u!1 &4387964887790912935
 GameObject:
   m_ObjectHideFlags: 0
