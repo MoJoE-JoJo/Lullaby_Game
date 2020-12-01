@@ -64,7 +64,9 @@ public class TeleportPlayerAction : InteractableAction
                 if (timer > activationDelay + fadeTime)
                 {
                     playerTransform.position = teleportPosition.position;
-                    GameObject.FindGameObjectWithTag("MainCamera").transform.position = teleportPosition.position;
+                    var camPos = teleportPosition.position;
+                    camPos.z = -10.0f;
+                    GameObject.FindGameObjectWithTag("MainCamera").transform.position = camPos;
                     state = State_TeleportPlayerAction.FADINGIN;
                     timer = -1f;
 
