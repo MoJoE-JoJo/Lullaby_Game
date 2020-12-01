@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 1173933510353075813}
   - component: {fileID: 1173933510353075808}
   - component: {fileID: 1173933510353075809}
+  - component: {fileID: 6376686472985126657}
   m_Layer: 10
   m_Name: Torch Simple
   m_TagString: Activator
@@ -238,6 +239,20 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &6376686472985126657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173933510353075815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6cfdceb3d925b449b31b49de6ceb0df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEvent: event:/Environment/Torch
+  radius: 3
 --- !u!1001 &3157686552620152595
 PrefabInstance:
   m_ObjectHideFlags: 0

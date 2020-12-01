@@ -32,7 +32,6 @@ public class TorchSounds : MonoBehaviour
         //set value closeToTorch" base on the percent the player is close to the torch
 
         var dist = Vector3.Distance(player.position, torch.position);
-        
         if (dist < radius && torchLight.intensity > 0.5)
         {
             if (!IsPlaying(eventInstance))
