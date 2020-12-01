@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  moveSpeed: 0.02
+  moveSpeed: 0.15
   movePositions:
   - {fileID: 1469822850641909900}
   - {fileID: 1469822850778634227}
@@ -124,6 +124,7 @@ MonoBehaviour:
   useLinearMovement: 0
   disableActivateOnFinish: 0
   resetSlowyWhenDeactivated: 0
+  needsPlayerOnTop: 0
 --- !u!114 &1469822850641909905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  moveSpeed: 0.02
+  moveSpeed: 0.15
   movePositions:
   - {fileID: 1469822850641909900}
   - {fileID: 1469822849946428434}
@@ -150,6 +151,7 @@ MonoBehaviour:
   useLinearMovement: 0
   disableActivateOnFinish: 0
   resetSlowyWhenDeactivated: 0
+  needsPlayerOnTop: 0
 --- !u!114 &9213581300098804403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,18 +165,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Door
-  playOnce: 1
-  dontLoopOnActive: 0
+  playOnce: 0
+  dontLoopOnActive: 1
   oneFrameLateStart: 1
   volume: 1
   stopLoopAfterDuration: 0
   useProximity: 1
   radius: 5
-  usingParameter: 0
+  usingParameter: 1
   FmodParameter:
-    parameter: 
-    value: 0
-    timeBeforeChange: 0
+    parameter: Door
+    value: 1
+    timeBeforeChange: 1
     startValue: 0
   playFromStart: 0
   state: 1
@@ -191,18 +193,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Door
-  playOnce: 1
-  dontLoopOnActive: 0
-  oneFrameLateStart: 0
+  playOnce: 0
+  dontLoopOnActive: 1
+  oneFrameLateStart: 1
   volume: 1
   stopLoopAfterDuration: 0
   useProximity: 1
   radius: 5
-  usingParameter: 0
+  usingParameter: 1
   FmodParameter:
-    parameter: 
-    value: 0
-    timeBeforeChange: 0
+    parameter: Door
+    value: 1
+    timeBeforeChange: 1
     startValue: 0
   playFromStart: 0
   state: 1

@@ -79,9 +79,9 @@ TagManager:
   - name: Player
     uniqueID: 408918395
     locked: 0
-  - name: FadeOverlay
-    uniqueID: 1786869061
-    locked: 0
   - name: Objects_InFront
     uniqueID: 3477773159
+    locked: 0
+  - name: FadeOverlay
+    uniqueID: 1786869061
     locked: 0

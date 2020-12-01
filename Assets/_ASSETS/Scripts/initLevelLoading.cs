@@ -24,8 +24,8 @@ public class initLevelLoading: MonoBehaviour
                 go.SetActive(true);
             }
 
-            this.transform.parent.gameObject.SetActive(false);
             this.gameObject.SetActive(false);
+            this.transform.parent.gameObject.SetActive(false);
         }
     }
 }
