@@ -49,7 +49,7 @@ public class ChangeCameraSize : MonoBehaviour
                     if (resizeFraction < 1)
                     {
                         resizeFraction += Time.fixedDeltaTime / resizeTime;
-                        Camera.main.orthographicSize = Mathf.SmoothStep(Camera.main.orthographicSize, cameraSize, resizeFraction);
+                        Camera.main.orthographicSize = Mathf.SmoothStep(originalCameraSize, cameraSize, resizeFraction);
                     }
                     else
                     {
@@ -74,7 +74,7 @@ public class ChangeCameraSize : MonoBehaviour
                     if (resizeFraction < 1)
                     {
                         resizeFraction += Time.fixedDeltaTime / resizeTime;
-                        Camera.main.orthographicSize = Mathf.SmoothStep(Camera.main.orthographicSize, originalCameraSize, resizeFraction);
+                        Camera.main.orthographicSize = Mathf.SmoothStep(originalCameraSize, originalCameraSize, resizeFraction);
                     }
                     else
                     {
