@@ -263,6 +263,7 @@ public class SequenceActivator : Activator
     private bool CheckNotes(SongData data)
     {
         if (data.Notes == null) return false;
+        if (data.Notes.Count == 6) return false;
         if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
         if (nextCorrectPart.Chord.Count > 1 && nextCorrectPart.Chord.Count != data.Notes.Count) return false;
         /*
@@ -281,6 +282,7 @@ public class SequenceActivator : Activator
     private bool CheckLastNotes(SongData data)
     {
         if (data.Notes == null) return false;
+        if (data.Notes.Count == 6) return false;
         if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
 
         if(sequenceIndex == 0)

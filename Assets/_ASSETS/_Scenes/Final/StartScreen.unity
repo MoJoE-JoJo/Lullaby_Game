@@ -264,94 +264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoint: {fileID: 0}
---- !u!1001 &104524258
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -102.30714
-      objectReference: {fileID: 0}
-    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 78.43438
-      objectReference: {fileID: 0}
-    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -129.00977
-      objectReference: {fileID: 0}
-    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 50268809988423926, guid: edef717fbc8a1e14785d5ca2c3c33455,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615826428154207488, guid: edef717fbc8a1e14785d5ca2c3c33455,
-        type: 3}
-      propertyPath: m_Name
-      value: SpawnPoints
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: edef717fbc8a1e14785d5ca2c3c33455, type: 3}
---- !u!4 &104524259 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1424151384946137719, guid: edef717fbc8a1e14785d5ca2c3c33455,
-    type: 3}
-  m_PrefabInstance: {fileID: 104524258}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &104524260 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 359352479469753528, guid: edef717fbc8a1e14785d5ca2c3c33455,
-    type: 3}
-  m_PrefabInstance: {fileID: 104524258}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &104524261 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8004255101222358399, guid: edef717fbc8a1e14785d5ca2c3c33455,
-    type: 3}
-  m_PrefabInstance: {fileID: 104524258}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &340625299
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,7 +1018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &590600452
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1491,7 +1403,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: New_Bottom
+          m_StringArgument: Game
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &788761314
@@ -1555,7 +1467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoint: {fileID: 0}
 --- !u!1 &802699940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2494,7 +2405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1230504134
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2787,7 +2698,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoint: {fileID: 104524261}
 --- !u!114 &1556223849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2851,7 +2761,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Marcus_beta3
+          m_StringArgument: Game
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1556223851
@@ -2943,7 +2853,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoint: {fileID: 104524260}
 --- !u!114 &1652025865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2995,7 +2904,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Marcus_beta3
+          m_StringArgument: Game
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1652025866
@@ -3355,7 +3264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoint: {fileID: 104524259}
 --- !u!114 &2045723715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3407,7 +3315,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Marcus_beta3
+          m_StringArgument: Game
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2045723716

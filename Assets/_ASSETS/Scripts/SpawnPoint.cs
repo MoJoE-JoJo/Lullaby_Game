@@ -11,6 +11,7 @@ public class SpawnPoint : MonoBehaviour
         if (name != "")
         {
             transform.position = GameObject.Find(name).transform.position;
+            GameObject.FindGameObjectWithTag("MainCamera").transform.position = GameObject.Find(name).transform.position;
             Debug.Log("POPSAOPÅ");
         }
     }

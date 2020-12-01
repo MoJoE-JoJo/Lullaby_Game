@@ -29,9 +29,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_ASSETS/_Scenes/Final/End.unity
     guid: ddc84ca115c9cca489a4a3f8e47bce30
-  - enabled: 1
+  - enabled: 0
     path: Assets/_ASSETS/_Scenes/Final/V1.unity
     guid: be68e62cec39efe44bca7cbf8a6f3c48
+  - enabled: 1
+    path: Assets/_ASSETS/_Scenes/Final/Game.unity
+    guid: 4fe7e3fc3057832438de11016accc269
   - enabled: 0
     path: Assets/_ASSETS/_Scenes/Beta3 Debugging/Top.unity
     guid: ffc21858666921f4a9123e357549140d
