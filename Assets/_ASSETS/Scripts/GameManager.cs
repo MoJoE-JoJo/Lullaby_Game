@@ -12,6 +12,12 @@ public class GameManager : MonoBehaviour
         get => soundActions;
         set => soundActions = value;
     }
+    public TorchSounds[] TorchSounds
+    {
+        get;
+        set;
+    }
+    private RumbleAction[] rumblers;
     private PlayerControls _controls;
     private bool paused = false;
     private float originalTimeScale;
@@ -22,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        rumblers = Resources.FindObjectsOfTypeAll<RumbleAction>();
+        TorchSounds = Resources.FindObjectsOfTypeAll<TorchSounds>();
         soundActions = Resources.FindObjectsOfTypeAll<SoundAction>();
         _controls = new PlayerControls();
         _controls.GameManager.ReloadScene.performed += context => ReloadScene();
@@ -42,6 +50,10 @@ public class GameManager : MonoBehaviour
         foreach(SoundAction sa in soundActions)
         {
             sa.PauseInstance(true);
+        }
+        foreach(RumbleAction ra in rumblers)
+        {
+            ra.Deactivate();
         }
         Time.timeScale = 0.0f;
         pc.enabled = false;

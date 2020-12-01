@@ -39,6 +39,10 @@ public class HittingEnd : MonoBehaviour
                 {
                     sa.PauseInstance(true);
                 }
+                foreach (TorchSounds sa in GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().TorchSounds)
+                {
+                    sa.PauseInstance(true);
+                }
                 SceneManager.LoadScene("End");
             }
             fadeTimer += Time.deltaTime;

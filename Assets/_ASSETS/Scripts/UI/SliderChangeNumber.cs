@@ -17,6 +17,7 @@ public class SliderChangeNumber : MonoBehaviour
 
     private void OnEnable()
     {
+        slider = GetComponent<Slider>();
         slider.value = PlayerPrefs.GetFloat("brightness", 1.0f) * 10.0f;
     }
 
