@@ -14,7 +14,7 @@ public class WagonAction : InteractableAction
     [SerializeField] private float timeWagonIsMoving;
 
     [SerializeField]private Ease wagonEase;
-
+    [SerializeField]private WagonSwap swapSoundPlayer;
     //private Mesh _mesh;
     private float _wagonSize;
 
@@ -59,8 +59,10 @@ public class WagonAction : InteractableAction
 
                 if (finalLocation.x < _leftDestination.x)
                 {
+                    //play swap
                     timeWagon = Mathf.Abs((_leftDestination.x - transform.position.x) / pumpForce)*timeWagonIsMoving;
                     finalLocation = _leftDestination;
+                    swapSoundPlayer.playSound();
                     //Debug.Log("Fixed final location: " + finalLocation);
                 }
 
@@ -83,6 +85,7 @@ public class WagonAction : InteractableAction
                 {
                     timeWagon = Mathf.Abs((_rightDestination.x - transform.position.x) / pumpForce)*timeWagonIsMoving;
                     finalLocation = _rightDestination;
+                    swapSoundPlayer.playSound();
                     //new Vector3(_rightDestination.x +0.000001f, _rightDestination.y, _rightDestination.z);
                     //Debug.Log("Fixed final location: " + finalLocation);
                 }

@@ -48,7 +48,7 @@ public class SpawnPoint : MonoBehaviour
                         GameObject.FindGameObjectWithTag("MainCamera").transform.position = pos;
                         var ele2 = GameObject.Find("Elevator1");
                         var posBot = GameObject.Find("level 3").transform.position;
-                        posBot.y += 0.1f;
+                        posBot.y += 0.15f;
                         ele2.transform.position = posBot;
                         break;
                 }

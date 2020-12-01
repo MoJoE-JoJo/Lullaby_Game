@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 376085305603979963}
   - component: {fileID: 376085305603979962}
   - component: {fileID: 376085305603979965}
+  - component: {fileID: 2204512172701756464}
   m_Layer: 10
   m_Name: Moving Part
   m_TagString: Activator
@@ -137,6 +138,7 @@ MonoBehaviour:
   useLinearMovement: 0
   disableActivateOnFinish: 0
   resetSlowyWhenDeactivated: 1
+  needsPlayerOnTop: 0
 --- !u!114 &376085305603979965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +160,22 @@ MonoBehaviour:
   minPressureValue: 0
   maxPressureValue: 1
   notes: 04000000
+--- !u!114 &2204512172701756464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376085305603979967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0033b679dc67bbb4fbba66036e7c3d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEvent: event:/Environment/Platforms
+  useProximity: 1
+  radius: 8
+  minAirTime: 0.8
 --- !u!1 &376085305607228421
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 376085306362126458}
   m_Layer: 10
-  m_Name: platform (3)
+  m_Name: BallPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
     private float songDelayTimer;
     private Coroutine _deactivateWheel;
     private float _volume;
-    
+
+    private int ground; 
     //Animation stuff
     private Animator _animator;
     private Facing _facing = Facing.RIGHT;
@@ -56,7 +57,10 @@ public class PlayerController : MonoBehaviour
         get => _animator;
     }
 
-
+    public int getGround()
+    {
+        return ground;
+    }
     private void Awake()
     {
         _controls = new PlayerControls();
@@ -135,13 +139,20 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag("MainCamera") && 
-            !collision.gameObject.CompareTag("LoadZone") && 
+        if (!collision.gameObject.CompareTag("MainCamera") &&
+            !collision.gameObject.CompareTag("LoadZone") &&
             collision.gameObject.layer != LayerMask.NameToLayer("Camera") &&
-            !_isGrounded) { 
+            !_isGrounded)
+        {
             _isGrounded = true;
-            if(jumpTimer > jumpSoundPlayer.minDuration) jumpSoundPlayer.playLandSound();
+            if (jumpTimer > jumpSoundPlayer.minDuration) jumpSoundPlayer.playSound();
         }
+        if (collision.gameObject.GetComponent<IsElevatorScript>() != null)
+        {
+            if (collision.gameObject.GetComponent<IsElevatorScript>().isElevator) ground = 2;
+            else ground = 1;
+        }
+        else ground = 1;
     }
 
     private void OnTriggerExit2D(Collider2D collision)

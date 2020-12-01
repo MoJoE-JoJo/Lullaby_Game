@@ -18,7 +18,7 @@ public class SoundAction : InteractableAction
     [SerializeField] private float volume = 1.0f;
     [SerializeField] private float stopLoopAfterDuration = 0;
     [SerializeField] private bool useProximity = false;
-    [SerializeField] private float radius = 50;
+    [SerializeField] private float radius = 5;
     [SerializeField] private bool usingParameter = false;
     [SerializeField] private FModparameter FmodParameter;
     [SerializeField] private bool playFromStart = false;
