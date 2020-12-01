@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 321607711}
   - component: {fileID: 321607706}
   - component: {fileID: 2005893532851651348}
+  - component: {fileID: 7982371186397500179}
   m_Layer: 10
   m_Name: DrawBridge
   m_TagString: Activator
@@ -210,6 +211,7 @@ MonoBehaviour:
   rotationLimit: 1e-23
   spinBackOnDeactivate: 0
   margin: 1
+  bumpPlayer: {fileID: 7982371186397500179}
 --- !u!114 &3275473327092856470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +232,7 @@ MonoBehaviour:
   rotationLimit: 90
   spinBackOnDeactivate: 0
   margin: 1
+  bumpPlayer: {fileID: 7982371186397500179}
 --- !u!50 &321607711
 Rigidbody2D:
   serializedVersion: 4
@@ -295,6 +298,23 @@ MonoBehaviour:
     startValue: 0
   playFromStart: 0
   state: 1
+--- !u!114 &7982371186397500179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3275473327092856471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64cd81b9eafe13c45b3ca2d32244f7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEvent: event:/Environment/Draw Bridge
+  usingParameter: 1
+  FmodParameter:
+    parameter: Parameter 1
+    value: 1
 --- !u!1 &4557711261371190662
 GameObject:
   m_ObjectHideFlags: 0

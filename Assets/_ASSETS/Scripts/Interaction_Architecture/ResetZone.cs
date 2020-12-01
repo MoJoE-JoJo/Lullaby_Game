@@ -20,6 +20,7 @@ public class ResetZone : MonoBehaviour
         if (col.CompareTag("Player"))
         {
             player.transform.position = spawnPoint.position;
+            player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 
             foreach (var action in actions)
             {

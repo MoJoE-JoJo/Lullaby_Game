@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 441306850600275287}
   - component: {fileID: 441306850600275286}
   - component: {fileID: 441306850600275285}
-  - component: {fileID: 5563280057851579405}
+  - component: {fileID: 6582249513566057188}
+  - component: {fileID: 4842908571113997707}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Activator
@@ -152,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actions:
   - {fileID: 441306850600275286}
-  - {fileID: 5563280057851579405}
+  - {fileID: 6582249513566057188}
   state: 0
   hintWheel: {fileID: 8535821116498774}
   repeatSequence: 1
@@ -212,6 +213,7 @@ MonoBehaviour:
   pumpForce: 1
   timeWagonIsMoving: 1
   wagonEase: 0
+  swapSoundPlayer: {fileID: 4842908571113997707}
 --- !u!114 &441306850600275285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62df887e4b890e48afd0e715a9ec710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5563280057851579405
+--- !u!114 &6582249513566057188
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,25 +235,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 441306850600275293}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c665a206b2e49994aaf9f237f5a2fbc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 64cd81b9eafe13c45b3ca2d32244f7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Pump Wagon Moving
-  playOnce: 1
-  dontLoopOnActive: 1
-  oneFrameLateStart: 0
-  volume: 1
-  stopLoopAfterDuration: 0
-  useProximity: 0
-  radius: 5
-  usingParameter: 0
-  FmodParameter:
-    parameter: Slide
-    value: 1
-    timeBeforeChange: 0
-    startValue: 0
-  playFromStart: 0
-  state: 1
+--- !u!114 &4842908571113997707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441306850600275293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77d2e887ec242c54bb218a549647f663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEvent: event:/Environment/Pump Wagon Direction
 --- !u!1 &441306851324633852
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,12 +720,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bee3a48e999850c4c8f0f8468af411de, type: 3}
---- !u!4 &8535821116498775 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3458713602522521702, guid: bee3a48e999850c4c8f0f8468af411de,
-    type: 3}
-  m_PrefabInstance: {fileID: 3450182803883901745}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8535821116498774 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3458713602522521703, guid: bee3a48e999850c4c8f0f8468af411de,
@@ -738,3 +732,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196b4f4ad2d637a4b9986eceb2f6e7a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &8535821116498775 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3458713602522521702, guid: bee3a48e999850c4c8f0f8468af411de,
+    type: 3}
+  m_PrefabInstance: {fileID: 3450182803883901745}
+  m_PrefabAsset: {fileID: 0}

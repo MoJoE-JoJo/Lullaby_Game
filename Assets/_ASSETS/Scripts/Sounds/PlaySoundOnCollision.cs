@@ -35,6 +35,7 @@ public class PlaySoundOnCollision : MonoBehaviour
             if (!collision.gameObject.CompareTag("MainCamera") &&
              !collision.gameObject.CompareTag("LoadZone") && 
              !collision.gameObject.CompareTag("Player") &&
+             !collision.gameObject.CompareTag("Activator") &&
              collision.gameObject.layer != LayerMask.NameToLayer("Camera"))
             {
                 if (timer > minAirTime) eventInstance.start();
