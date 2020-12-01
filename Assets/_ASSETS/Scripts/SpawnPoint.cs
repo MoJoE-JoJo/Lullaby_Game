@@ -4,21 +4,33 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private List<GameObject> initLoadLevelZones;
+    private void Awake()
     {
         var name = PlayerPrefs.GetString("SpawnPoint");
         if (name != "")
         {
-            transform.position = GameObject.Find(name).transform.position;
-            GameObject.FindGameObjectWithTag("MainCamera").transform.position = GameObject.Find(name).transform.position;
+            switch (name)
+            {
+                case ("TutorialSpawn"):
+                    transform.position = initLoadLevelZones[0].transform.position;
+                    GameObject.FindGameObjectWithTag("MainCamera").transform.position = initLoadLevelZones[0].transform.position;
+                    break;
+                case ("TopSpawn"):
+                    transform.position = initLoadLevelZones[1].transform.position;
+                    GameObject.FindGameObjectWithTag("MainCamera").transform.position = initLoadLevelZones[1].transform.position;
+                    break;
+                case ("MiddleSpawn"):
+                    transform.position = initLoadLevelZones[2].transform.position;
+                    GameObject.FindGameObjectWithTag("MainCamera").transform.position = initLoadLevelZones[2].transform.position;
+                    break;
+                case ("BottomSpawn"):
+                    transform.position = initLoadLevelZones[3].transform.position;
+                    GameObject.FindGameObjectWithTag("MainCamera").transform.position = initLoadLevelZones[3].transform.position;
+                    break;
+            }
+
             Debug.Log("POPSAOPÅ");
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
