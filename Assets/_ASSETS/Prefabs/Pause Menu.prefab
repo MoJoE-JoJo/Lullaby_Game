@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 1910573518345934053}
   - component: {fileID: 1910573518345934074}
   - component: {fileID: 1910573518345934052}
+  - component: {fileID: 4417769104692485448}
   m_Layer: 5
   m_Name: Resume Button
   m_TagString: Untagged
@@ -290,6 +291,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4417769104692485448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910573518345934054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a0b6fc448b280b42a8773ef59ffa9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Perc: event:/Tones/perc
+  PercVolume: 1
 --- !u!1 &1910573518387052670
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,6 +845,7 @@ GameObject:
   - component: {fileID: 1910573519431437855}
   - component: {fileID: 1910573519431437848}
   - component: {fileID: 1910573519431437849}
+  - component: {fileID: 4894591873759991419}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -960,6 +976,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1674ecd257b4b4d42be3f142fc00b054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4894591873759991419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910573519431437851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a0b6fc448b280b42a8773ef59ffa9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Perc: event:/Tones/perc
+  PercVolume: 1
 --- !u!1 &1910573520140845850
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,6 +1003,7 @@ GameObject:
   - component: {fileID: 1910573520140845854}
   - component: {fileID: 1910573520140845855}
   - component: {fileID: 1910573520140845848}
+  - component: {fileID: 26874235252665659}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -1114,6 +1145,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &26874235252665659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910573520140845850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a0b6fc448b280b42a8773ef59ffa9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Perc: event:/Tones/perc
+  PercVolume: 1
 --- !u!1 &1910573520301768565
 GameObject:
   m_ObjectHideFlags: 0
