@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 101979423}
   - component: {fileID: 101979422}
   - component: {fileID: 101979425}
-  - component: {fileID: 101979426}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
@@ -265,20 +264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &101979426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 101979420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a0b6fc448b280b42a8773ef59ffa9f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Perc: event:/Tones/perc
-  PercVolume: 1
 --- !u!1 &340625299
 GameObject:
   m_ObjectHideFlags: 0
@@ -1340,7 +1325,6 @@ GameObject:
   - component: {fileID: 788761313}
   - component: {fileID: 788761316}
   - component: {fileID: 788761317}
-  - component: {fileID: 788761318}
   m_Layer: 5
   m_Name: Play Button
   m_TagString: Untagged
@@ -1494,20 +1478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &788761318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 788761311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a0b6fc448b280b42a8773ef59ffa9f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Perc: event:/Tones/perc
-  PercVolume: 1
 --- !u!1 &802699940
 GameObject:
   m_ObjectHideFlags: 0
@@ -1791,7 +1761,6 @@ GameObject:
   - component: {fileID: 953714002}
   - component: {fileID: 953714001}
   - component: {fileID: 953714000}
-  - component: {fileID: 953714004}
   m_Layer: 5
   m_Name: Select Level
   m_TagString: Untagged
@@ -1924,20 +1893,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953713998}
   m_CullTransparentMesh: 0
---- !u!114 &953714004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 953713998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a0b6fc448b280b42a8773ef59ffa9f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Perc: event:/Tones/perc
-  PercVolume: 1
 --- !u!1 &966042015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2304,7 +2259,6 @@ GameObject:
   - component: {fileID: 1100833025}
   - component: {fileID: 1100833024}
   - component: {fileID: 1100833027}
-  - component: {fileID: 1100833028}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -2435,20 +2389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1674ecd257b4b4d42be3f142fc00b054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1100833028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1100833022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a0b6fc448b280b42a8773ef59ffa9f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Perc: event:/Tones/perc
-  PercVolume: 1
 --- !u!1 &1160514580 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7139507421816480085, guid: 2ac08e309c3d7984faa34d49e51287b0,
@@ -2515,7 +2455,6 @@ GameObject:
   - component: {fileID: 1303274501}
   - component: {fileID: 1303274500}
   - component: {fileID: 1303274499}
-  - component: {fileID: 1303274503}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -2648,20 +2587,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1303274497}
   m_CullTransparentMesh: 0
---- !u!114 &1303274503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1303274497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a0b6fc448b280b42a8773ef59ffa9f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Perc: event:/Tones/perc
-  PercVolume: 1
 --- !u!1001 &1385029963
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2745,7 +2670,6 @@ GameObject:
   - component: {fileID: 1556223850}
   - component: {fileID: 1556223849}
   - component: {fileID: 1556223848}
-  - component: {fileID: 1556223853}
   m_Layer: 5
   m_Name: Top
   m_TagString: Untagged
@@ -2888,20 +2812,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1556223846}
   m_CullTransparentMesh: 0
---- !u!114 &1556223853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1556223846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a0b6fc448b280b42a8773ef59ffa9f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Perc: event:/Tones/perc
-  PercVolume: 1
 --- !u!1 &1652025861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2915,7 +2825,6 @@ GameObject:
   - component: {fileID: 1652025866}
   - component: {fileID: 1652025865}
   - component: {fileID: 1652025863}
-  - component: {fileID: 1652025864}
   m_Layer: 5
   m_Name: Middle
   m_TagString: Untagged
@@ -2955,20 +2864,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1652025864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1652025861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a0b6fc448b280b42a8773ef59ffa9f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Perc: event:/Tones/perc
-  PercVolume: 1
 --- !u!114 &1652025865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3341,7 +3236,6 @@ GameObject:
   - component: {fileID: 2045723716}
   - component: {fileID: 2045723715}
   - component: {fileID: 2045723713}
-  - component: {fileID: 2045723714}
   m_Layer: 5
   m_Name: Bottom
   m_TagString: Untagged
@@ -3381,20 +3275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69c3fcc22e5eb4baaffa06392bd7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2045723714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2045723711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a0b6fc448b280b42a8773ef59ffa9f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Perc: event:/Tones/perc
-  PercVolume: 1
 --- !u!114 &2045723715
 MonoBehaviour:
   m_ObjectHideFlags: 0
