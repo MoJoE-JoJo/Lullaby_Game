@@ -6,6 +6,7 @@ public class BellActivator : Activator
 {
     private Coroutine _coroutine;
     [SerializeField] private float _delay;
+    [SerializeField] private GameObject invisExitBlock;
     
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class BellActivator : Activator
     private IEnumerator StartActions()
     {
         yield return new WaitForSeconds(_delay);
+        invisExitBlock.SetActive(true);
         foreach (var action in actions)
         {
             action.Activate();
