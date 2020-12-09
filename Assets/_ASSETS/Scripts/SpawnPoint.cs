@@ -18,21 +18,21 @@ public class SpawnPoint : MonoBehaviour
                 switch (name)
                 {
                     case ("TutorialSpawn"):
-                        global.intensity = 0.8f;
+                        global.intensity = 0.56f;
                         transform.position = initLoadLevelZones[0].transform.position;
                         pos = initLoadLevelZones[0].transform.position;
                         pos.z = GameObject.FindGameObjectWithTag("MainCamera").transform.position.z;
                         GameObject.FindGameObjectWithTag("MainCamera").transform.position = pos;
                         break;
                     case ("TopSpawn"):
-                        global.intensity = 0.8f;
+                        global.intensity = 0.56f;
                         transform.position = initLoadLevelZones[1].transform.position;
                         pos = initLoadLevelZones[1].transform.position;
                         pos.z = GameObject.FindGameObjectWithTag("MainCamera").transform.position.z;
                         GameObject.FindGameObjectWithTag("MainCamera").transform.position = pos;
                         break;
                     case ("MiddleSpawn"):
-                        global.intensity = 0.5f;
+                        global.intensity = 0.3f;
                         transform.position = initLoadLevelZones[2].transform.position;
                         pos = initLoadLevelZones[2].transform.position;
                         pos.z = GameObject.FindGameObjectWithTag("MainCamera").transform.position.z;
@@ -41,7 +41,7 @@ public class SpawnPoint : MonoBehaviour
                         ele1.transform.position = GameObject.Find("Elevator2").transform.position;
                         break;
                     case ("BottomSpawn"):
-                        global.intensity = 0.2f;
+                        global.intensity = 0.1f;
                         transform.position = initLoadLevelZones[3].transform.position;
                         pos = initLoadLevelZones[3].transform.position;
                         pos.z = GameObject.FindGameObjectWithTag("MainCamera").transform.position.z;

@@ -41,11 +41,11 @@ public class WagonPull : MonoBehaviour
         if(pullDirection == Wagon_Pull.RIGHT)
         {
             _lightRight.intensity = 0;
-            _lightLeft.intensity = 1;
+            _lightLeft.intensity = 4;
         }
         else
         {
-            _lightRight.intensity = 1;
+            _lightRight.intensity = 4;
             _lightLeft.intensity = 0;
         }
     }
@@ -79,7 +79,7 @@ public class WagonPull : MonoBehaviour
         {
             _isPulling = false;
             pullDirection = Wagon_Pull.LEFT;
-            DOTween.To(()=> _lightRight.intensity, x=> _lightRight.intensity = x, 1, 0.3f);
+            DOTween.To(()=> _lightRight.intensity, x=> _lightRight.intensity = x, 4, 0.3f);
             DOTween.To(()=> _lightLeft.intensity, x=> _lightLeft.intensity = x, 0, 0.3f);
             //_lightRight.intensity = 1;
             //_lightLeft.intensity = 0;
@@ -89,7 +89,7 @@ public class WagonPull : MonoBehaviour
             _isPulling = false;
             pullDirection = Wagon_Pull.RIGHT;
             DOTween.To(()=> _lightRight.intensity, x=> _lightRight.intensity = x, 0, 0.3f);
-            DOTween.To(()=> _lightLeft.intensity, x=> _lightLeft.intensity = x, 1, 0.3f);
+            DOTween.To(()=> _lightLeft.intensity, x=> _lightLeft.intensity = x, 4, 0.3f);
 
             //_lightRight.intensity = 0;
             //_lightLeft.intensity = 1;
