@@ -38,7 +38,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312309415}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1447819675}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2011347469}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
@@ -589,15 +589,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Draw Bridge
   playOnce: 0
+  dontLoopOnActive: 0
   oneFrameLateStart: 0
   volume: 1
   stopLoopAfterDuration: 0
+  useProximity: 0
+  radius: 5
   usingParameter: 0
   FmodParameter:
     parameter: 
     value: 0
-    time: 0
+    timeBeforeChange: 0
     startValue: 0
+  playFromStart: 0
+  state: 1
 --- !u!1 &3098322909481191330
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +851,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2129325907
-  m_SortingLayer: 2
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ab13be2a08a7f4c4fa31ad4bae0eaa84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -999,15 +1004,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Draw Bridge
   playOnce: 0
+  dontLoopOnActive: 0
   oneFrameLateStart: 0
   volume: 1
   stopLoopAfterDuration: 0
+  useProximity: 0
+  radius: 5
   usingParameter: 0
   FmodParameter:
     parameter: 
     value: 0
-    time: 0
+    timeBeforeChange: 0
     startValue: 0
+  playFromStart: 0
+  state: 1
 --- !u!114 &3505738756211833744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1022,15 +1032,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Lock
   playOnce: 0
+  dontLoopOnActive: 0
   oneFrameLateStart: 0
   volume: 1
   stopLoopAfterDuration: 0
+  useProximity: 0
+  radius: 5
   usingParameter: 0
   FmodParameter:
     parameter: 
     value: 0
-    time: 0
+    timeBeforeChange: 0
     startValue: 0
+  playFromStart: 0
+  state: 1
 --- !u!1 &3098322910196743458
 GameObject:
   m_ObjectHideFlags: 0

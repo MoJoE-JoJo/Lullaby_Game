@@ -176,6 +176,10 @@ MonoBehaviour:
   useProximity: 1
   radius: 8
   minAirTime: 0.8
+  usingParameter: 0
+  FmodParameter:
+    parameter: 
+    value: 0
 --- !u!1 &376085305607228421
 GameObject:
   m_ObjectHideFlags: 0

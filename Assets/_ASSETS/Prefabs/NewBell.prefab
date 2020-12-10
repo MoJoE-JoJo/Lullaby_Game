@@ -669,6 +669,7 @@ MonoBehaviour:
   - {fileID: 8396063153316772076}
   - {fileID: 8396063154656941879}
   _delay: 0.12
+  invisExitBlock: {fileID: 0}
 --- !u!114 &8396063154656940238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1114,7 +1115,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 3919175825192016540}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 

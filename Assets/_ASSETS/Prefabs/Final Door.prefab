@@ -98,7 +98,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7705773051881241138}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
   m_Name: 
@@ -143,6 +143,7 @@ MonoBehaviour:
   useLinearMovement: 0
   disableActivateOnFinish: 1
   resetSlowyWhenDeactivated: 0
+  needsPlayerOnTop: 0
 --- !u!114 &7705773051881241132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +170,7 @@ MonoBehaviour:
   useLinearMovement: 0
   disableActivateOnFinish: 1
   resetSlowyWhenDeactivated: 0
+  needsPlayerOnTop: 0
 --- !u!114 &7705773051881241133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +197,7 @@ MonoBehaviour:
   useLinearMovement: 0
   disableActivateOnFinish: 1
   resetSlowyWhenDeactivated: 0
+  needsPlayerOnTop: 0
 --- !u!114 &7705773051881241134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,6 +224,7 @@ MonoBehaviour:
   useLinearMovement: 0
   disableActivateOnFinish: 1
   resetSlowyWhenDeactivated: 0
+  needsPlayerOnTop: 0
 --- !u!61 &2111407779
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -683,7 +687,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7705773052165510823}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
   m_Name: 
@@ -728,6 +732,7 @@ MonoBehaviour:
   useLinearMovement: 0
   disableActivateOnFinish: 1
   resetSlowyWhenDeactivated: 0
+  needsPlayerOnTop: 0
 --- !u!114 &7705773052165510816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -754,6 +759,7 @@ MonoBehaviour:
   useLinearMovement: 0
   disableActivateOnFinish: 1
   resetSlowyWhenDeactivated: 0
+  needsPlayerOnTop: 0
 --- !u!114 &7705773052165510817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,6 +786,7 @@ MonoBehaviour:
   useLinearMovement: 0
   disableActivateOnFinish: 1
   resetSlowyWhenDeactivated: 0
+  needsPlayerOnTop: 0
 --- !u!114 &7705773052165510818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,6 +813,7 @@ MonoBehaviour:
   useLinearMovement: 0
   disableActivateOnFinish: 1
   resetSlowyWhenDeactivated: 0
+  needsPlayerOnTop: 0
 --- !u!61 &768520862
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1330,9 +1338,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0f9e9fc70622e4dab6c78710aeec42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorLight: {fileID: 0}
-  newIntensity: 20.85
+  whiteOverlay: {fileID: 0}
   fadeTime: 2.5
+  endCredits: 0
 --- !u!1 &7705773052843010432
 GameObject:
   m_ObjectHideFlags: 0

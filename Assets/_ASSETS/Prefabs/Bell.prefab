@@ -186,9 +186,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEvent: event:/Environment/Bell
   playOnce: 1
+  dontLoopOnActive: 0
   oneFrameLateStart: 0
   volume: 1
   stopLoopAfterDuration: 0
+  useProximity: 0
+  radius: 5
+  usingParameter: 0
+  FmodParameter:
+    parameter: 
+    value: 0
+    timeBeforeChange: 0
+    startValue: 0
+  playFromStart: 0
+  state: 1
 --- !u!114 &2002561824420962175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,7 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightSource: {fileID: 0}
-  OnActivateIntensity: 1.5
+  onActivateIntensity: 0
   changeLightColor: 1
   lightColor: {r: 0.049439307, g: 0.9528302, b: 0.13733412, a: 0}
   usePressure: 0
