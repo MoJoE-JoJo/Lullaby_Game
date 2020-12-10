@@ -102,7 +102,7 @@ MonoBehaviour:
   m_LightVolumeOpacity: 0.5
   m_ApplyToSortingLayers: 574f90f0099e62db8188ba59ad101581000000007b995f18679b4acf
   m_LightCookieSprite: {fileID: 0}
-  m_UseNormalMap: 1
+  m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
   m_ShadowIntensity: 0
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_LightVolumeOpacity: 0.5
   m_ApplyToSortingLayers: 574f90f0099e62db8188ba59ad101581000000007b995f18679b4acf
   m_LightCookieSprite: {fileID: 0}
-  m_UseNormalMap: 1
+  m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
   m_ShadowIntensity: 0
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_LightVolumeOpacity: 0.5
   m_ApplyToSortingLayers: 574f90f0099e62db8188ba59ad101581000000007b995f18679b4acf
   m_LightCookieSprite: {fileID: 0}
-  m_UseNormalMap: 1
+  m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
   m_ShadowIntensity: 0
@@ -568,7 +568,7 @@ MonoBehaviour:
   m_LightVolumeOpacity: 0.5
   m_ApplyToSortingLayers: 574f90f0099e62db8188ba59ad101581000000007b995f18679b4acf
   m_LightCookieSprite: {fileID: 0}
-  m_UseNormalMap: 1
+  m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
   m_ShadowIntensity: 0
@@ -700,7 +700,7 @@ MonoBehaviour:
   m_LightVolumeOpacity: 0.5
   m_ApplyToSortingLayers: 574f90f0099e62db8188ba59ad101581000000007b995f18679b4acf
   m_LightCookieSprite: {fileID: 0}
-  m_UseNormalMap: 1
+  m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
   m_ShadowIntensity: 0
@@ -832,7 +832,7 @@ MonoBehaviour:
   m_LightVolumeOpacity: 0.5
   m_ApplyToSortingLayers: 574f90f0099e62db8188ba59ad101581000000007b995f18679b4acf
   m_LightCookieSprite: {fileID: 0}
-  m_UseNormalMap: 1
+  m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
   m_ShadowIntensity: 0
