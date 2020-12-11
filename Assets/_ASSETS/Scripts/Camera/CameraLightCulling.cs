@@ -59,8 +59,8 @@ public class CameraLightCulling : MonoBehaviour
     {
         if (!scene.name.Equals("StartScreen"))
         {
-            collider = GetComponent<BoxCollider2D>();
-            LoadLights();
+            //collider = GetComponent<BoxCollider2D>();
+            //LoadLights();
         }
     }
 
