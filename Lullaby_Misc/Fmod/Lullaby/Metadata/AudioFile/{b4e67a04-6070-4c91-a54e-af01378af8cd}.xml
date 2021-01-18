@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{b4e67a04-6070-4c91-a54e-af01378af8cd}">
+		<property name="assetPath">
+			<value>Tones/OtherEdits/A2_Synth-001.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>47.985192743764173</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{acb71607-2c3d-482e-828c-fd068c1b75f7}</destination>
+		</relationship>
+	</object>
+</objects>

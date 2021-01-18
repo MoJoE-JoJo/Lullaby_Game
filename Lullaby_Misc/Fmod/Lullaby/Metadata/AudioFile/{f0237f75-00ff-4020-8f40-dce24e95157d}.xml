@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{f0237f75-00ff-4020-8f40-dce24e95157d}">
+		<property name="assetPath">
+			<value>Environment/Elevator/RockSlides-001.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>7.5</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{acb71607-2c3d-482e-828c-fd068c1b75f7}</destination>
+		</relationship>
+	</object>
+</objects>

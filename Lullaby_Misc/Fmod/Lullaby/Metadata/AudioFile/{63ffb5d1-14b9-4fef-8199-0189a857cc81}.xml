@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{63ffb5d1-14b9-4fef-8199-0189a857cc81}">
+		<property name="assetPath">
+			<value>Other/PhasePers05.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>5.0526249999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{acb71607-2c3d-482e-828c-fd068c1b75f7}</destination>
+		</relationship>
+	</object>
+</objects>

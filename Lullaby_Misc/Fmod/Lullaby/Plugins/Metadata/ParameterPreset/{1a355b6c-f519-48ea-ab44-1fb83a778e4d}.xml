@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="ParameterPreset" id="{1a355b6c-f519-48ea-ab44-1fb83a778e4d}">
+		<property name="name">
+			<value>wasSingingOtherTone</value>
+		</property>
+		<relationship name="folder">
+			<destination>{96d965a5-5511-4648-a483-0ccaf2853a32}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{1cc3abbb-c779-4bc4-bbd4-65ef678c177c}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{1cc3abbb-c779-4bc4-bbd4-65ef678c177c}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

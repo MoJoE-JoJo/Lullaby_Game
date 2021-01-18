@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="ParameterPreset" id="{8a8630bf-76e3-47a4-b37a-5d2218c9825a}">
+		<property name="name">
+			<value>Slide</value>
+		</property>
+		<relationship name="folder">
+			<destination>{96d965a5-5511-4648-a483-0ccaf2853a32}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{9999fad4-7b12-440f-8cc3-1e53b0d9cfb1}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{9999fad4-7b12-440f-8cc3-1e53b0d9cfb1}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>3</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

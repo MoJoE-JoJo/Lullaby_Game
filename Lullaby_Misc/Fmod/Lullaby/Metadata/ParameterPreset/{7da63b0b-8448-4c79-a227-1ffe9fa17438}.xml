@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="ParameterPreset" id="{7da63b0b-8448-4c79-a227-1ffe9fa17438}">
+		<property name="name">
+			<value>isSinging</value>
+		</property>
+		<relationship name="folder">
+			<destination>{96d965a5-5511-4648-a483-0ccaf2853a32}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{b178973f-08af-45d1-af74-693292f81707}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{b178973f-08af-45d1-af74-693292f81707}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
