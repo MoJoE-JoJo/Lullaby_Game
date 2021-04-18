@@ -20,10 +20,12 @@ public class GameManager : MonoBehaviour
     private RumbleAction[] rumblers;
     private PlayerControls _controls;
     private bool paused = false;
+    private bool controlsDisplayed = false;
     private float originalTimeScale;
     private PlayerController pc;
     private float fixedDeltaTime;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject ControlScreen;
     private SoundAction[] soundActions;
 
     private void Awake()
@@ -33,6 +35,11 @@ public class GameManager : MonoBehaviour
         soundActions = Resources.FindObjectsOfTypeAll<SoundAction>();
         _controls = new PlayerControls();
         _controls.GameManager.ReloadScene.performed += context => ReloadScene();
+        _controls.GameManager.ViewControls.performed += context =>
+        {
+            if (!controlsDisplayed) ControlsView();
+            else if (controlsDisplayed) ControlsHide();
+        };
         _controls.GameManager.PauseGame.performed += context =>
         {
             if (!paused) PauseGame();
@@ -43,6 +50,19 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         this.fixedDeltaTime = Time.fixedDeltaTime;
+        ControlScreen.SetActive(false);
+    }
+
+    public void ControlsView()
+    {
+        ControlScreen.SetActive(true);
+        controlsDisplayed = true;
+    }
+
+    public void ControlsHide()
+    {
+        ControlScreen.SetActive(false);
+        controlsDisplayed = false;
     }
 
     public void PauseGame()

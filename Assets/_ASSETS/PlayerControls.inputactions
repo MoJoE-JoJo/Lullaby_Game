@@ -172,6 +172,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ViewControls",
+                    "type": "Button",
+                    "id": "a32c9996-2c8c-416d-906f-59df62651d51",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -194,6 +202,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20470755-c5d0-48c1-91f8-f9baeeb076bd",
+                    "path": "<Keyboard>/#(.)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21a06956-a953-46b3-a2ff-f041a6b15d05",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ViewControls",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf7bbef6-66bd-4070-9500-4310647a7a70",
+                    "path": "<Keyboard>/#(æ)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ViewControls",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
