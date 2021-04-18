@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
     public SoundAction[] SoundActions
     {
         get => soundActions;
@@ -26,6 +27,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     private SoundAction[] soundActions;
 
+    public Telemetry.LevelData levelData;
+
     private void Awake()
     {
         rumblers = Resources.FindObjectsOfTypeAll<RumbleAction>();
@@ -43,6 +46,33 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         this.fixedDeltaTime = Time.fixedDeltaTime;
+
+        // == data telemetry stuff
+        if (Instance == null)
+        {
+            Instance = this;
+            //this is what generates a unique id for the Game session. 
+            Telemetry.GenerateNewRunID();
+        }
+    }
+    private void Start()
+    {
+        ClearTelemetryData();
+    }
+
+    //This function make sure to clear all the data. 
+    public void ClearTelemetryData()
+    {
+        levelData.checkpoint = "";
+        levelData.test = "";
+        levelData.starttime = TimeSpan.Zero;
+        levelData.endtime = TimeSpan.Zero;
+    }
+
+    public void SubmitLevelData()
+    {
+        StartCoroutine(Telemetry.SubmitGoogleForm(levelData));
+        ClearTelemetryData();
     }
 
     public void PauseGame()
