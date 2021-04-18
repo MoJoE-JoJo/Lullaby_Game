@@ -8,52 +8,104 @@ using System.Threading;
 
 public class Telemetry : MonoBehaviour
 {
-    public struct LevelData
-    {
-        public TimeSpan starttime;
-        public TimeSpan endtime;
-        public string checkpoint;
-        public string test;
-    }
-
-    private const string GoogleFormBaseUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfr2e5yW7SNHtHaSDIS_nF389BAqTu2Z4MMosTJ9ZhYQ9qQog/";
-
-    // Temeletry form variables
-
-    private const string _form_userID = "entry.2064545113";
-    private const string _form_Checkpoint = "entry.279454377";
-    private const string _form_TimeStamp = "entry.1360576512";
-    private const string _form_Test = "entry.1188483497";
-
+    //used for all surveys
     private static Guid runID;
 
-    public static IEnumerator SubmitGoogleForm(LevelData data)
+    // === Player movement tracking ===
+    public struct PlayerMovement
     {
+        public string checkpoint;
+        public TimeSpan timestamp;
+    }
+    private const string PlayerMovementURL= "https://docs.google.com/forms/d/e/1FAIpQLSfr2e5yW7SNHtHaSDIS_nF389BAqTu2Z4MMosTJ9ZhYQ9qQog/";
 
+    private const string player_movement_form_run_ID = "entry.2064545113";
+    private const string player_movement_form_checkpoint = "entry.279454377";
+    private const string player_movement_form_timestamp = "entry.1360576512";
+
+    public static IEnumerator SubmitPlayerMovement(PlayerMovement data)
+    {
+        // == config request ==
         CultureInfo ci = CultureInfo.GetCultureInfo("en-GB");
         Thread.CurrentThread.CurrentCulture = ci;
-
-        string urlGoogleFormResponse = GoogleFormBaseUrl + "formResponse";
-
+        string fullURL = PlayerMovementURL + "formResponse";
         WWWForm form = new WWWForm();
 
-        var timeTaken = data.endtime - data.starttime;
+        // == preprocess values ==
+        //var poop = 1+2;
 
-        form.AddField(_form_userID, GUIDToShortString(runID));
-        form.AddField(_form_Checkpoint, data.checkpoint);
-        form.AddField(_form_TimeStamp, timeTaken.ToString());
-        form.AddField(_form_Test, data.test);
-        //UnityWebRequest www = UnityWebRequest.Post(urlGoogleFormResponse, form);
-        using (UnityWebRequest www = UnityWebRequest.Post(urlGoogleFormResponse, form))
+        // == Build the form request ==
+        form.AddField(player_movement_form_run_ID, GUIDToShortString(runID));
+        form.AddField(player_movement_form_checkpoint, data.checkpoint);
+        form.AddField(player_movement_form_timestamp, data.timestamp.ToString());
+
+        // == Send the request ==
+        using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
         {
-            yield return www.SendWebRequest();
+            //yield return www.SendWebRequest(); //TODO
             yield return null;
-            Debug.Log(GUIDToShortString(runID));
-            Debug.Log(data.checkpoint);
-            Debug.Log(timeTaken);
             print("request sent");
         }
     }
+
+
+    // === puzzle_completion tracking ===
+    public struct PuzzleCompletion
+    {
+        public string puzzle_name;
+
+        public float startTime;
+        public float endTime;
+
+        public float time_singing;
+        public float wagon_movement;
+        public int note_lock_count;
+        public int note_unlock_count;
+    }
+    private const string puzzle_completion_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdfjEDzXpGSscKO8EtFXk9er3OxBLcHTU2BwB9hHDcj5Yap8A/";
+
+    private const string puzzle_completion_form_run_ID = "entry.2064545113";
+    private const string puzzle_completion_form_puzzle_name = "entry.279454377";
+    private const string puzzle_completion_form_time_taken_to_beat = "entry.1360576512";
+    private const string puzzle_completion_form_total_time_singing = "entry.940067483";
+    private const string puzzle_completion_form_total_wagon_negative_movement = "entry.954712932";
+    private const string puzzle_completion_form_node_lock_count = "entry.238299487";
+    private const string puzzle_completion_form_total_node_unlock_count = "entry.1741935023";
+
+    public static IEnumerator SubmitPuzzleCompletion(PuzzleCompletion data)
+    {
+        // == config request ==
+        CultureInfo ci = CultureInfo.GetCultureInfo("en-GB");
+        Thread.CurrentThread.CurrentCulture = ci;
+        string fullURL = puzzle_completion_URL + "formResponse";
+        WWWForm form = new WWWForm();
+
+        // == preprocess values ==
+        var time_taken = TimeSpan.FromSeconds(data.endTime - data.startTime);
+
+        // == Build the form request ==
+        form.AddField(puzzle_completion_form_run_ID, GUIDToShortString(runID));
+        form.AddField(puzzle_completion_form_puzzle_name, data.puzzle_name);
+        form.AddField(puzzle_completion_form_time_taken_to_beat, time_taken.ToString());
+
+        form.AddField(puzzle_completion_form_total_time_singing, data.time_singing.ToString());
+        form.AddField(puzzle_completion_form_total_wagon_negative_movement, data.wagon_movement.ToString());
+
+        form.AddField(puzzle_completion_form_node_lock_count, data.note_lock_count.ToString());
+        form.AddField(puzzle_completion_form_total_node_unlock_count, data.note_unlock_count.ToString());
+
+        // == Send the request ==
+        using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
+        {
+            yield return www.SendWebRequest();
+            yield return null;
+            print("request sent");
+        }
+    }
+
+
+
+    // === Used by all ===
 
     public static void GenerateNewRunID()
     {

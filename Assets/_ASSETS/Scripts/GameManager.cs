@@ -27,7 +27,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     private SoundAction[] soundActions;
 
-    public Telemetry.LevelData levelData;
+
+    // === TELEMETRY STUFF ===
+    public Telemetry.PlayerMovement playerMovement;
+    public Telemetry.PuzzleCompletion puzzleCompletion;
+
+
+    // === New VARIABLES ===
+    public float total_run_timestamp = 0f;
+    public float current_puzzle_timestamp = 0f;
+
 
     private void Awake()
     {
@@ -60,20 +69,33 @@ public class GameManager : MonoBehaviour
         ClearTelemetryData();
     }
 
+    private void Update()
+    {
+        total_run_timestamp += Time.deltaTime;
+        if (true) // add condition for when a puzzle is entered
+        { 
+            current_puzzle_timestamp += Time.deltaTime;
+        }
+    }
+
+
     //This function make sure to clear all the data. 
     public void ClearTelemetryData()
     {
-        levelData.checkpoint = "";
-        levelData.test = "";
-        levelData.starttime = TimeSpan.Zero;
-        levelData.endtime = TimeSpan.Zero;
+        playerMovement.checkpoint = "";
+        playerMovement.timestamp = TimeSpan.Zero;
     }
 
-    public void SubmitLevelData()
+    public void SubmitPlayerMovement()
     {
-        StartCoroutine(Telemetry.SubmitGoogleForm(levelData));
-        ClearTelemetryData();
+        StartCoroutine(Telemetry.SubmitPlayerMovement(playerMovement));
     }
+
+    public void SubmitPuzzleCompletion()
+    {
+        StartCoroutine(Telemetry.SubmitPuzzleCompletion(puzzleCompletion));
+    }
+
 
     public void PauseGame()
     {

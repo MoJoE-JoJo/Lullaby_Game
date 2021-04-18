@@ -48,9 +48,11 @@ public class WagonPull : MonoBehaviour
             _lightRight.intensity = 4;
             _lightLeft.intensity = 0;
         }
+        prevPos = transform.position;
     }
-    
 
+
+    private Vector2 prevPos;
     private void Update()
     {
         if (_isPulling)
@@ -59,17 +61,23 @@ public class WagonPull : MonoBehaviour
             {
                 case Wagon_Pull.RIGHT:
                     transform.position += Vector3.right * (pullForce * Time.deltaTime);
+
+                    if (prevPos.x > transform.position.x) GameManager.Instance.puzzleCompletion.wagon_movement += Mathf.Abs(prevPos.x - transform.position.x);
+
                     //_wagonRigidbody2D.AddForce(Vector2.right*pullForce);
                     //_wagonRigidbody2D.MovePosition(_wagonRigidbody2D.position + Vector2.right * (pullForce * Time.fixedDeltaTime));
                     //_wagonRigidbody2D.velocity =Vector2.right*pullForce;
                     break;
                 case Wagon_Pull.LEFT:
                     transform.position += Vector3.left * (pullForce * Time.deltaTime);
+                    if (prevPos.x < transform.position.x) GameManager.Instance.puzzleCompletion.wagon_movement += Mathf.Abs(prevPos.x - transform.position.x);
+
                     //_wagonRigidbody2D.AddForce(Vector2.left*pullForce);
                     //_wagonRigidbody2D.MovePosition(_wagonRigidbody2D.position + Vector2.left * (pullForce * Time.fixedDeltaTime));
                     //_wagonRigidbody2D.velocity =Vector2.left*pullForce;
                     break;
             }    
+            prevPos = transform.position;
         }
     }
 
@@ -108,5 +116,4 @@ public class WagonPull : MonoBehaviour
     {
         _wagonRigidbody2D.velocity = Vector2.zero;
     }
-    
 }

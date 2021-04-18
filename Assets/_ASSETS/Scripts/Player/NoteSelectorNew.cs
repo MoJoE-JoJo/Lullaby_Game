@@ -152,6 +152,8 @@ public class NoteSelectorNew : MonoBehaviour
 
     void Update()
     {
+        if (_singButtonDown) GameManager.Instance.puzzleCompletion.time_singing += Time.deltaTime;
+
         CenterNoteSelector();
         MoveSelector();
         
@@ -468,6 +470,8 @@ public class NoteSelectorNew : MonoBehaviour
         {
             if (!_imagesLocked.ContainsKey(entry.Key))
             {
+                //note locked in
+                GameManager.Instance.puzzleCompletion.note_lock_count += 1;
                 _imagesLocked.Add(entry.Key, entry.Value);
                 _segments[entry.Key].transform.localPosition *= lockOffsetAmount;
                 if (!_currentSongString.Contains(entry.Key))
@@ -477,6 +481,8 @@ public class NoteSelectorNew : MonoBehaviour
             }
             else
             {
+                //note unlocked
+                GameManager.Instance.puzzleCompletion.note_unlock_count += 1; 
                 _imagesLocked.Remove(entry.Key);
                 _segments[entry.Key].transform.localPosition /= lockOffsetAmount;
             }
