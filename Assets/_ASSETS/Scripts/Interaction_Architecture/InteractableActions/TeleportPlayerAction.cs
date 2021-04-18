@@ -85,6 +85,8 @@ public class TeleportPlayerAction : InteractableAction
 
         else if (state == State_TeleportPlayerAction.FADINGIN)
         {
+            Debug.Log("End Game");
+            Application.Quit();
             timer += Time.deltaTime;
             if (timer > fadeTime)
             {
