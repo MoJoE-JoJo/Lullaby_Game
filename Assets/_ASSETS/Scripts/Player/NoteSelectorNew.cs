@@ -9,7 +9,7 @@ public class NoteSelectorNew : MonoBehaviour
     [SerializeField] private bool fillWheel; //rotates between our 2 implemented wheel modes;
 
     private Camera _mainCamera;
-    
+
     private PlayerControls _controls;
     private PlayerController _playerController;
     private bool _startedSinging;
@@ -34,7 +34,7 @@ public class NoteSelectorNew : MonoBehaviour
     private Image _backgroundD;
     private Image _backgroundE;
     private Image _backgroundF;
-    
+
     private GameObject _segmentA;
     private GameObject _segmentB;
     private GameObject _segmentC;
@@ -48,7 +48,7 @@ public class NoteSelectorNew : MonoBehaviour
     private GameObject _maskD;
     private GameObject _maskE;
     private GameObject _maskF;
-    
+
 
     [SerializeField] private float lockOffsetAmount;
 
@@ -75,7 +75,7 @@ public class NoteSelectorNew : MonoBehaviour
 
     private bool _singButtonDown;
     private float _singVolume;
-    
+
     void Awake()
     {
         _currentSong = new SongData("A")
@@ -84,7 +84,7 @@ public class NoteSelectorNew : MonoBehaviour
         };
 
         _lastSong = _currentSong;
-        
+
         SetupControls();
 
         _segmentA = this.transform.Find("SegmentA").gameObject;
@@ -107,7 +107,7 @@ public class NoteSelectorNew : MonoBehaviour
         _backgroundD = _segmentD.transform.Find("Background").GetComponent<Image>();
         _backgroundE = _segmentE.transform.Find("Background").GetComponent<Image>();
         _backgroundF = _segmentF.transform.Find("Background").GetComponent<Image>();
-        
+
         _fillA = _maskA.transform.Find("Filling").GetComponent<Image>();
         _fillB = _maskB.transform.Find("Filling").GetComponent<Image>();
         _fillC = _maskC.transform.Find("Filling").GetComponent<Image>();
@@ -116,7 +116,7 @@ public class NoteSelectorNew : MonoBehaviour
         _fillF = _maskF.transform.Find("Filling").GetComponent<Image>();
 
         _selector = this.transform.Find("Selector").gameObject;
-        
+
         //fill background images
         _backgrounds.Add("A", _backgroundA);
         _backgrounds.Add("B", _backgroundB);
@@ -124,8 +124,8 @@ public class NoteSelectorNew : MonoBehaviour
         _backgrounds.Add("D", _backgroundD);
         _backgrounds.Add("E", _backgroundE);
         _backgrounds.Add("F", _backgroundF);
-        
-        
+
+
         //fill segments
         _segments.Add("A", _segmentA);
         _segments.Add("B", _segmentB);
@@ -133,7 +133,7 @@ public class NoteSelectorNew : MonoBehaviour
         _segments.Add("D", _segmentD);
         _segments.Add("E", _segmentE);
         _segments.Add("F", _segmentF);
-        
+
         //fill fills
         _fills.Add("A", _fillA);
         _fills.Add("B", _fillB);
@@ -141,7 +141,7 @@ public class NoteSelectorNew : MonoBehaviour
         _fills.Add("D", _fillD);
         _fills.Add("E", _fillE);
         _fills.Add("F", _fillF);
-        
+
         _mainCamera = Camera.main;
     }
 
@@ -150,20 +150,46 @@ public class NoteSelectorNew : MonoBehaviour
 
     }
 
+    private bool wasSingButtonDown = false;
+
     void Update()
     {
-        if (_singButtonDown) GameManager.Instance.puzzleCompletion.time_singing += Time.deltaTime;
+        var gm = GameManager.Instance;
+        if (_singButtonDown)
+        {
+            gm.puzzleCompletion.time_singing += Time.deltaTime;
+            if (gm.puzzleCompletion.puzzle_name == "")
+            {
+                //update time outside puzzle
+                gm.overallstats.total_time_singing_outside_puzzle += Time.deltaTime;
+            }
+            //update time doing puzzle
+            else gm.overallstats.total_time_singing_doing_puzzle += Time.deltaTime;
+        }
+
+        if (!wasSingButtonDown && _singButtonDown)
+        {
+            if (gm.puzzleCompletion.puzzle_name == "")
+            {
+                //update activation time
+                gm.overallstats.note_activation_outside_puzzle += 1;
+            }
+            //update time doing puzzle
+            else gm.overallstats.note_activation_in_puzzle += 1;
+        }
+
+        wasSingButtonDown = _singButtonDown;
 
         CenterNoteSelector();
         MoveSelector();
-        
+
         if (fillWheel)
         {
             FillNotes();
         }
         else
         {
-            FillNotes2();    
+            FillNotes2();
         }
         EmptyNotes();
         GetNote();
@@ -190,14 +216,14 @@ public class NoteSelectorNew : MonoBehaviour
         {
             fill.Value.gameObject.transform.localPosition = _initialPosition;
         }
-        
+
         foreach (var background in _backgrounds)
         {
             var tempColor = _backgrounds[background.Key].color;
             tempColor.a = initialBackgroundAlpha;
             _backgrounds[background.Key].color = tempColor;
         }
-        
+
         foreach (var entry in _imagesLocked)
         {
             //_segments[entry.Key].transform.localPosition /= lockOffsetAmount;
@@ -216,7 +242,7 @@ public class NoteSelectorNew : MonoBehaviour
     void FillNotes()
     {
         //first fill (or empty images locked)
-        foreach (KeyValuePair<String,Image> entry in _imagesLocked)
+        foreach (KeyValuePair<String, Image> entry in _imagesLocked)
         {
             //increase background alpha
             var tempColor = _backgrounds[entry.Key].color;
@@ -230,8 +256,8 @@ public class NoteSelectorNew : MonoBehaviour
             {
                 entry.Value.gameObject.transform.localPosition = new Vector3(
                     0,
-                    Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y-(_initialPosition.y*_singVolume), fillRatio));
-                if(!_currentSongString.Contains(entry.Key))
+                    Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y - (_initialPosition.y * _singVolume), fillRatio));
+                if (!_currentSongString.Contains(entry.Key))
                 {
                     _currentSongString += entry.Key;
                 }
@@ -242,9 +268,9 @@ public class NoteSelectorNew : MonoBehaviour
                     0, Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y, fillRatio));
             }
         }
-        
+
         //then if there are images selected that are not locked, fill or empty them
-        foreach (KeyValuePair<String,Image> entry in _imagesToFill)
+        foreach (KeyValuePair<String, Image> entry in _imagesToFill)
         {
             var tempColor = _backgrounds[entry.Key].color;
             tempColor.a = hoverBackgroundAlpha;
@@ -258,8 +284,8 @@ public class NoteSelectorNew : MonoBehaviour
                 {
                     entry.Value.gameObject.transform.localPosition = new Vector3(
                         0,
-                        Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y-(_initialPosition.y*_singVolume), fillRatio));
-                    if(!_currentSongString.Contains(entry.Key))
+                        Mathf.Lerp(entry.Value.gameObject.transform.localPosition.y, _initialPosition.y - (_initialPosition.y * _singVolume), fillRatio));
+                    if (!_currentSongString.Contains(entry.Key))
                     {
                         _currentSongString += entry.Key;
                     }
@@ -272,27 +298,27 @@ public class NoteSelectorNew : MonoBehaviour
                 }
             }
         }
-        
+
     }
-    
+
     //method for filling the wheel with alpha color
     void FillNotes2()
     {
         //first fill (or empty images locked)
-        foreach (KeyValuePair<String,Image> entry in _imagesLocked)
+        foreach (KeyValuePair<String, Image> entry in _imagesLocked)
         {
             var tempColor = _backgrounds[entry.Key].color;
 
             float currentAlpha = tempColor.a;
             float futureColor;
-            
+
             if (_singButtonDown)
             {
                 futureColor = initialBackgroundAlpha + (1 - initialBackgroundAlpha) * _singVolume;
                 tempColor.a = futureColor;
                 _backgrounds[entry.Key].color = tempColor;
-                
-                if(!_currentSongString.Contains(entry.Key))
+
+                if (!_currentSongString.Contains(entry.Key))
                 {
                     _currentSongString += entry.Key;
                 }
@@ -308,9 +334,9 @@ public class NoteSelectorNew : MonoBehaviour
                 _currentSongString = "";
             }
         }
-        
+
         //then if there are images selected that are not locked, fill or empty them
-        foreach (KeyValuePair<String,Image> entry in _imagesToFill)
+        foreach (KeyValuePair<String, Image> entry in _imagesToFill)
         {
             var tempColor = _backgrounds[entry.Key].color;
 
@@ -343,12 +369,12 @@ public class NoteSelectorNew : MonoBehaviour
                 }
             }
         }
-        
+
     }
-    
+
     void EmptyNotes() //only relevant if first FillWheel method is used
     {
-        foreach (KeyValuePair<String,Image> entry in _imagesToEmpty)
+        foreach (KeyValuePair<String, Image> entry in _imagesToEmpty)
         {
             if (!_imagesLocked.ContainsKey(entry.Key))
             {
@@ -357,7 +383,7 @@ public class NoteSelectorNew : MonoBehaviour
                 _backgrounds[entry.Key].color = tempColor;
                 float currentImgFill = entry.Value.fillAmount;
                 float currentYpositionFill = entry.Value.gameObject.transform.localPosition.y;
-                
+
                 if (Mathf.Abs(currentYpositionFill) > startingImageFill)
                 {
                     entry.Value.gameObject.transform.localPosition = new Vector3(
@@ -365,7 +391,7 @@ public class NoteSelectorNew : MonoBehaviour
                     currentYpositionFill = entry.Value.gameObject.transform.localPosition.y;
                 }
 
-                if (currentYpositionFill < (1-fillCompletedThreshold)*_initialPosition.y)
+                if (currentYpositionFill < (1 - fillCompletedThreshold) * _initialPosition.y)
                 {
                     _currentSongString = _currentSongString.Replace(entry.Key, "");
                 }
@@ -376,16 +402,16 @@ public class NoteSelectorNew : MonoBehaviour
     //move the wheel selector (the one you control with joystick)
     private void MoveSelector()
     {
-        _selector.transform.localPosition = _selectorMove*65;
+        _selector.transform.localPosition = _selectorMove * 65;
     }
-    
+
     public void AddImageToFill(String segment)
     {
         //Debug.Log("Added image to fill");
         if (!_imagesToFill.ContainsKey(segment))
         {
             Image selected = null;
-            
+
             switch (segment)
             {
                 case "A":
@@ -407,7 +433,7 @@ public class NoteSelectorNew : MonoBehaviour
                     selected = _fillF;
                     break;
             }
-            
+
             _imagesToFill.Add(segment, selected);
         }
 
@@ -416,13 +442,13 @@ public class NoteSelectorNew : MonoBehaviour
             _imagesToEmpty.Remove(segment);
         }
     }
-    
+
     public void AddImageToEmpty(String segment) //called from a different script
     {
         if (!_imagesToEmpty.ContainsKey(segment))
         {
             Image selected = null;
-            
+
             switch (segment)
             {
                 case "A":
@@ -444,7 +470,7 @@ public class NoteSelectorNew : MonoBehaviour
                     selected = _fillF;
                     break;
             }
-            
+
             _imagesToEmpty.Add(segment, selected);
         }
 
@@ -466,7 +492,7 @@ public class NoteSelectorNew : MonoBehaviour
 
     private void LockUnlockNote()
     {
-        foreach (KeyValuePair<String,Image> entry in _imagesToFill)
+        foreach (KeyValuePair<String, Image> entry in _imagesToFill)
         {
             if (!_imagesLocked.ContainsKey(entry.Key))
             {
@@ -482,11 +508,11 @@ public class NoteSelectorNew : MonoBehaviour
             else
             {
                 //note unlocked
-                GameManager.Instance.puzzleCompletion.note_unlock_count += 1; 
+                GameManager.Instance.puzzleCompletion.note_unlock_count += 1;
                 _imagesLocked.Remove(entry.Key);
                 _segments[entry.Key].transform.localPosition /= lockOffsetAmount;
             }
-            
+
         }
     }
 
@@ -495,15 +521,15 @@ public class NoteSelectorNew : MonoBehaviour
         if (_currentSongString != "")
         {
             _anySongPlaying = true;
-            _currentSong = new SongData(_currentSongString) {Volume = _singVolume};
+            _currentSong = new SongData(_currentSongString) { Volume = _singVolume };
             _lastSong = _currentSong;
             //Debug.Log("Current song volume: " + _currentSong.Volume);
         }
-        
+
         else
         {
             _anySongPlaying = false;
-            _currentSong = new SongData {};
+            _currentSong = new SongData { };
         }
         //Debug.Log("Current string: " + _currentSongString);
         //Debug.Log("Current enum: " + _currentSong.NoteCoord.ToString());
@@ -535,14 +561,14 @@ public class NoteSelectorNew : MonoBehaviour
         _controls.NoteSelector.SwitchWheelType.performed += context => fillWheel = (!fillWheel);
     }
 
-    
+
     void EaseVolume(float volume)
     {
-        _singVolume = 1.1f - Mathf.Pow(1-volume, 3);
+        _singVolume = 1.1f - Mathf.Pow(1 - volume, 3);
         if (_singVolume >= 1.0f)
         {
             _singVolume = 1.0f;
         }
     }
-    
+
 }

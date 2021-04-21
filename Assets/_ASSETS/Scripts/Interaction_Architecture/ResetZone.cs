@@ -26,11 +26,12 @@ public class ResetZone : MonoBehaviour
             {
                 action.Reset();
             }
+            //track death 
+            GameManager.Instance.SubmitPlayerDeath();
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }

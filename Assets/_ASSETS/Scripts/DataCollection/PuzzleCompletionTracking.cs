@@ -12,9 +12,9 @@ public class PuzzleCompletionTracking : MonoBehaviour
         GameManager gm = GameManager.Instance;
         if (collision.CompareTag("Player"))
         {
-            if (isStart)
+            if (isStart && gm.puzzleCompletion.puzzle_name != puzzle_name)
             {
-                gm.puzzleCompletion.startTime = gm.total_run_timestamp;
+                gm.puzzleCompletion.startTime = gm.total_run_time;
                 gm.puzzleCompletion.puzzle_name = puzzle_name;
 
                 // reset the other values: other scripts will update these values.
@@ -28,7 +28,6 @@ public class PuzzleCompletionTracking : MonoBehaviour
             {
                 if (gm.puzzleCompletion.endTime == 0 && gm.puzzleCompletion.puzzle_name == puzzle_name)
                 {
-                    gm.puzzleCompletion.endTime = gm.total_run_timestamp;
                     gm.SubmitPuzzleCompletion();
                 }
             }

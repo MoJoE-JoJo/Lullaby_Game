@@ -14,6 +14,7 @@ public class WagonPull : MonoBehaviour
     [SerializeField] private Wagon_Pull pullDirection;
     [SerializeField] private float pullForce;
     [SerializeField] private bool _isPulling = true;
+    [SerializeField] private string puzzle_name = "";
     private Light2D _lightRight;
     private Light2D _lightLeft;
 
@@ -51,30 +52,24 @@ public class WagonPull : MonoBehaviour
         prevPos = transform.position;
     }
 
-
     private Vector2 prevPos;
     private void Update()
     {
         if (_isPulling)
         {
+            GameManager gm = GameManager.Instance;
             switch (pullDirection)
             {
                 case Wagon_Pull.RIGHT:
                     transform.position += Vector3.right * (pullForce * Time.deltaTime);
 
-                    if (prevPos.x > transform.position.x) GameManager.Instance.puzzleCompletion.wagon_movement += Mathf.Abs(prevPos.x - transform.position.x);
+                    if (prevPos.x > transform.position.x && gm.puzzleCompletion.puzzle_name == puzzle_name) gm.puzzleCompletion.wagon_movement += Mathf.Abs(prevPos.x - transform.position.x);
 
-                    //_wagonRigidbody2D.AddForce(Vector2.right*pullForce);
-                    //_wagonRigidbody2D.MovePosition(_wagonRigidbody2D.position + Vector2.right * (pullForce * Time.fixedDeltaTime));
-                    //_wagonRigidbody2D.velocity =Vector2.right*pullForce;
                     break;
                 case Wagon_Pull.LEFT:
                     transform.position += Vector3.left * (pullForce * Time.deltaTime);
-                    if (prevPos.x < transform.position.x) GameManager.Instance.puzzleCompletion.wagon_movement += Mathf.Abs(prevPos.x - transform.position.x);
-
-                    //_wagonRigidbody2D.AddForce(Vector2.left*pullForce);
-                    //_wagonRigidbody2D.MovePosition(_wagonRigidbody2D.position + Vector2.left * (pullForce * Time.fixedDeltaTime));
-                    //_wagonRigidbody2D.velocity =Vector2.left*pullForce;
+                    if (prevPos.x < transform.position.x && gm.puzzleCompletion.puzzle_name == puzzle_name) gm.puzzleCompletion.wagon_movement += Mathf.Abs(prevPos.x - transform.position.x);
+                    
                     break;
             }    
             prevPos = transform.position;

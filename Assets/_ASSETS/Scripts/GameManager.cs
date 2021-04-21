@@ -31,10 +31,12 @@ public class GameManager : MonoBehaviour
     // === TELEMETRY STUFF ===
     public Telemetry.PlayerMovement playerMovement;
     public Telemetry.PuzzleCompletion puzzleCompletion;
+    public Telemetry.ControlScreen controlScreenTracking;
+    public Telemetry.OverallStats overallstats;
 
 
     // === New VARIABLES ===
-    public float total_run_timestamp = 0f;
+    public float total_run_time = 0f;
     public float current_puzzle_timestamp = 0f;
 
 
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour
             else if (paused) UnPauseGame();
         };
         originalTimeScale = Time.timeScale;
-        if(pauseMenu == null) GameObject.FindGameObjectWithTag("PauseMenu");
+        if (pauseMenu == null) GameObject.FindGameObjectWithTag("PauseMenu");
         pauseMenu.SetActive(false);
         pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         this.fixedDeltaTime = Time.fixedDeltaTime;
@@ -71,9 +73,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        total_run_timestamp += Time.deltaTime;
+        total_run_time += Time.deltaTime;
         if (true) // add condition for when a puzzle is entered
-        { 
+        {
             current_puzzle_timestamp += Time.deltaTime;
         }
     }
@@ -93,17 +95,73 @@ public class GameManager : MonoBehaviour
 
     public void SubmitPuzzleCompletion()
     {
+        puzzleCompletion.endTime = total_run_time;
         StartCoroutine(Telemetry.SubmitPuzzleCompletion(puzzleCompletion));
+        //reset puzzle info
+        puzzleCompletion.puzzle_name = "";
+    }
+
+    private static float lastDeath;
+
+    public void SubmitPlayerDeath()
+    {
+        if (lastDeath == total_run_time) return;
+        lastDeath = total_run_time;
+        var data = new Telemetry.PlayerDeath
+        {
+            puzzle_name = puzzleCompletion.puzzle_name,
+            timestamp = total_run_time
+        };
+        // update overall
+        overallstats.total_deaths += 1;
+        StartCoroutine(Telemetry.SubmitPlayerDeath(data));
+    }
+
+    public void SubmitControlScreen()
+    {
+        //TODO merge with Martins stuff before finishing this one. 
+        StartCoroutine(Telemetry.SubmitControlScreen(controlScreenTracking));
+    }
+
+    public void SubmitLockPuzzleStat(int state, bool sucessful)
+    {
+        var data = new Telemetry.LockPuzzleStat
+        {
+            state = state,
+            successful = sucessful,
+            timestamp = total_run_time
+        };
+        StartCoroutine(Telemetry.SubmitLockPuzzleStat(data));
+    }
+
+    public void SubmitPuzzleSolving(float dur,  string correctNotes, string playedNotes)
+    {
+        var data = new Telemetry.PuzzleSolvingStats
+        {
+            sing_duration = dur,
+            current_correct_notes = correctNotes,
+            notes_played = playedNotes,
+            puzzle_name = puzzleCompletion.puzzle_name,
+            timestamp = total_run_time
+        };
+
+        StartCoroutine(Telemetry.SubmitPuzzleSolving(data));
+    }
+
+    public void SubmitOverall()
+    {
+        
+        StartCoroutine(Telemetry.SubmitOverallData(overallstats));
     }
 
 
     public void PauseGame()
     {
-        foreach(SoundAction sa in soundActions)
+        foreach (SoundAction sa in soundActions)
         {
             sa.PauseInstance(true);
         }
-        foreach(RumbleAction ra in rumblers)
+        foreach (RumbleAction ra in rumblers)
         {
             ra.Deactivate();
         }
@@ -134,12 +192,12 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    
+
     private void OnEnable()
     {
         _controls.Enable();
     }
-    
+
     private void OnDisable()
     {
         _controls.Disable();

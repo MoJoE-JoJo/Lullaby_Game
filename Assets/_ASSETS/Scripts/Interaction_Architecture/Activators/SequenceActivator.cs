@@ -52,12 +52,30 @@ public class SequenceActivator : Activator
         [SerializeField] public float Playtime; //amount of time the choord needs to be played before accepting
         [SerializeField] public float DeactivationDelay; //if the delayTime is passed without recieving the correct input  (or a input??) 
 
+
+        public override string ToString()
+        {
+            if (Chord == null)
+            {
+                return "";
+            }
+            else
+            {
+                string toret = "";
+                foreach (var note in Chord)
+                {
+                    toret += note.ToString();
+                }
+
+                return toret;
+            }
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        lastData = new SongData();
+        lastData = new SongData { Notes = new List<Song_Note>() };
         foreach (var seqPart in sequence)
         {
             seqPart.Chord = seqPart.Chord.Distinct().OrderBy(x => x).ToList();
@@ -92,12 +110,21 @@ public class SequenceActivator : Activator
             {
                 state = State_SequenceActivator.MIDSEQUENCE;
                 playingCorrectTimer = 0.0f;
+                playingWrongTimer = 0.0f;
             }
             if (state == State_SequenceActivator.MIDSEQUENCE)
             {
                 recievingNoInputTimer = 0.0f;
             }
         }
+        // if not correct input and new wrong input, 
+        else if (data.ToString() != lastData.ToString())
+        {
+            if (playingWrongTimer > 0.3f)  GameManager.Instance.SubmitPuzzleSolving(playingWrongTimer, nextCorrectPart.ToString(), lastData.ToString());
+            playingWrongTimer = 0.0f;
+        }
+
+
         //else
         //{
         //    if (state == State_SequenceActivator.MIDSEQUENCE)
@@ -111,14 +138,33 @@ public class SequenceActivator : Activator
 
     }
 
+    private float playingWrongTimer = 0f;
+
     // Update is called once per frame
     void Update()
     {
-        if (timeSinceLastInput > 0.2f)
+        var gm = GameManager.Instance;
+        bool correctNotes = CheckNotes(lastData);
+        if (timeSinceLastInput > 0.2f) // check if nothing is played
         {
+            // if last played note was incorrect, send data. 
+            if (!correctNotes)
+            {
+                //played wrong node, and stopped. 
+                if (lastData.ToString() != "")
+                {
+                    gm.SubmitPuzzleSolving(playingWrongTimer, nextCorrectPart.ToString(), lastData.ToString());
+                }
+            }
+
             //reset data
-            lastData = new SongData{ Notes = new List<Song_Note>()};
+            lastData = new SongData { Notes = new List<Song_Note>() };
             playingCorrectTimer = 0f;
+
+        }
+        else 
+        {
+            if(!correctNotes) playingWrongTimer += Time.deltaTime;
         }
         timeSinceLastInput += Time.deltaTime;
 
@@ -139,6 +185,12 @@ public class SequenceActivator : Activator
                 }
                 if (playingCorrectTimer >= nextCorrectPart.Playtime)
                 {
+                    // use playingCorrectTimer which shows how long a player has sung. 
+                    if (lastData.ToString() != "")
+                    {
+                        gm.SubmitPuzzleSolving(playingCorrectTimer, nextCorrectPart.ToString(), lastData.ToString());
+                    }
+
                     hintWheel.HighlightHint(new SongData { Notes = nextCorrectPart.Chord });
                     transitionTimer = 0.0f;
                     state = State_SequenceActivator.TRANSISTION;
@@ -176,7 +228,7 @@ public class SequenceActivator : Activator
                     else state = State_SequenceActivator.RESETTING;
                 }
                 //-----------------------------
-                
+
 
                 if (recievingNoInputTimer >= nextCorrectPart.DeactivationDelay)
                 {
@@ -213,7 +265,7 @@ public class SequenceActivator : Activator
                 {
                     action.Deactivate();
                 }
-                    ResetSequence();
+                ResetSequence();
                 state = State_SequenceActivator.IDLE;
                 break;
 
@@ -225,7 +277,7 @@ public class SequenceActivator : Activator
                         action.InputData(lasterData);
                         action.Activate();
                     }
-                    
+
                 }
                 //action.InputData(lastData);
 
@@ -285,7 +337,7 @@ public class SequenceActivator : Activator
         if (data.Notes.Count == 6) return false;
         if (minPressureValue > data.Volume || data.Volume > maxPressureValue) return false;
 
-        if(sequenceIndex == 0)
+        if (sequenceIndex == 0)
         {
             if (!repeatSequence)
             {
@@ -298,10 +350,10 @@ public class SequenceActivator : Activator
                     (nextCorrectPart.Chord.Count > 1 && nextCorrectPart.Chord.Count != data.Notes.Count)
                     &&
                     (sequence[sequence.Count - 1].Chord.Count > 1 && sequence[sequence.Count - 1].Chord.Count != data.Notes.Count)
-                   )return false;
+                   ) return false;
                 return (nextCorrectPart.Chord.All(i => data.Notes.Contains(i)) || sequence[sequence.Count - 1].Chord.All(i => data.Notes.Contains(i)));
             }
-            
+
         }
         if (
             (nextCorrectPart.Chord.Count > 1 && nextCorrectPart.Chord.Count != data.Notes.Count)
