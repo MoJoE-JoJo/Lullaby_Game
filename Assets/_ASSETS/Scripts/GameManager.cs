@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject ControlScreen;
     private SoundAction[] soundActions;
+    public bool BBuild;
 
     private void Awake()
     {
@@ -55,14 +56,20 @@ public class GameManager : MonoBehaviour
 
     public void ControlsView()
     {
-        ControlScreen.SetActive(true);
-        controlsDisplayed = true;
+        if (BBuild == true)
+        {
+            ControlScreen.SetActive(true);
+            controlsDisplayed = true;
+        }
     }
 
     public void ControlsHide()
     {
-        ControlScreen.SetActive(false);
-        controlsDisplayed = false;
+        if (BBuild == true)
+        {
+            ControlScreen.SetActive(false);
+            controlsDisplayed = false;
+        }
     }
 
     public void PauseGame()
