@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum State_TeleportPlayerAction { DEACTIVATED, ACTIVATED, FADINGIN, FINISHED }
 
@@ -85,6 +86,9 @@ public class TeleportPlayerAction : InteractableAction
 
         else if (state == State_TeleportPlayerAction.FADINGIN)
         {
+            GameManager.Instance.OpenFormUrl();
+
+            SceneManager.LoadScene("Credits");
             timer += Time.deltaTime;
             if (timer > fadeTime)
             {

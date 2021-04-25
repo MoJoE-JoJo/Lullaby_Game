@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TrackCompletePuzzleAction : InteractableAction
 {
@@ -12,7 +13,7 @@ public class TrackCompletePuzzleAction : InteractableAction
         if (!hasActivated)
         {
             GameManager gm = GameManager.Instance;
-            if (gm.puzzleCompletion.puzzle_name == puzzle_name) //not sure this check is needed, but doing it anyway
+            if (gm.puzzleCompletion.puzzle_name == puzzle_name) 
             {
                 gm.SubmitPuzzleCompletion();
                 hasActivated = true;
@@ -20,15 +21,6 @@ public class TrackCompletePuzzleAction : InteractableAction
                 if (isLastPuzzle)
                 {
                     gm.SubmitOverallData();
-                    // Open After game survey
-
-                    var run_id_form = "entry.1273800886=";
-                    var GUID = Telemetry.GUIDToShortString(Telemetry.runID);
-                    var url = "https://docs.google.com/forms/d/e/1FAIpQLSfYhX6JvfvEBTGafToqyTS94WI8X7O3Hxwm8wLaHA0G6MQXjg/viewform?" + run_id_form + GUID;
-
-                    Application.OpenURL(url);
-
-                    Application.Quit();
                 }
             }
         }

@@ -42,7 +42,7 @@ public class Telemetry : MonoBehaviour
         // == Send the request ==
         using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
         {
-            //yield return www.SendWebRequest();
+            yield return www.SendWebRequest();
             yield return null;
             print("Player movement request sent");
         }
@@ -97,7 +97,7 @@ public class Telemetry : MonoBehaviour
         // == Send the request ==
         using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
         {
-            //yield return www.SendWebRequest();
+            yield return www.SendWebRequest();
             yield return null;
             print("puzzle_completion request sent");
         }
@@ -133,7 +133,7 @@ public class Telemetry : MonoBehaviour
         // == Send the request ==
         using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
         {
-            //yield return www.SendWebRequest();
+            yield return www.SendWebRequest();
             yield return null;
             print("Player Death request sent");
         }
@@ -172,7 +172,7 @@ public class Telemetry : MonoBehaviour
         // == Send the request ==
         using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
         {
-            //yield return www.SendWebRequest();
+            yield return www.SendWebRequest();
             yield return null;
             print("Control Screen request sent");
         }
@@ -257,7 +257,7 @@ public class Telemetry : MonoBehaviour
         // == Send the request ==
         using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
         {
-            //yield return www.SendWebRequest();
+            yield return www.SendWebRequest();
             yield return null;
             print("Lock puzzle request sent");
         }

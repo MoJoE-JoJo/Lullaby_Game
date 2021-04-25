@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject ControlScreen;
     private SoundAction[] soundActions;
+    public bool BBuild;
 
 
     // === TELEMETRY STUFF ===
@@ -38,12 +39,31 @@ public class GameManager : MonoBehaviour
 
 
     // === New VARIABLES ===
-    public float total_run_time = 0f;
-    public float current_puzzle_timestamp = 0f;
+    public float total_run_time;
 
+
+    public void OpenFormUrl()
+    {
+        if (!BBuild)
+        {
+            var run_id_form = "entry.691459769=";
+            var GUID = Telemetry.GUIDToShortString(Telemetry.runID);
+            var url = "https://docs.google.com/forms/d/e/1FAIpQLSdLcxk7bPVIFkGNoJvII5kUP4ctaxqSDyp1mOaFOrWSLrLl5A/viewform" + run_id_form + GUID;
+            Application.OpenURL(url);
+        }
+        else
+        {
+            var run_id_form = "entry.1199240058=";
+            var GUID = Telemetry.GUIDToShortString(Telemetry.runID);
+            var url = "https://docs.google.com/forms/d/e/1FAIpQLSdIuoX9P7rK0e_usias3WwvO-0XebtQ7PxMsoiOG5wrem5lGQ/viewform" + run_id_form + GUID;
+
+            Application.OpenURL(url);
+        }
+    }
 
     private void Awake()
     {
+        total_run_time = 0f;
         rumblers = Resources.FindObjectsOfTypeAll<RumbleAction>();
         TorchSounds = Resources.FindObjectsOfTypeAll<TorchSounds>();
         soundActions = Resources.FindObjectsOfTypeAll<SoundAction>();
@@ -83,10 +103,6 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         total_run_time += Time.deltaTime;
-        if (true) // add condition for when a puzzle is entered
-        {
-            current_puzzle_timestamp += Time.deltaTime;
-        }
     }
 
 
@@ -106,7 +122,7 @@ public class GameManager : MonoBehaviour
     {
         puzzleCompletion.endTime = total_run_time;
         StartCoroutine(Telemetry.SubmitPuzzleCompletion(puzzleCompletion));
-        //reset puzzle info
+        // reset current puzzle name
         puzzleCompletion.puzzle_name = "";
     }
 
@@ -164,20 +180,26 @@ public class GameManager : MonoBehaviour
 
     public void ControlsShow()
     {
-        ControlScreen.SetActive(true);
-        controlsDisplayed = true;
-        //telemetry below
-        controlScreenTracking.OpenedTimestamp = total_run_time;
-        controlScreenTracking.puzzle_name = playerMovement.checkpoint;
+        if (BBuild == true)
+        {
+            ControlScreen.SetActive(true);
+            controlsDisplayed = true;
+            //telemetry below
+            controlScreenTracking.OpenedTimestamp = total_run_time;
+            controlScreenTracking.puzzle_name = playerMovement.checkpoint;
+        }
     }
 
     public void ControlsHide()
     {
-        ControlScreen.SetActive(false);
-        controlsDisplayed = false;
-        //telemetry below
-        controlScreenTracking.ClosedTimestamp = total_run_time;
-        SubmitControlScreen();
+        if (BBuild == true)
+        {
+            ControlScreen.SetActive(false);
+            controlsDisplayed = false;
+            //telemetry below
+            controlScreenTracking.ClosedTimestamp = total_run_time;
+            SubmitControlScreen();
+        }
     }
 
     public void PauseGame()
