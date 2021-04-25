@@ -185,6 +185,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ViewControls"",
+                    ""type"": ""Button"",
+                    ""id"": ""a32c9996-2c8c-416d-906f-59df62651d51"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -209,6 +217,39 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20470755-c5d0-48c1-91f8-f9baeeb076bd"",
+                    ""path"": ""<Keyboard>/#(.)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""21a06956-a953-46b3-a2ff-f041a6b15d05"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewControls"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cf7bbef6-66bd-4070-9500-4310647a7a70"",
+                    ""path"": ""<Keyboard>/#(æ)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewControls"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -229,6 +270,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
         m_GameManager_ReloadScene = m_GameManager.FindAction("ReloadScene", throwIfNotFound: true);
         m_GameManager_PauseGame = m_GameManager.FindAction("PauseGame", throwIfNotFound: true);
+        m_GameManager_ViewControls = m_GameManager.FindAction("ViewControls", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -378,12 +420,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private IGameManagerActions m_GameManagerActionsCallbackInterface;
     private readonly InputAction m_GameManager_ReloadScene;
     private readonly InputAction m_GameManager_PauseGame;
+    private readonly InputAction m_GameManager_ViewControls;
     public struct GameManagerActions
     {
         private @PlayerControls m_Wrapper;
         public GameManagerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @ReloadScene => m_Wrapper.m_GameManager_ReloadScene;
         public InputAction @PauseGame => m_Wrapper.m_GameManager_PauseGame;
+        public InputAction @ViewControls => m_Wrapper.m_GameManager_ViewControls;
         public InputActionMap Get() { return m_Wrapper.m_GameManager; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -399,6 +443,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @PauseGame.started -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnPauseGame;
                 @PauseGame.performed -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnPauseGame;
                 @PauseGame.canceled -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnPauseGame;
+                @ViewControls.started -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnViewControls;
+                @ViewControls.performed -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnViewControls;
+                @ViewControls.canceled -= m_Wrapper.m_GameManagerActionsCallbackInterface.OnViewControls;
             }
             m_Wrapper.m_GameManagerActionsCallbackInterface = instance;
             if (instance != null)
@@ -409,6 +456,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @PauseGame.started += instance.OnPauseGame;
                 @PauseGame.performed += instance.OnPauseGame;
                 @PauseGame.canceled += instance.OnPauseGame;
+                @ViewControls.started += instance.OnViewControls;
+                @ViewControls.performed += instance.OnViewControls;
+                @ViewControls.canceled += instance.OnViewControls;
             }
         }
     }
@@ -429,5 +479,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     {
         void OnReloadScene(InputAction.CallbackContext context);
         void OnPauseGame(InputAction.CallbackContext context);
+        void OnViewControls(InputAction.CallbackContext context);
     }
 }

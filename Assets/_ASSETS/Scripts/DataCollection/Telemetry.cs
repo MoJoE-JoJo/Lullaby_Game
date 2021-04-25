@@ -9,7 +9,7 @@ using System.Threading;
 public class Telemetry : MonoBehaviour
 {
     //used for all surveys
-    private static Guid runID;
+    public static Guid runID;
 
     // === Player movement tracking ===
     public struct PlayerMovement
@@ -42,9 +42,9 @@ public class Telemetry : MonoBehaviour
         // == Send the request ==
         using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
         {
-            //yield return www.SendWebRequest(); //TODO
+            //yield return www.SendWebRequest();
             yield return null;
-            print("request sent");
+            print("Player movement request sent");
         }
     }
 
@@ -99,7 +99,7 @@ public class Telemetry : MonoBehaviour
         {
             //yield return www.SendWebRequest();
             yield return null;
-            print("request sent");
+            print("puzzle_completion request sent");
         }
     }
 
@@ -135,11 +135,11 @@ public class Telemetry : MonoBehaviour
         {
             //yield return www.SendWebRequest();
             yield return null;
-            print("request sent");
+            print("Player Death request sent");
         }
     }
 
-    // === Helper Screen tracking ===
+    // === Control Screen tracking ===
     public struct ControlScreen
     {
         public string puzzle_name;
@@ -174,7 +174,7 @@ public class Telemetry : MonoBehaviour
         {
             //yield return www.SendWebRequest();
             yield return null;
-            print("request sent");
+            print("Control Screen request sent");
         }
     }
 
@@ -217,9 +217,9 @@ public class Telemetry : MonoBehaviour
         // == Send the request ==
         using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
         {
-            yield return www.SendWebRequest();
+            //yield return www.SendWebRequest();
             yield return null;
-            print("request sent");
+            print("puzzle solving request sent");
         }
     }
 
@@ -259,7 +259,7 @@ public class Telemetry : MonoBehaviour
         {
             //yield return www.SendWebRequest();
             yield return null;
-            print("request sent");
+            print("Lock puzzle request sent");
         }
     }
 
@@ -307,9 +307,9 @@ public class Telemetry : MonoBehaviour
         // == Send the request ==
         using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
         {
-            //yield return www.SendWebRequest();
+            yield return www.SendWebRequest();
             yield return null;
-            print("request sent");
+            print("Overall run request sent");
         }
     }
 

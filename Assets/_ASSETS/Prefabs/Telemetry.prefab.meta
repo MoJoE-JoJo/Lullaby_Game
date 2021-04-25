@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/_ASSETS/Prefabs/Telemetry.prefab.meta
 guid: d972979cbfd405b44ac1e39cff5153a4
 PrefabImporter:
+=======
+guid: 62b18ca7accf858408ce82b3b263b8ae
+folderAsset: yes
+DefaultImporter:
+>>>>>>> DDDD-Tut-and-East:Assets/Resources/Sprites/Text/Lullaby tut 2.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

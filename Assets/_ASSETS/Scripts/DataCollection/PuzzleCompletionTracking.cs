@@ -12,6 +12,8 @@ public class PuzzleCompletionTracking : MonoBehaviour
         GameManager gm = GameManager.Instance;
         if (collision.CompareTag("Player"))
         {
+            if (!collision.isTrigger) return;
+
             if (isStart && gm.puzzleCompletion.puzzle_name != puzzle_name)
             {
                 gm.puzzleCompletion.startTime = gm.total_run_time;

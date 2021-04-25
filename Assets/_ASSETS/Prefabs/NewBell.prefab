@@ -625,6 +625,7 @@ GameObject:
   - component: {fileID: 8396063154656940236}
   - component: {fileID: 8396063154656941879}
   - component: {fileID: 3699090635206915116}
+  - component: {fileID: 3609834788204270749}
   m_Layer: 10
   m_Name: BellPos
   m_TagString: Bell
@@ -809,6 +810,19 @@ MonoBehaviour:
   lightColor: {r: 0.049439307, g: 0.9528302, b: 0.13733412, a: 0}
   usePressure: 0
   changeLightColorBack: 0
+--- !u!114 &3609834788204270749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8396063154656940232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91890ebf7bae6c546918d358e71aa0e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzle_name: bell_1
 --- !u!1 &8396063154820627797
 GameObject:
   m_ObjectHideFlags: 0

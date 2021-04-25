@@ -21,10 +21,12 @@ public class GameManager : MonoBehaviour
     private RumbleAction[] rumblers;
     private PlayerControls _controls;
     private bool paused = false;
+    private bool controlsDisplayed = false;
     private float originalTimeScale;
     private PlayerController pc;
     private float fixedDeltaTime;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject ControlScreen;
     private SoundAction[] soundActions;
 
 
@@ -47,6 +49,11 @@ public class GameManager : MonoBehaviour
         soundActions = Resources.FindObjectsOfTypeAll<SoundAction>();
         _controls = new PlayerControls();
         _controls.GameManager.ReloadScene.performed += context => ReloadScene();
+        _controls.GameManager.ViewControls.performed += context =>
+        {
+            if (!controlsDisplayed) ControlsShow();
+            else if (controlsDisplayed) ControlsHide();
+        };
         _controls.GameManager.PauseGame.performed += context =>
         {
             if (!paused) PauseGame();
@@ -57,6 +64,7 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         this.fixedDeltaTime = Time.fixedDeltaTime;
+        ControlScreen.SetActive(false);
 
         // == data telemetry stuff
         if (Instance == null)
@@ -66,6 +74,7 @@ public class GameManager : MonoBehaviour
             Telemetry.GenerateNewRunID();
         }
     }
+
     private void Start()
     {
         ClearTelemetryData();
@@ -119,7 +128,6 @@ public class GameManager : MonoBehaviour
 
     public void SubmitControlScreen()
     {
-        //TODO merge with Martins stuff before finishing this one. 
         StartCoroutine(Telemetry.SubmitControlScreen(controlScreenTracking));
     }
 
@@ -134,7 +142,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Telemetry.SubmitLockPuzzleStat(data));
     }
 
-    public void SubmitPuzzleSolving(float dur,  string correctNotes, string playedNotes)
+    public void SubmitPuzzleSolving(float dur, string correctNotes, string playedNotes)
     {
         var data = new Telemetry.PuzzleSolvingStats
         {
@@ -148,12 +156,29 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Telemetry.SubmitPuzzleSolving(data));
     }
 
-    public void SubmitOverall()
+    public void SubmitOverallData()
     {
-        
+        overallstats.time_to_beat = total_run_time;
         StartCoroutine(Telemetry.SubmitOverallData(overallstats));
     }
 
+    public void ControlsShow()
+    {
+        ControlScreen.SetActive(true);
+        controlsDisplayed = true;
+        //telemetry below
+        controlScreenTracking.OpenedTimestamp = total_run_time;
+        controlScreenTracking.puzzle_name = playerMovement.checkpoint;
+    }
+
+    public void ControlsHide()
+    {
+        ControlScreen.SetActive(false);
+        controlsDisplayed = false;
+        //telemetry below
+        controlScreenTracking.ClosedTimestamp = total_run_time;
+        SubmitControlScreen();
+    }
 
     public void PauseGame()
     {
